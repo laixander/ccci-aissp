@@ -7,7 +7,7 @@
              :class="[!toggleSidebar ? 'md:ml-64' : '']">
             <div class="md:flex-1 mr-2 md:mr-0">
                 <UButton 
-                    icon="i-lucide-panel-left" 
+                    :icon="toggleIcon" 
                     variant="ghost" aria-label="Toggle Sidebar"
                     @click="toggleSidebar = !toggleSidebar" />
             </div>
@@ -41,7 +41,6 @@
                     {{ clientName }}
                 </div>
             </div>
-            <!-- <UVerticalNavigation :links="navLinks" :ui="uiNavConfig" @click="handleNavClick" /> -->
             <UNavigationMenu orientation="vertical" :items="items" :ui="uiNavConfig" />
         </aside>
 
@@ -65,26 +64,34 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import type { NavigationMenuItem } from '@nuxt/ui';
 import { useLayout } from '../composables/useLayout'
+
 const { appName, clientName, clientLogo, appCode, appCodeColor } = useLayout()
+clientName.value = 'Digital Solution'
+clientLogo.value = '/assets/logo.png'
 appName.value = 'Automated Information Systems Strategic Plan Creator'
 appCode.value = 'AISSP'
 appCodeColor.value = 'primary'
-clientName.value = 'Digital Solution'
-clientLogo.value = '/assets/logo.png'
 
 const toggleSidebar = ref(false)
 
-const handleResize = () => {
-    // Hide sidebar on small screens (below md: ~768px)
-    toggleSidebar.value = window.innerWidth < 768
-}
+const toggleIcon = computed(() =>
+  toggleSidebar.value ? 'i-lucide-panel-left-open' : 'i-lucide-panel-left-close'
+)
+
+const MOBILE_BREAKPOINT = 768
+const SIDEBAR_CLOSE_DELAY = 200
 
 const handleNavClick = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < MOBILE_BREAKPOINT) {
         setTimeout(() => {
             toggleSidebar.value = true
-        }, 200)
+        }, SIDEBAR_CLOSE_DELAY)
     }
+}
+
+const handleResize = () => {
+    // Hide sidebar on small screens (below md: ~768px)
+    toggleSidebar.value = window.innerWidth < MOBILE_BREAKPOINT
 }
 
 onMounted(() => {
@@ -95,6 +102,9 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize)
 })
+
+// Allow individual pages to control this
+provide('toggleSidebar', toggleSidebar)
 
 const uiNavConfig = {
     label: 'tracking-widest',
@@ -111,15 +121,17 @@ const items = ref<NavigationMenuItem[][]>([
         {
             label: 'Dashboard',
             icon: 'i-lucide-chart-pie',
-            to: '/'
+            to: '/dashboard'
         },
         {
             label: 'System Management',
             icon: 'i-lucide-database',
+            to: '/systems'
         },
         {
             label: 'Office Productivity',
             icon: 'i-lucide-monitor-check',
+            to: '/needs'
         },
         {
             label: 'Budget Prototyping',
@@ -128,6 +140,7 @@ const items = ref<NavigationMenuItem[][]>([
         {
             label: 'ISSP Documents',
             icon: 'i-lucide-file-text',
+            to: '/plans'
         },
         {
             label: 'AI Drafting',
@@ -140,6 +153,7 @@ const items = ref<NavigationMenuItem[][]>([
         {
             label: 'Settings',
             icon: 'i-lucide-settings',
+            to: '/settings'
         },
 
     ],
