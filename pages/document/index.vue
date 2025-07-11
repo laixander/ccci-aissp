@@ -3,24 +3,8 @@
         page-title="ISSP Document Management"
         page-description="Create, review, and manage Information Systems Strategic Plans">
         <template #actions>
-            <UButton 
-                icon="i-lucide-download" size="lg" color="neutral" variant="outline"
-                class="w-full lg:w-auto justify-center">Bulk Report</UButton>
-            <UButton 
-                    icon="i-lucide-file-text" size="lg" color="primary" variant="solid"
-                    class="w-full lg:w-auto justify-center" to="/document/new">New ISSP Document</UButton>
-            <!-- Modal -->
-            <!-- <UModal 
-                title="Create New ISSP Document" 
-                description="Start a new Information Systems Strategic Plan"
-                :ui="uiNewModal">
-                <UButton 
-                    icon="i-lucide-file-text" size="lg" color="primary" variant="solid"
-                    class="w-full lg:w-auto justify-center">New ISSP</UButton>
-                <template #body>
-                    <FormNewDocument />
-                </template>
-            </UModal> -->
+            <UButton label="Bulk Report" icon="i-lucide-download" size="lg" color="neutral" variant="outline" class="w-full lg:w-auto justify-center" />
+            <UButton label="New ISSP Document" icon="i-lucide-file-text" size="lg" class="w-full lg:w-auto justify-center" to="/document/new" />
         </template>
         <template #content>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -52,11 +36,8 @@
                 </template>
             </Block>
 
-
-
-            <Block title="Templates" description="Add and Manage ISSP document templates">
+            <!-- <Block title="Templates" description="Add and Manage ISSP document templates">
                 <template #actions>
-                    <!-- Modal -->
                     <UModal v-model:open="templateModalOpen" title="Document Template Creator"
                         description="Create reusable document templates for ISSP documents" :ui="uiTemplateModal">
                         <UButton icon="i-lucide-panels-top-left" size="lg" color="neutral" variant="outline"
@@ -69,7 +50,6 @@
                 </template>
                 <template #content>
                     <div class="space-y-4 mt-2">
-                        <!-- Template Card -->
                         <CardTemplate v-for="(tpl, idx) in templates" :key="tpl.name + idx" :template="tpl"
                             :ui="uiCardConfig" @edit="onEditTemplate(tpl, idx)" />
                         <div v-if="!templates.length" class="text-sm text-gray-400 text-center py-8">
@@ -77,7 +57,7 @@
                         </div>
                     </div>
                 </template>
-            </Block>
+            </Block> -->
         </template>
     </Page>
 </template>

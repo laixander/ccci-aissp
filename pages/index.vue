@@ -1,10 +1,7 @@
 <template>
     <Page page-title="Dashboard" page-description="Overview of your ISSP management activities">
         <template #actions>
-            <UButton 
-                icon="i-lucide-download" size="lg" color="neutral" variant="outline"
-                class="w-full md:w-auto justify-center">Export Report</UButton>
-
+            <UButton label="Export Report" icon="i-lucide-download" size="lg" color="neutral" variant="outline" class="w-full md:w-auto justify-center" />
             <!-- Modal -->
             <FormNewDocument />
         </template>
@@ -25,22 +22,26 @@
                 <Block title="Approval Queue" description="Documents awaiting your review" icon="i-lucide-circle-alert">
                     <template #content>
                         <div class="space-y-4">
-                            <CardQueue v-for="queue in queues" :key="queue.name" v-bind="queue" />
+                            <CardQueue 
+                                v-for="queue in queues" 
+                                :key="queue.name" 
+                                v-bind="queue" 
+                            />
                         </div>
                     </template>
                 </Block>
             </div>
 
-            <Block 
-                title="AI Suggestions" 
-                description="Smart recommendations to improve your ISSPs" icon="i-lucide-bot"
+            <Block title="AI Suggestions" description="Smart recommendations to improve your ISSPs" icon="i-lucide-bot"
                 icon-color="text-purple-500">
                 <template #content>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <CardCustom 
-                            v-for="card in customCards" :key="card.title" 
+                            v-for="card in customCards" 
+                            :key="card.title" 
                             v-bind="card"
-                            @button-click="handleClick(card.title)" />
+                            @button-click="handleClick(card.title)"
+                        />
                     </div>
                 </template>
             </Block>

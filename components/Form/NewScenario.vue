@@ -6,8 +6,7 @@
     :ui="uiModalConfig">
         <UButton 
             label="New Scenario"
-            icon="i-lucide-plus" size="lg" 
-            color="primary" variant="solid"
+            icon="i-lucide-plus" size="lg"
             class="w-full md:w-auto justify-center" />
         <template #body>
             <div class="space-y-4">
@@ -81,8 +80,8 @@
                 </UAlert>
 
                 <div class="flex gap-2 w-full justify-end">
-                    <UButton color="neutral" label="Cancel" size="lg" variant="outline" @click="open = false" />
-                    <UButton color="primary" label="Create Scenario" size="lg" :disabled="!isBudgetValid" />
+                    <UButton label="Cancel" color="neutral" size="lg" variant="outline" @click="open = false" />
+                    <UButton label="Create Scenario" size="lg" :disabled="!isBudgetValid" />
                 </div>
             </div>
         </template>

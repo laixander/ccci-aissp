@@ -32,8 +32,8 @@
             <!-- Preview Modal -->
             <UModal :ui="uiModalConfig">
                 <UTooltip text="Preview Section">
-                    <UButton icon="i-lucide-gallery-horizontal-end" color="neutral" variant="ghost" size="sm" aria-label="Preview"
-                        @click="$emit('preview')" />
+                    <UButton icon="i-lucide-gallery-horizontal-end" color="neutral" variant="ghost" size="sm"
+                        aria-label="Preview" @click="$emit('preview')" />
                 </UTooltip>
                 <template #header="{ close }">
                     <div class="flex items-center space-x-2 w-full">
@@ -52,12 +52,13 @@
                             <PreviewDb v-if="props.type === 'db_mapping' || props.type === 'api_mapping'" />
                             <PreviewAi v-if="props.type === 'ai_prompt'" />
                         </UCard>
-                    </div>    
+                    </div>
                 </template>
             </UModal>
             <!-- Edit -->
             <UTooltip text="Edit Section">
-                <UButton icon="i-lucide-edit" color="neutral" variant="ghost" size="sm" aria-label="Edit" @click="$emit('edit', { title, description, type })" />
+                <UButton icon="i-lucide-edit" color="neutral" variant="ghost" size="sm" aria-label="Edit"
+                    @click="$emit('edit', { title, description, type })" />
             </UTooltip>
             <!-- Delete Confirmation Modal -->
             <Confirmation @delete="$emit('delete')">
@@ -81,8 +82,8 @@
 import { computed } from 'vue'
 
 interface Props {
-  title: string
-  description: string
+    title: string
+    description: string
     type: 'text_content' | 'image_upload' | 'db_mapping' | 'api_mapping' | 'ai_prompt' | 'internal_mapping'
 }
 

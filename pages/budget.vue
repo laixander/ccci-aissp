@@ -5,7 +5,6 @@
             <UButton 
                 icon="i-lucide-upload" size="lg" color="neutral" variant="outline"
                 class="w-full md:w-auto justify-center">Import CSV</UButton>
-
             <FormNewScenario />
         </template>
         <template #content>

@@ -4,7 +4,7 @@
             <UIcon name="i-lucide-grip-vertical" class="w-6 h-6 text-gray-300 dark:text-gray-800" />
             <div class="flex-1 grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
                 <div>
-                    <h3 class="font-medium text-gray-800 dark:text-gray-100">{{ system }}</h3>
+                    <h3 class="font-medium text-gray-800 dark:text-gray-100 truncate">{{ system }}</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400">{{ entity }}</p>
                 </div>
                 <div class="text-center">

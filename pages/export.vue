@@ -1,5 +1,5 @@
 <template>
-    <Page page-title="Export" page-description="Export your data in various formats.">
+    <Page page-title="Export History" page-description="Track and manage document exports across all formats">
         <template #actions>
             <UButton icon="i-lucide-refresh-cw" size="lg" color="neutral" variant="outline" class="w-full lg:w-auto justify-center">Refresh</UButton>
             <UButton icon="i-lucide-download" size="lg" color="primary" class="w-full lg:w-auto justify-center">New Export</UButton>

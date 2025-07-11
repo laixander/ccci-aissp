@@ -1,7 +1,6 @@
 <template>
-    <UModal title="Add New System" description="Submit a new system to add on system’s registry" :ui="uiModalConfig">
-        <UButton icon="i-lucide-plus" color="primary" variant="solid" size="lg" class="w-full justify-center">Add New
-            System</UButton>
+    <UModal v-model:open="open" title="Add New System" description="Submit a new system to add on system’s registry" :ui="uiModalConfig">
+        <UButton label="Add New System" icon="i-lucide-plus" size="lg" class="w-full justify-center" />
         <template #body>
             <div class="w-full">
                 <UStepper ref="stepper" :items="items">
@@ -117,22 +116,9 @@
                 </UStepper>
 
                 <div class="flex gap-2 justify-between mt-4">
-                    <UButton leading-icon="i-lucide-arrow-left" :disabled="!stepper?.hasPrev" @click="stepper?.prev()">
-                        Prev
-                    </UButton>
-
-                    <!-- <UButton
-        trailing-icon="i-lucide-arrow-right"
-        :disabled="!stepper?.hasNext"
-        @click="stepper?.next()"
-      >
-        Next
-      </UButton> -->
-                    <UButton v-if="stepper?.hasNext" trailing-icon="i-lucide-arrow-right" @click="stepper?.next()">
-                        Next
-                    </UButton>
-                    <UButton v-else color="primary" trailing-icon="i-lucide-check" @click="onSubmit">Submit
-                    </UButton>
+                    <UButton label="Prev" leading-icon="i-lucide-arrow-left" :disabled="!stepper?.hasPrev" @click="stepper?.prev()" />
+                    <UButton v-if="stepper?.hasNext" label="Next" trailing-icon="i-lucide-arrow-right" @click="stepper?.next()" />
+                    <UButton v-else label="Submit" trailing-icon="i-lucide-check" @click="open = false" />
                 </div>
             </div>
         </template>
@@ -181,4 +167,7 @@ const uiModalConfig = {
     body: 'pt-0 sm:pt-0',
     title: 'text-2xl font-semibold leading-none',
 }
+
+// Modal State
+const open = ref(false) 
 </script>

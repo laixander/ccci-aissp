@@ -1,6 +1,6 @@
 <template>
     <UModal v-model:open="open" title="Department IT Needs Form" description="Submit IT requirements for your department" :ui="uiModalConfig">
-        <UButton icon="i-lucide-plus" size="lg" color="primary" variant="solid" class="w-full lg:w-auto justify-center">Add Request</UButton>
+        <UButton label="Add Request" icon="i-lucide-plus" size="lg" class="w-full lg:w-auto justify-center" />
         <template #body>
             <div class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -65,8 +65,8 @@
                 </UFormField>
 
                 <div class="flex gap-2 w-full justify-end">
-                    <UButton color="neutral" label="Cancel" size="lg" variant="outline" @click="open = false" />
-                    <UButton color="primary" label="Submit IT Request" size="lg" disabled />
+                    <UButton label="Cancel" color="neutral" size="lg" variant="outline" @click="open = false" />
+                    <UButton label="Submit IT Request" color="primary" size="lg" />
                 </div>
             </div>
         </template>

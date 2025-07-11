@@ -2,8 +2,8 @@
     <Page page-title="AI Assistant" page-description="Intelligent content generation and compliance checking">
 
         <template #actions>
-            <UButton icon="i-lucide-upload" size="lg" color="neutral" variant="outline" class="w-full lg:w-auto justify-center">Upload PDP/SDS</UButton>
-            <UButton icon="i-lucide-sparkles" size="lg" color="primary" class="w-full lg:w-auto justify-center">Generate Content</UButton>
+            <UButton label="Upload PDP/SDS" icon="i-lucide-upload" size="lg" color="neutral" variant="outline" class="w-full lg:w-auto justify-center" />
+            <UButton label="Generate Content" icon="i-lucide-sparkles" size="lg" color="primary" class="w-full lg:w-auto justify-center" />
         </template>
 
         <template #content>

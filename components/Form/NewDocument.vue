@@ -1,8 +1,6 @@
 <template>
-    <UModal v-model:open="open" title="Create New ISSP Document" description="Start a new Information Systems Strategic Plan"
-        :ui="uiModalConfig">
-        <UButton icon="i-lucide-file-text" size="lg" color="primary" variant="solid"
-            class="w-full md:w-auto justify-center">New ISSP</UButton>
+    <UModal v-model:open="open" title="Create New ISSP Document" description="Start a new Information Systems Strategic Plan" :ui="uiModalConfig">
+        <UButton label="New ISSP" icon="i-lucide-file-text" size="lg" class="w-full md:w-auto justify-center" />
         <template #body>
             <div class="space-y-4">
                 <UFormField label="ISSP Title" size="lg" required>
@@ -25,8 +23,7 @@
                     </UFormField>
                 </div>
                 <UFormField label="Description" size="lg">
-                    <UTextarea :rows="4" placeholder="Brief description of the strategic plan scope and objectives..."
-                        class="w-full" />
+                    <UTextarea :rows="4" placeholder="Brief description of the strategic plan scope and objectives..." class="w-full" />
                 </UFormField>
 
                 <UFormField label="Template" size="lg">
@@ -37,12 +34,11 @@
                     <USelect v-model="statusValue" :items="status" class="w-full" />
                 </UFormField>
 
-                <UAlert color="secondary" variant="subtle" title="Getting Started"
-                    description="After creating your ISSP document, you'll be able to add sections, upload supporting documents, and collaborate with reviewers. The document will start in Draft status and can be submitted for review when ready." />
+                <UAlert color="secondary" variant="subtle" title="Getting Started" description="After creating your ISSP document, you'll be able to add sections, upload supporting documents, and collaborate with reviewers. The document will start in Draft status and can be submitted for review when ready." />
 
                 <div class="flex gap-2 w-full justify-end">
-                    <UButton color="neutral" label="Cancel" size="lg" variant="outline" @click="open = false" />
-                    <UButton color="primary" label="Create ISSP" size="lg" disabled />
+                    <UButton label="Cancel" color="neutral" size="lg" variant="outline" @click="open = false" />
+                    <UButton label="Create ISSP" size="lg" />
                 </div>
             </div>
         </template>
