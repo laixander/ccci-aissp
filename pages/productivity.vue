@@ -4,12 +4,7 @@
           <UButton icon="i-lucide-download" size="lg" color="neutral" variant="outline" class="w-full lg:w-auto justify-center">Export Summary</UButton>
 
           <!-- Modal -->
-          <UModal title="Department IT Needs Form" description="Submit IT requirements for your department" :ui="uiModalConfig">
-              <UButton icon="i-lucide-plus" size="lg" color="primary" variant="solid" class="w-full lg:w-auto justify-center">Add Request</UButton>
-              <template #body>
-                  <FormNewNeeds />
-              </template>
-          </UModal>
+            <FormNewNeeds />
         </template>
         <template #content>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -68,7 +63,8 @@
 
 <script setup lang="ts">
 definePageMeta({
-    layout: 'dashboard'
+    layout: 'dashboard',
+    auth:false
 })
 
 const cardStats = [

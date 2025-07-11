@@ -28,17 +28,31 @@
                 </div>
             </UForm>
 
-            <UFormField size="lg" label="Select Tables">
-                <UCard :ui="uiCardConfig" class="mt-2">
-                    <UCheckboxGroup :items="items" :ui="uiCheckboxConfig" />
-                </UCard>
+            <UFormField size="lg" label="DB Options" help="Setup and configure db options">
+                <UTabs :items="queryOptions" variant="link" class="w-full">
+                    <template #table>
+                        <UFormField size="lg" label="Select Tables">
+                            <template #hint>
+                                <!-- <USwitch label="Check ALL" size="sm" /> -->
+                                <USwitch label="Check ALL" size="sm" v-model="checkAll" @change="toggleCheckAll" />
+                            </template>
+                            <UCard :ui="uiCardConfig" class="mt-2">
+                                <!-- <UCheckboxGroup :items="items" :ui="uiCheckboxConfig" /> -->
+                                <UCheckboxGroup v-model="selectedItems" :items="items" :ui="uiCheckboxConfig" />
+                            </UCard>
+                        </UFormField>
+                    </template>
+                    <template #rawQuery>
+                        <JsonEditor v-model:json="state.rawQuery" mode="text" :dark-theme="isDark" />
+                    </template>
+                </UTabs>
             </UFormField>
 
-            <UFormField size="lg" label="Select Queries">
+            <!-- <UFormField size="lg" label="Select Queries">
                 <UCard :ui="uiCardConfig" class="mt-2">
                     <UCheckboxGroup :items="queries" :ui="uiCheckboxConfig" />
                 </UCard>
-            </UFormField>
+            </UFormField> -->
 
             <UFormField size="lg" label="Description" hint="Optional">
                 <UTextarea :rows="4" placeholder="e.g. Optional description for DB settings" class="w-full" />
@@ -68,7 +82,6 @@ import type { DbConnectionType } from '~~/types/models';
 
 const {findAll, create} = useAPI()
 
-
 const state = ref<DbConnectionType>({})
 
 const {results:databases, pending:initializing} = await findAll('/databases?paginate=false')
@@ -92,6 +105,20 @@ const save = async()=>{
     }
     
 }
+const colorMode = useColorMode()
+const isDark = computed({
+    get() {
+        return colorMode.value === 'dark'
+    },
+    set() {
+        colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+    }
+})
+
+const queryOptions = [
+    { label: 'Table', slot: 'table' as const },
+    { label: 'Raw Query', slot: 'rawQuery' as const }
+]
 
 const uiCardConfig = {
     body: 'sm:p-4 overflow-auto'
@@ -124,31 +151,26 @@ const items = ref<CheckboxGroupItem[]>([
     'subscriptions',
 ])
 
-const queries = ref<CheckboxGroupItem[]>([
-    'All',
-    'active',
-    'inactive',
-    'pending',
-    'archived',
-    'deleted',
-    'processing',
-    'completed',
-    'failed',
-    'on_hold',
-    'draft',
-    'approved',
-    'rejected',
-    'flagged',
-    'verified',
-    'unverified',
-    'expired',
-    'scheduled',
-    'cancelled',
-    'review',
-    'queued',
-    'synced',
-    'unsynced',
-])
+// Check ALL functionality
+const checkAll = ref(false)
+const selected = ref<string[]>([])
+const selectedItems = computed({
+    get: () => selected.value,
+    set: (val: string[]) => {
+        selected.value = val
+        if (val.length !== items.value.length) {
+            checkAll.value = false
+        }
+    }
+})
+
+const toggleCheckAll = () => {
+    if (checkAll.value) {
+        selectedItems.value = [...items.value]
+    } else {
+        selectedItems.value = []
+    }
+}
 
 const uiCheckboxConfig = {
     fieldset: 'grid grid-rows-12 lg:grid-rows-4 grid-flow-col gap-2'

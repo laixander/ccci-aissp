@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     app: {
         head: {
-            title: "UI Development - AISSP",
+            title: "AISSP",
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
         }

@@ -1,14 +1,8 @@
 <template>
     <Page pageTitle="System Management" pageDescription="Manage and prioritize information systems across entities">
         <template #actions>
-
             <!-- Modal -->
-            <UModal title="Add New System" description="Submit a new system to add on system’s registry" :ui="uiModalConfig">
-                <UButton icon="i-lucide-plus" color="primary" variant="solid" size="lg" class="w-full justify-center">Add New System</UButton>
-                <template #body>
-                    <FormNewSystem />
-                </template>
-            </UModal>
+            <FormNewSystem />
         </template>
     
         <template #content>
@@ -47,7 +41,8 @@
 
 <script setup lang="ts">
 definePageMeta({
-    layout: 'dashboard'
+    layout: 'dashboard',
+    auth:false
 })
 
 const statuses = ref(['All Status', 'Active', 'In Progress', 'Planning', 'Completed'])
@@ -135,12 +130,5 @@ function onEdit(system: string) {
 }
 function onDelete(system: string) {
   alert(`Delete clicked for: ${system}`)
-}
-
-const uiModalConfig = {
-    content: 'divide-y-0 max-w-6xl',
-    header: 'sm:p-6 space-y-1.5 items-center',
-    body: 'pt-0 sm:pt-0',
-    title: 'text-2xl font-semibold leading-none',
 }
 </script>

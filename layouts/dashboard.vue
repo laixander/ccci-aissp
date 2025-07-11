@@ -21,7 +21,7 @@
                 <div class="flex items-center gap-2.5">
                     <UAvatar src="https://i.pravatar.cc/40" alt="User Avatar" size="sm" />
                     <div class="hidden lg:flex flex-col items-start">
-                        <div class="text-sm font-semibold text-gray-800 dark:text-gray-100">Jane Copper</div>
+                        <div class="text-sm font-semibold text-gray-800 dark:text-gray-100">John Doe</div>
                         <div class="text-xs text-gray-500 dark:text-gray-400">Planner</div>
                     </div>
                 </div>
@@ -41,6 +41,7 @@
                     {{ clientName }}
                 </div>
             </div>
+            <!-- <UVerticalNavigation :links="navLinks" :ui="uiNavConfig" @click="handleNavClick" /> -->
             <UNavigationMenu orientation="vertical" :items="items" :ui="uiNavConfig" />
         </aside>
 
@@ -66,11 +67,11 @@ import type { NavigationMenuItem } from '@nuxt/ui';
 import { useLayout } from '../composables/useLayout'
 
 const { appName, clientName, clientLogo, appCode, appCodeColor } = useLayout()
-clientName.value = 'Digital Solution'
-clientLogo.value = '/assets/logo.png'
 appName.value = 'Automated Information Systems Strategic Plan Creator'
 appCode.value = 'AISSP'
 appCodeColor.value = 'primary'
+clientName.value = 'Digital Solution'
+clientLogo.value = '/assets/logo.png'
 
 const toggleSidebar = ref(false)
 
@@ -103,9 +104,6 @@ onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize)
 })
 
-// Allow individual pages to control this
-provide('toggleSidebar', toggleSidebar)
-
 const uiNavConfig = {
     label: 'tracking-widest',
     root: 'px-4',
@@ -121,29 +119,30 @@ const items = ref<NavigationMenuItem[][]>([
         {
             label: 'Dashboard',
             icon: 'i-lucide-chart-pie',
-            to: '/dashboard'
+            to: '/'
         },
         {
-            label: 'System Management',
-            icon: 'i-lucide-database',
+            label: 'Systems',
+            icon: 'i-lucide-server',
             to: '/systems'
         },
         {
-            label: 'Office Productivity',
-            icon: 'i-lucide-monitor-check',
-            to: '/needs'
+            label: 'Productivity',
+            icon: 'i-lucide-chart-no-axes-combined',
+            to: '/productivity'
         },
         {
-            label: 'Budget Prototyping',
-            icon: 'i-lucide-wallet',
+            label: 'Budget Planning',
+            icon: 'i-lucide-calculator',
+            to: '/budget'
         },
         {
             label: 'ISSP Documents',
             icon: 'i-lucide-file-text',
-            to: '/plans'
+            to: '/document',
         },
         {
-            label: 'AI Drafting',
+            label: 'AI Assistant',
             icon: 'i-lucide-bot',
         },
         {

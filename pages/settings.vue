@@ -124,7 +124,8 @@ import type { TabsItem } from '@nuxt/ui'
 // import FormSettingNotifications from '~/components/FormSettingNotifications.vue'
 
 definePageMeta({
-    layout: 'dashboard'
+    layout: 'dashboard',
+    auth:false
 })
 
 const tabs = [

@@ -8,17 +8,19 @@
     </div>
     <Page page-title="ISSP Document Creator" page-description="Create reusable document templates for ISSP documents">
         <template #actions>
-            <UButton icon="i-lucide-file-cog" size="lg" color="primary" variant="solid" class="w-full lg:w-auto justify-center">
-                Generate Document</UButton>
+            <UButton label="Cancel" color="neutral" size="lg" variant="ghost" to="/document" />
+            <UButton label="Save as Draft" icon="i-lucide-save" color="primary" size="lg" />
+            <UButton label="Generate Document" icon="i-lucide-file-cog" size="lg" color="success" variant="solid" to="/document/generate" />
         </template>
         <template #content>
             <div class="grid xl:flex gap-6">
-                <DocumentDetails />
-                <DocumentSections />
+                <TemplateDetails class="w-full xl:w-[768px]" />
+                <TemplateSections class="w-full" />
             </div>
-            <div class="flex gap-4 w-full justify-end">
-                <UButton color="neutral" label="Cancel" size="lg" variant="outline" />
-                <UButton color="primary" label="Create Template" size="lg" />
+            <div class="flex flex-col-reverse lg:flex-row justify-end gap-3 *:w-full *:lg:w-auto *:justify-center">
+                <UButton label="Cancel" color="neutral" size="lg" variant="ghost" to="/document" />
+                <UButton label="Save as Draft" icon="i-lucide-save" color="primary" size="lg" />
+                <UButton label="Generate Document" icon="i-lucide-file-cog" color="success" size="lg" to="/document/generate" />
             </div>
         </template>
     </Page>
@@ -26,10 +28,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-    layout: 'dashboard'
+    layout: 'dashboard',
+    auth: false
 })
 
-import { inject, onMounted } from 'vue'
 import type { BreadcrumbItem } from '@nuxt/ui'
 const items = ref<BreadcrumbItem[]>([
     {
@@ -40,13 +42,4 @@ const items = ref<BreadcrumbItem[]>([
         label: 'ISSP Document Creator',
     }
 ])
-
-
-
-// Inject the sidebar toggle
-const toggleSidebar = inject<Ref<boolean>>('toggleSidebar')
-
-onMounted(() => {
-  if (toggleSidebar) toggleSidebar.value = true // Collapse sidebar on mount
-})
 </script>

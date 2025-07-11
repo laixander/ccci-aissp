@@ -11,7 +11,7 @@
                     </p>
                 </div>
 
-                <div class="flex flex-col md:flex-row items-center gap-3">
+                <div class="flex flex-col-reverse lg:flex-row justify-end gap-3 *:w-full *:lg:w-auto *:justify-center">
                     <slot name="actions">
                         <!-- Default slot for header actions -->
                     </slot>

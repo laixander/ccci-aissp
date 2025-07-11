@@ -6,7 +6,7 @@
             <input ref="imgInput" type="file" accept="image/*" class="hidden" :multiple="multiple" :disabled="disabled"
                 @change="onImgChange" />
 
-            <div v-if="imageFiles.length > 0" class="grid grid-cols-2 gap-4">
+            <div v-if="imageFiles.length > 0" class="grid gap-4" :class="{ 'lg:grid-cols-2': multiple }">
                 <div v-for="(file, index) in imageFiles" :key="file.hash"
                     class="relative border border-gray-300 rounded p-2 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50">
                     <img :src="file.preview" alt="Preview" class="mx-auto h-16 object-contain mb-1 rounded" />
@@ -27,6 +27,12 @@
                 </p>
                 <p v-if="multiple" class="text-xs text-gray-400 dark:text-gray-500">
                     Supports bulk image upload
+                </p>
+                <p v-if="maxSizeMB" class="text-xs text-gray-400 dark:text-gray-500">
+                    Max file size: {{ maxSizeMB }}MB
+                </p>
+                <p v-if="multiple && maxFiles" class="text-xs text-gray-400 dark:text-gray-500">
+                    Max files allowed: {{ maxFiles }}
                 </p>
             </div>
 

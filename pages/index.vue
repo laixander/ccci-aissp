@@ -6,18 +6,7 @@
                 class="w-full md:w-auto justify-center">Export Report</UButton>
 
             <!-- Modal -->
-            <UModal 
-                title="Create New ISSP Document" 
-                description="Start a new Information Systems Strategic Plan"
-                :ui="uiModalConfig">
-                <UButton 
-                    icon="i-lucide-file-text" size="lg" 
-                    color="primary" variant="solid"
-                    class="w-full md:w-auto justify-center">New ISSP</UButton>
-                <template #body>
-                    <FormNewDocument />
-                </template>
-            </UModal>
+            <FormNewDocument />
         </template>
         <template #content>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -8,7 +8,7 @@
                 class="w-full lg:w-auto justify-center">Bulk Report</UButton>
             <UButton 
                     icon="i-lucide-file-text" size="lg" color="primary" variant="solid"
-                    class="w-full lg:w-auto justify-center" to="../plans/new">New ISSP Document</UButton>
+                    class="w-full lg:w-auto justify-center" to="/document/new">New ISSP Document</UButton>
             <!-- Modal -->
             <!-- <UModal 
                 title="Create New ISSP Document" 
@@ -84,7 +84,8 @@
 
 <script setup lang="ts">
 definePageMeta({
-    layout: 'dashboard'
+    layout: 'dashboard',
+    auth:false      
 })
 
 const cardStats = [
