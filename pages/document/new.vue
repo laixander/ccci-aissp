@@ -35,8 +35,8 @@ definePageMeta({
 import type { BreadcrumbItem } from '@nuxt/ui'
 const items = ref<BreadcrumbItem[]>([
     {
-        label: 'Plans',
-        to: '/app/plans'
+        label: 'ISSP Document Management',
+        to: '/document'
     },
     {
         label: 'ISSP Document Creator',
