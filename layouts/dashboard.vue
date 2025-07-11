@@ -1,14 +1,10 @@
 <template>
     <div class="min-h-screen bg-gray-50 dark:bg-gray-950">
         <!-- Header -->
-        <header 
-            class="fixed top-0 left-0 right-0 z-40 flex items-center justify-between h-16 px-4 py-2 border-b border-gray-200 dark:border-b-white/10 backdrop-blur
-             bg-white/75 dark:bg-gray-900/75" 
-             :class="[!toggleSidebar ? 'md:ml-64' : '']">
+        <header class="fixed top-0 left-0 right-0 z-40 flex items-center justify-between h-16 px-4 py-2 border-b border-gray-200 dark:border-b-white/10 backdrop-blur
+             bg-white/75 dark:bg-gray-900/75" :class="[!toggleSidebar ? 'md:ml-64' : '']">
             <div class="md:flex-1 mr-2 md:mr-0">
-                <UButton 
-                    :icon="toggleIcon" 
-                    variant="ghost" aria-label="Toggle Sidebar"
+                <UButton :icon="toggleIcon" variant="ghost" aria-label="Toggle Sidebar"
                     @click="toggleSidebar = !toggleSidebar" />
             </div>
             <div class="flex items-center gap-2">
@@ -18,22 +14,23 @@
             <div class="flex justify-end items-center gap-4 flex-1">
                 <UButton variant="link" icon="i-lucide-bell" />
                 <ColorMode />
-                <div class="flex items-center gap-2.5">
-                    <UAvatar src="https://i.pravatar.cc/40" alt="User Avatar" size="sm" />
-                    <div class="hidden lg:flex flex-col items-start">
-                        <div class="text-sm font-semibold text-gray-800 dark:text-gray-100">John Doe</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400">Planner</div>
+                <UDropdownMenu :items="userItems">
+                    <div class="flex items-center gap-2.5">
+                        <UAvatar src="https://i.pravatar.cc/40" alt="User Avatar" size="sm" />
+                        <div class="hidden lg:flex flex-col items-start">
+                            <div class="text-sm font-semibold text-gray-800 dark:text-gray-100">{{ user?.username }}
+                            </div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">Planner</div>
+                        </div>
                     </div>
-                </div>
+                </UDropdownMenu>
             </div>
         </header>
 
         <!-- Sidebar -->
-        <aside 
-            class="fixed bottom-0 z-50 w-64 space-y-4 border-r border-gray-200 dark:border-r-white/10 bg-white dark:bg-gray-900
+        <aside class="fixed bottom-0 z-50 w-64 space-y-4 border-r border-gray-200 dark:border-r-white/10 bg-white dark:bg-gray-900
              transition-transform transform top-0 md:h-screen"
-            :class="[toggleSidebar ? '-translate-x-full' : 'translate-x-0']" 
-            aria-label="Sidebar Navigation"
+            :class="[toggleSidebar ? '-translate-x-full' : 'translate-x-0']" aria-label="Sidebar Navigation"
             @click="handleNavClick">
             <div class="px-4 h-16 flex items-center gap-2 border-b border-gray-200 dark:border-b-white/10">
                 <UAvatar size="md" :src="clientLogo" :alt="clientName" />
@@ -46,14 +43,11 @@
         </aside>
 
         <!-- Overlay for small screens -->
-        <div 
-            v-if="!toggleSidebar"
-            class="fixed inset-0 bg-black/50 z-40 transition-opacity md:hidden" 
+        <div v-if="!toggleSidebar" class="fixed inset-0 bg-black/50 z-40 transition-opacity md:hidden"
             @click="toggleSidebar = true" />
 
         <!-- Main Content -->
-        <main 
-            class="absolute top-0 left-0 right-0 pt-16 transition-all bg-gray-50 dark:bg-gray-950"
+        <main class="absolute top-0 left-0 right-0 pt-16 transition-all bg-gray-50 dark:bg-gray-950"
             :class="[!toggleSidebar ? 'md:ml-64' : '']">
             <slot />
         </main>
@@ -66,6 +60,14 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import type { NavigationMenuItem } from '@nuxt/ui';
 import { useLayout } from '../composables/useLayout'
 
+const router = useRouter()
+const { user, logout } = useAuth()
+
+const handleLogout = () => {
+    logout()
+    router.push('/login')
+}
+
 const { appName, clientName, clientLogo, appCode, appCodeColor } = useLayout()
 appName.value = 'Automated Information Systems Strategic Plan Creator'
 appCode.value = 'AISSP'
@@ -76,7 +78,7 @@ clientLogo.value = '/assets/logo.png'
 const toggleSidebar = ref(false)
 
 const toggleIcon = computed(() =>
-  toggleSidebar.value ? 'i-lucide-panel-left-open' : 'i-lucide-panel-left-close'
+    toggleSidebar.value ? 'i-lucide-panel-left-open' : 'i-lucide-panel-left-close'
 )
 
 const MOBILE_BREAKPOINT = 768
@@ -113,8 +115,8 @@ const uiNavConfig = {
 const items = ref<NavigationMenuItem[][]>([
     [
         {
-          label: 'MAIN NAVIGATION',
-          type: 'label'
+            label: 'MAIN NAVIGATION',
+            type: 'label'
         },
         {
             label: 'Dashboard',
@@ -159,13 +161,35 @@ const items = ref<NavigationMenuItem[][]>([
 
     ],
     [
-        {
-            label: 'Logout',
-            icon: 'i-lucide-log-out',
-        },
+        // {
+        //     label: 'Logout',
+        //     icon: 'i-lucide-log-out',
+        // },
         {
             label: 'Help',
             icon: 'i-lucide-circle-help',
+        }
+    ]
+])
+
+import type { DropdownMenuItem } from '@nuxt/ui'
+
+const userItems = ref<DropdownMenuItem[][]>([
+    [
+        {
+            label: 'Profile',
+            icon: 'i-lucide-user',
+            to: '/profile'
+        },
+        {
+            label: 'Settings',
+            icon: 'i-lucide-settings',
+            to: '/settings'
+        },
+        {
+            label: 'Logout',
+            icon: 'i-lucide-log-out',
+            onClick: handleLogout
         }
     ]
 ])
