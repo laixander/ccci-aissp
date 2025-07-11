@@ -9,6 +9,14 @@ export default defineNuxtConfig({
     },
     compatibilityDate: '2025-05-15',
     devtools: { enabled: true },
-    modules: ['@nuxt/ui'],
+    modules: ['@nuxt/ui', '@nuxt/image', 'nuxt-jsoneditor'],
     css: ['~/assets/css/main.css'],
+    jsoneditor: {
+        componentName: 'JsonEditor', 
+        options: {
+        mainMenuBar:false,
+        mode: 'text',
+        height: '500px'
+        }
+    }
 })

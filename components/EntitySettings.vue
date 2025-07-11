@@ -3,30 +3,28 @@
         <div class="space-y-4">
             <div class="grid lg:flex items-center gap-4">
                 <UFormField label="Entity Name" size="lg" class="w-full">
-                    <UInput v-model="entity.name" placeholder="e.g., College of Science" class="w-full" />
+                    <UInput placeholder="e.g., College of Science" class="w-full" />
                 </UFormField>
                 <UFormField label="Entity Code" size="lg" class="w-full lg:w-1/4">
-                    <UInput v-model="entity.code" placeholder="e.g., COS" class="w-full" />
+                    <UInput placeholder="e.g., COS" class="w-full" />
                 </UFormField>
                 <UFormField label="Color Code" size="lg" class="w-full lg:w-auto">
                     <UPopover>
-                        <UButton :label="entity.colorCode ? entity.colorCode : 'Choose color'" color="neutral"
+                        <UButton label="Choose color" color="neutral"
                             variant="soft" size="lg" class="w-full justify-center">
                             <template #leading>
                                 <span :style="chip" class="size-3 rounded-full" />
                             </template>
                         </UButton>
-
                         <template #content>
-                            <UColorPicker v-model="entity.colorCode" class="p-2" />
+                            <UColorPicker v-model="color" class="p-2" />
                         </template>
                     </UPopover>
                 </UFormField>
             </div>
 
             <div class="grid lg:flex lg:justify-end items-center gap-2">
-                <UButton label="Save Entity" icon="i-lucide-save" size="lg" color="primary" variant="solid"
-                    :loading="loading" @click="save" class="w-full justify-center lg:w-auto" />
+                <UButton label="Save Entity" icon="i-lucide-save" size="lg" color="primary" variant="solid" class="w-full justify-center lg:w-auto" />
             </div>
         </div>
 
@@ -34,62 +32,53 @@
 
         <div class="space-y-3">
             <h4 class="font-semibold text-gray-800 dark:text-gray-100">Existing Entities</h4>
-            <UCard v-if="loading" class="dark:bg-gray-800">
-                <USkeleton class="h-4 w-[250px] mb-2 dark:bg-gray-700" />
-                <USkeleton class="h-4 w-[200px] dark:bg-gray-700" />
-            </UCard>
-            <CardEntity v-for="ent in entities" :key="ent.id" v-bind="ent" @toggle="toggleStatus(ent)"
-                @select="select(ent)" class="dark:bg-gray-800" />
+            <CardEntity
+                v-for="campus in campuses"
+                :key="campus.id"
+                :name="campus.name"
+                :code="campus.code"
+                :color-code="campus.colorCode"
+                :is-active="campus.isActive"
+                @toggle="toggleCampusStatus(campus.id)"
+                @select="selectCampus(campus)"
+            />
         </div>
     </div>
 
 </template>
 
 <script setup lang="ts">
-import type { EntityType } from '~~/types/models';
+const color = ref('#00C16A')
+const chip = computed(() => ({ backgroundColor: color.value }))
 
-const { findAll, create, update } = useAPI()
-const loading = ref<boolean>(true)
-const entity = ref<EntityType>({})
-const { results: entities } = await findAll<EntityType>('/entities?sort=createdAt:desc')
-loading.value = false
+import { ref } from 'vue';
 
-const refresh = async () => {
-    entity.value = {}
-    const { results } = await findAll<EntityType>('/entities?sort=createdAt:desc')
-    entities.value = results.value
+// Define an interface for your campus data for better type safety
+interface Campus {
+  id: number;
+  name: string;
+  code: string;
+  colorCode: string;
+  isActive: boolean;
 }
 
-const chip = computed(() => ({ backgroundColor: entity.value.colorCode || '#d1d5db' }))
+const campuses = ref<Campus[]>([
+  { id: 1, name: 'Main Campus', code: 'MC-001', colorCode: '#FF5733', isActive: true },
+  { id: 2, name: 'North Campus', code: 'NC-002', colorCode: '#33FF57', isActive: false },
+  { id: 3, name: 'South Campus', code: 'SC-003', colorCode: '#3357FF', isActive: true },
+  { id: 4, name: 'Extension Campus', code: 'EC-004', colorCode: '#FF33A1', isActive: true },
+]);
 
-const save = async () => {
-    try {
-        loading.value = true
-        if (!entity.value.id) {
-            await create('/entities', entity.value)
-        } else {
-            await update('/entities', entity.value)
-        }
-        await refresh()
-    } catch (error) {
-        console.log('error :>> ', error);
-    } finally {
-        loading.value = false
-    }
-}
+const toggleCampusStatus = (id: number) => {
+  const campus = campuses.value.find(c => c.id === id);
+  if (campus) {
+    campus.isActive = !campus.isActive;
+    console.log(`Campus ${campus.name} (ID: ${id}) active status toggled to: ${campus.isActive}`);
+  }
+};
 
-const toggleStatus = async (ent: EntityType) => {
-    try {
-        ent.isActive = !ent.isActive
-        await update('/entities', ent)
-
-    } catch (error) {
-        console.log('error :>> ', error);
-    }
-}
-
-const select = (ent: EntityType) => {
-    entity.value = ent
-}
-
+const selectCampus = (campus: Campus) => {
+  console.log(`Campus "${campus.name}" (Code: ${campus.code}) selected.`);
+  // Here, you might navigate to a campus detail page or open a modal
+};
 </script>

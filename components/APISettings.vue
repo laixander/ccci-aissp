@@ -1,18 +1,18 @@
 <template>
     <div class="space-y-6">
         <div class="space-y-4">
-            <UForm :state="state" class="space-y-4">
+            <div class="space-y-4">
                 <UFormField size="lg" label="Name" help="Name of API Integration" class="w-full">
-                    <UInput v-model="state.name" class="w-full" />
+                    <UInput class="w-full" />
                 </UFormField>
                 <div class="grid lg:flex gap-4">
                     <UFormField size="lg" label="Method" class="w-full lg:w-1/4" help="HTTP Methods (eg. GET, POST)">
-                        <USelect v-model="state.method" :items="['GET', 'POST', 'PUT', 'PATCH']"
+                        <USelect :items="['GET', 'POST', 'PUT', 'PATCH']"
                             placeholder="Select Method" class="w-full" />
                     </UFormField>
                     <UFormField size="lg" label="API EndPoint" class="w-full"
                         help="Path of the API Endpoint including the query string">
-                        <UInput v-model="state.endpoint" class="w-full"
+                        <UInput class="w-full"
                             placeholder="https://aisp.msu.edu.ph/systems?id:1234" />
                     </UFormField>
                 </div>
@@ -20,14 +20,14 @@
                 <UFormField size="lg" label="Request Options" help="Setup and configure request options">
                     <UTabs :items="apiOptions" variant="link" class="w-full">
                         <template #headers>
-                            <JsonEditor v-model:json="state.header" mode="text" :dark-theme="isDark" />
+                            <JsonEditor v-model:json="header" mode="text" :dark-theme="isDark" />
                         </template>
                         <template #body>
-                            <JsonEditor v-model:json="state.body" mode="text" :dark-theme="isDark" />
+                            <JsonEditor v-model:json="body" mode="text" :dark-theme="isDark" />
                         </template>
                     </UTabs>
                 </UFormField>
-            </UForm>
+            </div>
 
             <UFormField size="lg" label="Select Fields"
                 help="Select the fields you want to include in the API response.">
@@ -44,7 +44,7 @@
             <div class="grid lg:flex lg:justify-between items-center gap-2">
                 <UButton label="Test Connection" icon="i-lucide-monitor-cog" variant="outline" size="lg"
                     class="w-full justify-center lg:w-auto" />
-                <UButton label="Save Connection" icon="i-lucide-save" size="lg" :loading="loading" @click="save"
+                <UButton label="Save Connection" icon="i-lucide-save" size="lg" 
                     class="w-full justify-center lg:w-auto" />
             </div>
         </div>
@@ -53,19 +53,24 @@
 
         <div class="space-y-3">
             <h4 class="font-semibold text-gray-800 dark:text-gray-100">Existing API Connections</h4>
-            <UCard v-if="initializing" class="dark:bg-gray-800">
-                <USkeleton class="h-4 w-[250px] mb-2 dark:bg-gray-700" />
-                <USkeleton class="h-4 w-[200px] dark:bg-gray-700" />
-            </UCard>
-            <CardApis v-for="api in apis" :key="api.id" v-bind="api" class="dark:bg-gray-800" />
+            <CardApis
+                v-for="apiEndpoint in apiEndpoints"
+                :key="apiEndpoint.id"
+                :name="apiEndpoint.name"
+                :endpoint="apiEndpoint.endpoint"
+                :method="apiEndpoint.method"
+                :is-active="apiEndpoint.isActive"
+            />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { APIConnectionType } from '~~/types/models';
+import type { CheckboxGroupItem } from '@nuxt/ui'
 
-const { findAll, create, update } = useAPI()
+const header = ref('')
+const body = ref('')
+
 const colorMode = useColorMode()
 const isDark = computed({
     get() {
@@ -76,32 +81,10 @@ const isDark = computed({
     }
 })
 
-const state = ref<APIConnectionType>({})
 const apiOptions = [
     { label: 'Headers', slot: 'headers' as const },
     { label: 'Body', slot: 'body' as const },
 ]
-
-const { results: apis, pending: initializing } = await findAll('/apis?paginate=false')
-
-
-
-const loading = ref<boolean>(false)
-const save = async () => {
-    try {
-        loading.value = true
-        if (!state.value.id) {
-            await create('/apis', state.value)
-        } else {
-            await update('/apis', state.value)
-        }
-    } catch (error) {
-        console.log('error :>> ', error);
-    } finally {
-        loading.value = false
-    }
-
-}
 
 const uiCardConfig = {
     body: 'sm:p-4 overflow-auto'
@@ -156,4 +139,52 @@ const toggleCheckAll = () => {
 const uiCheckboxConfig = {
     fieldset: 'grid grid-rows-12 lg:grid-rows-4 grid-flow-col gap-2'
 }
+
+// Define an interface for better type safety for your API endpoint data
+interface ApiEndpoint {
+  id: number;
+  name: string;
+  endpoint: string;
+  method: string;
+  isActive: boolean;
+}
+
+// Sample data for your API endpoints
+const apiEndpoints = ref<ApiEndpoint[]>([
+  { 
+    id: 1, 
+    name: 'Get User Profile', 
+    endpoint: '/api/v1/users/{id}', 
+    method: 'GET', 
+    isActive: true 
+  },
+  { 
+    id: 2, 
+    name: 'Create Product', 
+    endpoint: '/api/v1/products', 
+    method: 'POST', 
+    isActive: false 
+  },
+  { 
+    id: 3, 
+    name: 'Update Order Status', 
+    endpoint: '/api/v1/orders/{id}/status', 
+    method: 'PUT', 
+    isActive: true 
+  },
+  { 
+    id: 4, 
+    name: 'Delete Item', 
+    endpoint: '/api/v1/items/{id}', 
+    method: 'DELETE', 
+    isActive: true 
+  },
+  { 
+    id: 5, 
+    name: 'Search Articles', 
+    endpoint: '/api/v1/articles/search', 
+    method: 'GET', 
+    isActive: true 
+  },
+]);
 </script>

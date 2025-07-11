@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
-    <UCard :ui="uiCardConfig" class="hover:shadow-md">
+    <UCard :ui="uiCardConfig" class="hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between">
             <div @click="select" class="flex items-center gap-4 w-full">
                 <div class="w-4 h-4 rounded-full" :style="{ backgroundColor: colorCode }"></div>

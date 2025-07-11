@@ -1,0 +1,22 @@
+<template>
+    <Page page-title="AI Assistant" page-description="Intelligent content generation and compliance checking">
+
+        <template #actions>
+            <UButton icon="i-lucide-upload" size="lg" color="neutral" variant="outline" class="w-full lg:w-auto justify-center">Upload PDP/SDS</UButton>
+            <UButton icon="i-lucide-sparkles" size="lg" color="primary" class="w-full lg:w-auto justify-center">Generate Content</UButton>
+        </template>
+
+        <template #content>
+            <UCard>
+                🚧 Page UI development in progress.
+            </UCard>
+        </template>
+
+    </Page>
+</template>
+
+<script setup lang="ts">
+definePageMeta({
+    layout: 'dashboard',
+})
+</script>

@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
-    <UCard :ui="uiCardConfig" class="hover:shadow-md">
+    <UCard :ui="uiCardConfig" class="hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between">
             <div @click="select" class="w-full">
                 <p class="font-medium text-gray-900 dark:text-gray-100">{{ name }}</p> 

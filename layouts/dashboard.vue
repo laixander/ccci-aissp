@@ -144,10 +144,12 @@ const items = ref<NavigationMenuItem[][]>([
         {
             label: 'AI Assistant',
             icon: 'i-lucide-bot',
+            to: '/ai'
         },
         {
             label: 'Export History',
             icon: 'i-lucide-download',
+            to: '/export'
         },
         {
             label: 'Settings',
