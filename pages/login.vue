@@ -105,7 +105,7 @@ const props = defineProps<{
 }>();
 
 const computedLogo = computed(() => props.logo || "assets/logo.png");
-const computedBgImage = computed(() => props.bgImage || "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b");
+const computedBgImage = computed(() => props.bgImage || "https://images.unsplash.com/photo-1710781944947-7cd4a381499f");
 
 const gradientClass = computed(() => {
     const styles = {
