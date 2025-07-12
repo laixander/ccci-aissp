@@ -45,7 +45,7 @@
                     </div>
                 </template>
                 <template #body>
-                    <div class="p-6 space-y-4 bg-gray-400 overflow-y-auto">
+                    <div class="p-6 space-y-4 bg-gray-400 dark:bg-gray-950 overflow-y-auto">
                         <UCard class="shadow-xl">
                             <PreviewText v-if="props.type === 'text_content'" />
                             <PreviewImage v-if="props.type === 'image_upload'" />
