@@ -14,7 +14,7 @@
             <div class="flex justify-end items-center gap-4 flex-1">
                 <UButton variant="link" icon="i-lucide-bell" />
                 <ColorMode />
-                <UDropdownMenu :items="userItems">
+                <!-- <UDropdownMenu :items="userItems">
                     <div class="flex items-center gap-2.5">
                         <UAvatar src="https://i.pravatar.cc/40" alt="User Avatar" size="sm" />
                         <div class="hidden lg:flex flex-col items-start">
@@ -23,7 +23,7 @@
                             <div class="text-xs text-gray-500 dark:text-gray-400">Planner</div>
                         </div>
                     </div>
-                </UDropdownMenu>
+                </UDropdownMenu> -->
             </div>
         </header>
 
@@ -32,7 +32,7 @@
              transition-transform transform top-0 md:h-screen"
             :class="[toggleSidebar ? '-translate-x-full' : 'translate-x-0']" aria-label="Sidebar Navigation"
             @click="handleNavClick">
-            <div class="px-4 h-16 flex items-center gap-2 border-b border-gray-200 dark:border-b-white/10">
+            <div class="px-4 h-16 flex items-center gap-2 border-b border-gray-200 dark:border-white/10">
                 <UAvatar size="md" :src="clientLogo" :alt="clientName" />
                 <div class="font-semibold text-sm text-gray-800 dark:text-gray-100 leading-tight">
                     {{ clientName }}
@@ -40,6 +40,27 @@
             </div>
             <!-- <UVerticalNavigation :links="navLinks" :ui="uiNavConfig" @click="handleNavClick" /> -->
             <UNavigationMenu orientation="vertical" :items="items" :ui="uiNavConfig" />
+            <div
+                class="flex items-center gap-2.5 p-4 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 fixed bottom-0 w-full">
+                <UAvatar src="https://i.pravatar.cc/40" alt="User Avatar" size="sm" />
+                <div class="hidden lg:flex flex-col items-start">
+                    <div class="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                        {{ displayName }}
+                    </div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">Planner</div>
+                </div>
+                <UDropdownMenu :items="userItems" 
+                :content="{
+                    align: 'end',
+                    side: 'top',
+                    sideOffset: 36
+                }" 
+                :ui="{
+                    content: 'w-full'
+                }">
+                    <UButton icon="i-lucide-more-vertical" color="neutral" variant="ghost" class="ml-auto" />
+                </UDropdownMenu>
+            </div>
         </aside>
 
         <!-- Overlay for small screens -->
@@ -61,12 +82,22 @@ import type { NavigationMenuItem } from '@nuxt/ui';
 import { useLayout } from '../composables/useLayout'
 
 const router = useRouter()
+
 const { user, logout } = useAuth()
 
 const handleLogout = () => {
     logout()
     router.push('/login')
 }
+
+const displayNameMap: Record<string, string> = {
+  admin: "Jane Copper"
+};
+
+const displayName = computed(() => {
+  const username = user.value?.username;
+  return username ? displayNameMap[username] || username : null;
+});
 
 const { appName, clientName, clientLogo, appCode, appCodeColor } = useLayout()
 appName.value = 'Automated Information Systems Strategic Plan Creator'
@@ -181,11 +212,11 @@ const userItems = ref<DropdownMenuItem[][]>([
             icon: 'i-lucide-user',
             to: '/profile'
         },
-        {
-            label: 'Settings',
-            icon: 'i-lucide-settings',
-            to: '/settings'
-        },
+        // {
+        //     label: 'Settings',
+        //     icon: 'i-lucide-settings',
+        //     to: '/settings'
+        // },
         {
             label: 'Logout',
             icon: 'i-lucide-log-out',
