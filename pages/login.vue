@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen w-full flex flex-col items-center gap-6 lg:flex-row bg-white dark:bg-gray-950 relative"
-        :class="position === 'right' ? 'lg:justify-end' : 'lg:justify-start'">
+        :class="computedLoginPosition === 'right' ? 'lg:justify-end' : 'lg:justify-start'">
         <!-- Background Image for Large Screens -->
         <div v-if="!isSmallScreen" class="hidden lg:block absolute inset-0 bg-cover bg-left"
             :style="{ backgroundImage: `url(${computedBgImage})` }"></div>
@@ -8,11 +8,11 @@
         <!-- Overlay -->
         <div v-if="!isSmallScreen" class="hidden lg:block absolute inset-0" :class="gradientClass"></div>
 
-        <!-- Content -->
+        <!-- Login -->
         <div class="w-full lg:w-1/2 flex justify-center items-center p-4 order-last relative z-10">
             <div class="max-w-xs w-full space-y-4 text-center">
                 <!-- Dynamic Logo -->
-                <UAvatar v-if="computedLogo" size="3xl" :src="computedLogo" alt="App Logo" />
+                <NuxtImg v-if="computedLogo" :src="computedLogo" alt="Digital Solution" width="80" height="80" class="mx-auto" />
 
                 <!-- Dynamic Title -->
                 <header class="space-y-2">
@@ -20,7 +20,7 @@
                         {{ title || "Welcome Back!" }}
                     </h1>
                     <p class="font-light text-sm text-gray-500 dark:text-gray-400">
-                        {{ subtitle || "Please login to continue" }}
+                        {{ description || "Please login to continue" }}
                     </p>
                 </header>
 
@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-// Handle Static Auth
+// Handle Auth
 const formState = reactive({
     username: '',
     password: ''
@@ -94,18 +94,17 @@ const { width } = useWindowSize();
 const isSmallScreen = computed(() => width.value < 1024);
 
 const props = defineProps<{
-    loading?: boolean;
-    enableOAuth?: boolean;
     logo?: string;
     bgImage?: string;
     title?: string;
-    subtitle?: string;
+    description?: string;
     position?: "right" | "left";
     styleType?: "diagonal" | "straight";
 }>();
 
 const computedLogo = computed(() => props.logo || "assets/logo.png");
-const computedBgImage = computed(() => props.bgImage || "https://images.unsplash.com/photo-1710781944947-7cd4a381499f");
+const computedBgImage = computed(() => props.bgImage || randomImage);
+const computedLoginPosition = computed(() => props.position ?? 'right');
 
 const gradientClass = computed(() => {
     const styles = {
@@ -120,9 +119,21 @@ const gradientClass = computed(() => {
     };
 
     // Ensure `props.styleType` and `props.position` have default values
-    const styleType = props.styleType ?? "diagonal";
-    const position = props.position ?? "left";
+    const styleType = props.styleType ?? "straight";
+    const position = props.position ?? "right";
 
     return styles[styleType][position]; // Safe indexing
 });
+
+const bgImages = [
+  "https://images.unsplash.com/photo-1668763263612-24fe81663e8a",
+  "https://images.unsplash.com/photo-1708844897353-649da595a3f2",
+  "https://images.unsplash.com/photo-1659952586072-b3cebadec6d2",
+  "https://images.unsplash.com/photo-1710781944947-7cd4a381499f",
+    "https://images.unsplash.com/photo-1699100329878-7f28bb780787",
+  "https://images.unsplash.com/photo-1700116035176-99d81e11c60b"
+  // Add as many as you want
+];
+
+const randomImage = bgImages[Math.floor(Math.random() * bgImages.length)];
 </script>
