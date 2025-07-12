@@ -41,17 +41,12 @@
                     </div>
                 </div>
                 <div class="mt-3">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">Progress</span>
-                        <span class="text-sm font-medium dark:text-gray-100">{{ document.progress }}%</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
-                        <div
-                            class="h-2 rounded-full"
-                            :class="statusColors[document.status]?.progress || 'bg-blue-500 dark:bg-blue-400'"
-                            :style="{ width: document.progress + '%' }"
-                        ></div>
-                    </div>
+                    <BaseProgress
+                        label="Progress"
+                        :value="document.progress"
+                        :color="progressColor"
+                        :justifyStart="document.justifyStart"
+                    />
                 </div>
             </div>
             <div class="flex flex-col gap-2">
@@ -91,31 +86,38 @@ const props = defineProps<{
         lastModified: string
         progress: number
         comments: number
+        justifyStart: boolean
     }
 }>()
 
-const statusColors: Record<StatusType, { badge: string; progress: string; icon: string }> = {
+const statusColors: Record<StatusType, { badge: string; icon: string }> = {
     'Approved': {
         badge: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-        progress: 'bg-green-500 dark:bg-green-400',
         icon: 'i-lucide-check-circle'
     },
     'Under Review': {
         badge: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-        progress: 'bg-blue-500 dark:bg-blue-400',
         icon: 'i-lucide-clock'
     },
     'Draft': {
         badge: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-        progress: 'bg-yellow-500 dark:bg-yellow-400',
         icon: 'i-lucide-pen'
     },
     'Rejected': {
         badge: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-        progress: 'bg-red-500 dark:bg-red-400',
         icon: 'i-lucide-x-circle'
     }
 }
 
 const statusIcon = statusColors[props.document.status]?.icon || 'i-lucide-file-text'
+
+const progressColorMap: Record<StatusType, 'success' | 'warning' | 'primary' | 'error' | 'neutral' | 'secondary'> = {
+    Approved: 'success',
+    'Under Review': 'secondary',
+    Draft: 'warning',
+    Rejected: 'error'
+}
+
+const progressColor = computed(() => progressColorMap[props.document.status] || 'primary')
+
 </script>

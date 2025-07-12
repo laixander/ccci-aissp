@@ -106,6 +106,7 @@ const documents: Array<{
     lastModified: string
     progress: number
     comments: number
+    justifyStart: boolean
 }> = [
     {
         title: 'College of Engineering ISSP 2024-2028',
@@ -115,6 +116,7 @@ const documents: Array<{
         version: 'v2.1',
         lastModified: '2024-12-01',
         progress: 85,
+        justifyStart: true,
         comments: 3
     },
     {
@@ -125,6 +127,7 @@ const documents: Array<{
         version: 'v1.0',
         lastModified: '2024-11-28',
         progress: 100,
+        justifyStart: true,
         comments: 4
     },
     {
@@ -135,6 +138,7 @@ const documents: Array<{
         version: 'v0.3',
         lastModified: '2024-11-30',
         progress: 45,
+        justifyStart: true,
         comments: 1
     },
     {
@@ -145,6 +149,7 @@ const documents: Array<{
         version: 'v1.2',
         lastModified: '2024-11-25',
         progress: 75,
+        justifyStart: true,
         comments: 8
     }
 ]

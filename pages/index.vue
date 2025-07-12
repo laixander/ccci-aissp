@@ -49,9 +49,12 @@
             <Block title="System-wide Progress" description="Overall completion status across all entities">
                 <template #content>
                     <div class="space-y-4">
-                        <ProgressBar label="ISSP Development" :value="75" />
-                        <ProgressBar label="Review Process" :value="60" />
-                        <ProgressBar label="Final Approval" :value="45" />
+                        <BaseProgress 
+                            v-for="progress in baseProgress"
+                            :key="progress.label"
+                            v-bind="progress"
+                            color="neutral"
+                        />
                     </div>
                 </template>
             </Block>
@@ -63,6 +66,21 @@
 definePageMeta({
     layout: 'dashboard',
 })
+
+const baseProgress = [
+    {
+        label: 'ISSP Development',
+        value: 75
+    },
+    {
+        label: 'Review Process',
+        value: 60
+    },
+    {
+        label: 'Final Approval',
+        value: 45
+    }
+]
 
 const widgets = [
     {
@@ -184,12 +202,5 @@ const customCards = [
 // Handle button click for custom cards
 function handleClick(type: string) {
     alert(`Button clicked for: ${type}`)
-}
-
-const uiModalConfig = {
-    content: 'divide-y-0 max-w-2xl',
-    header: 'sm:p-6 space-y-1.5 items-center',
-    body: 'pt-0 sm:pt-0',
-    title: 'text-2xl font-semibold leading-none',
 }
 </script>
