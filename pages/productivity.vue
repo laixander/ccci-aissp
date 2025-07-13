@@ -15,7 +15,14 @@
                 <Block title="IT Requests & Needs" description="Track and manage productivity enhancement requests">
                     <template #content>
                         <div class="space-y-4">
-                            <CardNeeds v-for="need in needs" :key="need.title" v-bind="need" />
+                            <CardNeeds 
+                                v-for="need in needs" 
+                                :key="need.title" 
+                                v-bind="need" 
+                                :priority="need.priority as 'High' | 'Medium' | 'Low'"
+                                :type="need.type as 'Hardware' | 'Software' | 'Infrastructure' | 'Training'"
+                                :status="need.status as 'Requested' | 'In Progress' | 'In Review' | 'Approved'"
+                            />
                         </div>
                     </template>
                 </Block>

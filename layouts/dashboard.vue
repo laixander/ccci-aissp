@@ -199,6 +199,7 @@ const items = ref<NavigationMenuItem[][]>([
         {
             label: 'Help',
             icon: 'i-lucide-circle-help',
+            to: '/help'
         }
     ]
 ])
