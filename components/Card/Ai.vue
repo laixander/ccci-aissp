@@ -3,19 +3,26 @@
         <div class="flex items-center justify-between">
             <div>
                 <div class="flex items-center gap-2">
-                    <p class="font-medium text-gray-900 dark:text-gray-100">ChatGPT</p> 
+                    <p class="font-medium text-gray-900 dark:text-gray-100">{{ name }}</p> 
                 </div>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Model: GPT-4 Turbo</p>
-                <p class="text-sm text-gray-600 dark:text-gray-400">API Endpoint: https://api.openai.com/v1/chat/completions</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Model: {{ model }}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">API Endpoint: {{ endpoint }}</p>
             </div>
             <div class="flex items-center gap-3">
-                <USwitch size="lg" label="Active" default-value />
+                <USwitch :model-value="isActive" size="lg" label="Active" :default-value="isActive" />
             </div>
         </div>
     </UCard>
 </template>
 
 <script setup lang="ts">
+defineProps({
+    name: { type: String, default: '' },
+    model: { type: String, default: '' },
+    endpoint: { type: String, default: '' },
+    isActive: { type: Boolean, default: true }
+})
+
 const uiCardConfig = {
     body: 'sm:p-4'
 }

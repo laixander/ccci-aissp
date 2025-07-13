@@ -16,15 +16,30 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue';
 
-defineProps({
-  host: { type: String, default:''},
-  port: { type: String, default:'' },
-  name: { type: String, default:''},
-  schema: { type: String, default:'' },
-  isActive: { type: Boolean, default: true }
+const props = defineProps({
+    host: {
+        type: String,
+        required: true
+    },
+    port: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    schema: {
+        type: String,
+        required: true
+    },
+    isActive: {
+        type: Boolean,
+        default: true
+    }
 })
-
 
 const uiCardConfig = {
     body: 'sm:p-4'

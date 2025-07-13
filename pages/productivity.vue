@@ -33,9 +33,8 @@
                 description="Track and manage device allocations across the organization">
                 <template #content>
                     <div class="space-y-4">
-                        <CardEndUserDevice v-for="device in endUserDevices" :key="`${device.user}-${device.deviceName}`"
-                            v-bind="device" @edit="onDeviceEdit(device.deviceName)"
-                            @delete="onDeviceDelete(device.deviceName)" />
+                        <CardDevice v-for="device in devices" :key="device.user" v-bind="device" :status="device.status as 'Active' | 'Inactive' | 'Repair' | 'In Repair' | 'Retired'"
+                        @edit="onDeviceEdit(device.deviceName)" @delete="onDeviceDelete(device.deviceName)" />
                     </div>
                     <div class="mt-6 flex justify-between items-center">
                         <UButton label="Export Device List" icon="i-lucide-download" size="lg" color="neutral"
@@ -158,7 +157,7 @@ function onEdit(department: string) {
     alert(`Edit clicked for: ${department}`)
 }
 
-const endUserDevices = [
+const devices = [
     {
         user: "Jane Doe",
         department: "IT Security",
@@ -190,9 +189,10 @@ const endUserDevices = [
 ]
 
 function onDeviceEdit(deviceName: string) {
-    alert(`Edit clicked for: ${deviceName}`)
+    console.log(`Edit clicked for: ${deviceName}`)
 }
+
 function onDeviceDelete(deviceName: string) {
-    alert(`Delete clicked for: ${deviceName}`)
+    console.log(`Delete clicked for: ${deviceName}`)
 }
 </script>

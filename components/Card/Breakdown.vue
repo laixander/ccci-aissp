@@ -6,10 +6,7 @@
                 <p class="text-sm text-gray-600 dark:text-gray-400">{{ subtitle }}</p>
             </div>
             <div class="flex items-center gap-3">
-                <div :class="tagColorClass"
-                    class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80">
-                    {{ tagText }}
-                </div>
+                <UBadge :label="budgetType" :color="typeColor" variant="soft" class="rounded-full" />
                 <p class="font-semibold text-gray-900 dark:text-gray-100">₱{{ formattedAmount }}</p>
             </div>
         </div>
@@ -19,7 +16,6 @@
 <script setup>
 import { defineProps, computed } from 'vue';
 
-// Define the props that this component will accept
 const props = defineProps({
     title: {
         type: String,
@@ -29,13 +25,13 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    tagText: {
+    budgetType: {
         type: String,
         required: true,
     },
-    tagColorClass: { // Changed prop name to reflect it's a full class string
-        type: String, // e.g., 'bg-orange-100 text-orange-800'
-        default: 'bg-gray-100 text-gray-800',
+    typeColor: {
+        type: String,
+        required: true,
     },
     amount: {
         type: Number,

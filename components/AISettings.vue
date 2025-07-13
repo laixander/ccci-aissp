@@ -111,7 +111,8 @@
                 <USkeleton class="h-4 w-[250px] mb-2 dark:bg-gray-700" />
                 <USkeleton class="h-4 w-[200px] dark:bg-gray-700" />
             </UCard>
-            <CardAi class="dark:bg-gray-800" />
+            <CardAi v-for="ai in ais" :key="ai.id" :name="ai.name" :model="ai.model" :endpoint="ai.endpoint"
+                :is-active="ai.isActive" />
         </div>
     </div>
 </template>
@@ -178,4 +179,43 @@ function sendTestPrompt() {
         showAiResponse.value = true
     }, 2000)
 }
+
+// Sample data for your API endpoints
+const ais = [
+    {
+        id: 1,
+        name: 'ChatGPT',
+        model: 'GPT-4 Turbo',
+        endpoint: 'https://api.openai.com/v1/chat/completions',
+        isActive: true
+    },
+    {
+        id: 2,
+        name: 'Claude',
+        model: 'Claude 3 Opus',
+        endpoint: 'https://api.anthropic.com/v1/messages',
+        isActive: false
+    },
+    {
+        id: 3,
+        name: 'Gemini',
+        model: 'Gemini 1.5 Pro',
+        endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent',
+        isActive: true
+    },
+    {
+        id: 4,
+        name: 'Mistral',
+        model: 'Mixtral 8x7B',
+        endpoint: 'https://api.mistral.ai/v1/chat/completions',
+        isActive: true
+    },
+    {
+        id: 5,
+        name: 'LLaMA',
+        model: 'LLaMA 3 70B',
+        endpoint: 'https://api.meta.ai/v1/chat/completions',
+        isActive: true
+    },
+];
 </script>

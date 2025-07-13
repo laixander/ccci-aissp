@@ -2,8 +2,7 @@
     <Page page-title="Budget Planning & Scenarios"
         page-description="Create and manage budget scenarios with MOOE/CO classifications">
         <template #actions>
-            <UButton 
-                icon="i-lucide-upload" size="lg" color="neutral" variant="outline"
+            <UButton icon="i-lucide-upload" size="lg" color="neutral" variant="outline"
                 class="w-full md:w-auto justify-center">Import CSV</UButton>
             <FormNewScenario />
         </template>
@@ -14,7 +13,7 @@
             <Block title="Budget Scenarios" description="Compare different budget allocation strategies">
                 <template #content>
                     <div class="space-y-4">
-                        <CardBudget v-for="scenario in CardBudgets" :key="scenario.title" v-bind="scenario"
+                        <CardBudget v-for="scenario in CardBudgets" :key="scenario.title" v-bind="scenario" :status="scenario.status as 'Active' | 'Draft' | 'Under Review'"
                             @edit="handleEdit(scenario.title)" @download="handleDownload(scenario.title)"
                             @delete="handleDelete(scenario.title)" />
                     </div>
@@ -25,11 +24,7 @@
                 <Block title="Budget Breakdown" description="Detailed allocation with auto-tagging">
                     <template #content>
                         <div class="space-y-4">
-                            <CardBreakdown
-                                v-for="breakdown in CardBreakdowns"
-                                :key="breakdown.id"
-                                v-bind="breakdown"
-                            />
+                            <CardBreakdown v-for="breakdown in CardBreakdowns" :key="breakdown.id" v-bind="breakdown" />
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                             <div class="flex justify-between text-sm">
@@ -52,37 +47,41 @@
                                     tabindex="0">
                                     <input type="file" multiple class="hidden" @change="handleFiles" ref="fileInput"
                                         accept=".pdf,.png,.jpg,.jpeg" />
-                                    <UIcon name="i-lucide-upload" class="w-8 h-8 text-gray-400 dark:text-gray-500 mx-auto mb-2" />
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Drop CSV file here or click to browse</p>
-                                    <p class="text-xs text-gray-500 mt-1 dark:text-gray-500">Format: Item, Category, Amount, Entity</p>
+                                    <UIcon name="i-lucide-upload"
+                                        class="w-8 h-8 text-gray-400 dark:text-gray-500 mx-auto mb-2" />
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Drop CSV file here or click to
+                                        browse</p>
+                                    <p class="text-xs text-gray-500 mt-1 dark:text-gray-500">Format: Item, Category,
+                                        Amount, Entity</p>
                                 </label>
 
                                 <div v-else class="mt-3 text-center">
-                                    <p class="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">Selected files:</p>
+                                    <p class="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">Selected
+                                        files:</p>
                                     <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
                                         <li v-for="(file, idx) in selectedFiles" :key="file.name"
                                             class="flex items-center justify-center gap-2">
                                             {{ file.name }}
-                                            <UButton icon="i-lucide-trash" size="xs" color="error" variant="ghost" @click="removeFile(idx)"
-                                                aria-label="Remove file" />
+                                            <UButton icon="i-lucide-trash" size="xs" color="error" variant="ghost"
+                                                @click="removeFile(idx)" aria-label="Remove file" />
                                         </li>
                                     </ul>
-                                    <UButton class="mt-2" color="primary" variant="outline" size="lg" @click="fileInput?.click()">
+                                    <UButton class="mt-2" color="primary" variant="outline" size="lg"
+                                        @click="fileInput?.click()">
                                         Add More Files
                                     </UButton>
                                 </div>
                             </UFormField>
                             <UFormField label="Export Options" size="lg" :ui="{ container: 'space-y-2' }">
-                                <UButton label="Export as Excel (.xlsx)" icon="i-lucide-file-spreadsheet" color="neutral" variant="outline" size="lg" class="w-full" />
-                                <UButton label="Export as CSV" icon="i-lucide-download" color="neutral" variant="outline" size="lg" class="w-full" />
-                                <UButton label="Generate Budget Summary" icon="i-lucide-calculator" color="neutral" variant="outline" size="lg" class="w-full" />
+                                <UButton label="Export as Excel (.xlsx)" icon="i-lucide-file-spreadsheet"
+                                    color="neutral" variant="outline" size="lg" class="w-full" />
+                                <UButton label="Export as CSV" icon="i-lucide-download" color="neutral"
+                                    variant="outline" size="lg" class="w-full" />
+                                <UButton label="Generate Budget Summary" icon="i-lucide-calculator" color="neutral"
+                                    variant="outline" size="lg" class="w-full" />
                             </UFormField>
-                            <UAlert
-                                color="warning"
-                                variant="subtle"
-                                title="Auto-Classification"
-                                description="System automatically tags items as MOOE (operational expenses) or CO (capital outlay) based on predefined rules."
-                            />
+                            <UAlert color="warning" variant="subtle" title="Auto-Classification"
+                                description="System automatically tags items as MOOE (operational expenses) or CO (capital outlay) based on predefined rules." />
                         </div>
                     </template>
                 </Block>
@@ -163,58 +162,58 @@ const handleDelete = (title: string) => {
 }
 
 const CardBreakdowns = ref([
-{
-    id: 1,
-    title: 'Student Information System',
-    subtitle: 'Registrar',
-    tagText: 'CO',
-    tagColorClass: 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300', // Updated to full Tailwind class
-    amount: 2500000,
-  },
-  {
-    id: 2,
-    title: 'Network Infrastructure',
-    subtitle: 'IT Services',
-    tagText: 'CO',
-    tagColorClass: 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300', // Updated to full Tailwind class
-    amount: 3200000,
-  },
-  {
-    id: 3,
-    title: 'Software Licenses',
-    subtitle: 'All Entities',
-    tagText: 'MOOE',
-    tagColorClass: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300', // Updated to full Tailwind class
-    amount: 1800000,
-  },
-  {
-    id: 4,
-    title: 'Training Programs',
-    subtitle: 'HR Department',
-    tagText: 'MOOE',
-    tagColorClass: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300', // Updated to full Tailwind class
-    amount: 850000,
-  },
-  {
-    id: 5,
-    title: 'Security Systems',
-    subtitle: 'IT Services',
-    tagText: 'CO',
-    tagColorClass: 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300', // Updated to full Tailwind class
-    amount: 1950000,
-  },
+    {
+        id: 1,
+        title: 'Student Information System',
+        subtitle: 'Registrar',
+        budgetType: 'CO',
+        typeColor: 'orange',
+        amount: 2500000,
+    },
+    {
+        id: 2,
+        title: 'Network Infrastructure',
+        subtitle: 'IT Services',
+        budgetType: 'CO',
+        typeColor: 'orange',
+        amount: 3200000,
+    },
+    {
+        id: 3,
+        title: 'Software Licenses',
+        subtitle: 'All Entities',
+        budgetType: 'MOOE',
+        typeColor: 'purple',
+        amount: 1800000,
+    },
+    {
+        id: 4,
+        title: 'Training Programs',
+        subtitle: 'HR Department',
+        budgetType: 'MOOE',
+        typeColor: 'purple',
+        amount: 850000,
+    },
+    {
+        id: 5,
+        title: 'Security Systems',
+        subtitle: 'IT Services',
+        budgetType: 'CO',
+        typeColor: 'orange',
+        amount: 1950000,
+    },
 ]);
 
 // File Handling
 const selectedFiles = ref<File[]>([])
 const fileInput = ref<HTMLInputElement | null>(null)
 function handleFiles(event: Event) {
-  const files = (event.target as HTMLInputElement).files
-  if (files) {
-    selectedFiles.value = Array.from(files)
-  }
+    const files = (event.target as HTMLInputElement).files
+    if (files) {
+        selectedFiles.value = Array.from(files)
+    }
 }
 function removeFile(idx: number) {
-  selectedFiles.value.splice(idx, 1)
+    selectedFiles.value.splice(idx, 1)
 }
 </script>

@@ -4,10 +4,7 @@
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-2">
                     <h3 class="font-semibold text-gray-900 dark:text-gray-100">{{ title }}</h3>
-                    <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent"
-                        :class="statusClass">
-                        {{ status }}
-                    </div>
+                    <UBadge :label="status" :color="statusColor" variant="soft" class="rounded-full" />
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
@@ -43,23 +40,26 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps({
-    title: { type: String, required: true },
-    status: { type: String, required: true },
-    totalBudget: { type: Number, required: true },
-    mooe: { type: Number, required: true },
-    co: { type: Number, required: true },
-    lastModified: { type: String, required: true }
-})
-
-// Define status class mapping, adding dark mode equivalents
-const statusClassMap: Record<string, string> = {
-    Active: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    Draft: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-    'Under Review': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+interface Props {
+    title: string
+    status: 'Active' | 'Draft' | 'Under Review'
+    totalBudget: number
+    mooe: number
+    co: number
+    lastModified: string
 }
 
-const statusClass = computed(() => statusClassMap[props.status] ?? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200')
+const props = defineProps<Props>()
+
+const statusColorMap = {
+    Active: 'success',
+    Draft: 'warning',
+    'Under Review': 'secondary',
+} as const
+
+const statusColor = computed(() => {
+    return props.status ? statusColorMap[props.status] : 'neutral'
+})
 
 const uiCardConfig = {
     body: 'sm:p-4'

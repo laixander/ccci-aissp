@@ -14,7 +14,7 @@
                 <Block title="Recent Activity" description="Latest actions across all entities" icon="i-lucide-clock">
                     <template #content>
                         <div class="space-y-4">
-                            <CardActivity v-for="activity in activities" :key="activity.title" v-bind="activity" />
+                            <CardActivity v-for="activity in activities" :key="activity.id" v-bind="activity" :typeColor="activity.typeColor as 'success' | 'info' | 'warning' | 'violet'" />
                         </div>
                     </template>
                 </Block>
@@ -26,6 +26,7 @@
                                 v-for="queue in queues" 
                                 :key="queue.name" 
                                 v-bind="queue" 
+                                :priority="queue.priority as 'High' | 'Medium' | 'Low'"
                             />
                         </div>
                     </template>
@@ -36,11 +37,38 @@
                 icon-color="text-purple-500">
                 <template #content>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <CardCustom 
-                            v-for="card in customCards" 
-                            :key="card.title" 
-                            v-bind="card"
-                            @button-click="handleClick(card.title)"
+                        <UAlert title="Content Enhancement" description="3 documents could benefit from expanded strategic objectives" color="violet" variant="subtle" 
+                            :ui="{ title: 'text-md' }"
+                            :actions="[
+                                {
+                                    label: 'Review Suggestions',
+                                    color: 'violet',
+                                    variant: 'subtle',
+                                    size: 'lg'
+                                }
+                            ]"
+                        />
+                        <UAlert title="Compliance Check" description="2 ISSPs need DICT guideline alignment updates" color="secondary" variant="subtle" 
+                            :ui="{ title: 'text-md' }"
+                            :actions="[
+                                {
+                                    label: 'View Details',
+                                    color: 'secondary',
+                                    variant: 'subtle',
+                                    size: 'lg'
+                                }
+                            ]"
+                        />
+                        <UAlert title="Budget Optimization" description="Potential savings of ₱2.3M identified across 5 entities" color="success" variant="subtle" 
+                            :ui="{ title: 'text-md' }"
+                            :actions="[
+                                {
+                                    label: 'Explore Options',
+                                    color: 'success',
+                                    variant: 'subtle',
+                                    size: 'lg'
+                                }
+                            ]"
                         />
                     </div>
                 </template>
@@ -63,6 +91,8 @@
 </template>
 
 <script setup lang="ts">
+import { id } from '@nuxt/ui/runtime/locale/index.js'
+
 definePageMeta({
     layout: 'dashboard',
 })
@@ -124,28 +154,32 @@ const widgets = [
 
 const activities = [
     {
+        id: 1,
         title: 'ISSP approved',
         description: 'College of Engineering',
         timeAgo: '2 hours ago',
-        statusColor: 'bg-green-500 dark:bg-green-700'
+        typeColor: 'success'
     },
     {
+        id: 2,
         title: 'Document exported',
         description: 'IT Services',
         timeAgo: '4 hours ago',
-        statusColor: 'bg-blue-500 dark:bg-blue-700'
+        typeColor: 'info'
     },
     {
+        id: 3,
         title: 'Review requested',
         description: 'Library System',
         timeAgo: '6 hours ago',
-        statusColor: 'bg-yellow-500 dark:bg-yellow-700'
+        typeColor: 'warning'
     },
     {
+        id: 4,
         title: 'AI suggestions generated',
         description: 'Business Office',
         timeAgo: '1 day ago',
-        statusColor: 'bg-purple-500 dark:bg-purple-700'
+        typeColor: 'violet'
     }
 ]
 
@@ -154,48 +188,19 @@ const queues = [
         name: 'College of Arts & Sciences',
         date: 'Dec 15, 2024',
         icon: 'i-lucide-calendar',
-        priority: 'high'
+        priority: 'High'
     },
     {
         name: 'Graduate School',
         date: 'Dec 20, 2024',
         icon: 'i-lucide-calendar',
-        priority: 'medium'
+        priority: 'Medium'
     },
     {
         name: 'Research Division',
         date: 'Jan 5, 2025',
         icon: 'i-lucide-calendar',
-        priority: 'low'
-    }
-]
-
-const customCards = [
-    {
-        title: 'Content Enhancement',
-        description: '3 documents could benefit from expanded strategic objectives',
-        buttonText: 'Review Suggestions'
-        // default colors
-    },
-    {
-        title: 'Compliance Check',
-        description: '2 ISSPs need DICT guideline alignment updates',
-        buttonText: 'View Details',
-        buttonColor: 'border-blue-300 text-blue-700 hover:bg-blue-50 hover:border-blue-400 hover:text-blue-800 dark:bg-blue-900 dark:text-blue-200 dark:border-blue-700 dark:hover:bg-blue-800 dark:hover:border-blue-500 dark:hover:text-blue-100',
-        titleColor: 'text-blue-800 dark:text-blue-200',
-        descriptionColor: 'text-blue-500 dark:text-blue-400',
-        bgColor: 'bg-blue-50 dark:bg-blue-950/10',
-        borderColor: 'ring-blue-200 dark:ring-blue-800/50'
-    },
-    {
-        title: 'Budget Optimization',
-        description: 'Potential savings of ₱2.3M identified across 5 entities',
-        buttonText: 'Explore Options',
-        buttonColor: 'border-green-300 text-green-700 hover:bg-green-50 hover:border-green-400 hover:text-green-800 dark:bg-green-900 dark:text-green-200 dark:border-green-700 dark:hover:bg-green-800 dark:hover:border-green-500 dark:hover:text-green-100',
-        titleColor: 'text-green-800 dark:text-green-200',
-        descriptionColor: 'text-green-500 dark:text-green-400',
-        bgColor: 'bg-green-50 dark:bg-green-950/10',
-        borderColor: 'ring-green-200 dark:ring-green-800/50'
+        priority: 'Low'
     }
 ]
 

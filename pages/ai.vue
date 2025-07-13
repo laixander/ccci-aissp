@@ -38,7 +38,7 @@
                             <UButton label="Generate Content" icon="i-lucide-sparkles" size="lg"
                                 class="w-full justify-center" />
 
-                            <CardCustom title="AI Tips" :show-button="false">
+                            <UAlert title="AI Tips" color="violet" variant="subtle" :ui="{ title: 'text-md' }">
                                 <template #description>
                                     <ul class="list-disc list-inside">
                                         <li>Be specific about your organization type and size</li>
@@ -47,7 +47,8 @@
                                         <li>Specify budget ranges if relevant</li>
                                     </ul>
                                 </template>
-                            </CardCustom>
+                            </UAlert>
+
                         </div>
                     </template>
                 </Block>
@@ -72,9 +73,9 @@
             <Block title="AI-Generated Suggestions" description="Smart recommendations to improve your ISSP documents">
                 <template #content>
                     <div class="space-y-4">
-                        <CardAiSuggestion v-for="(suggestion, index) in suggestions" :key="suggestion.title"
-                            v-bind="suggestion" :onApply="() => handleApply(index)"
-                            :onDismiss="() => handleDismiss(index)" />
+                        <CardAiSuggestion v-for="item in suggestions" :key="item.title" v-bind="item"
+                            :priority="item.priority as 'High' | 'Medium' | 'Low'" @apply="handleApply(item.title)"
+                            @dismiss="handleDismiss(item.title)" />
                     </div>
                 </template>
             </Block>
@@ -87,7 +88,8 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="font-medium text-gray-800 dark:text-gray-100">Overall Compliance Score</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Based on DICT ISSP Guidelines 2024</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Based on DICT ISSP Guidelines 2024
+                                </p>
                             </div>
                             <div class="text-right">
                                 <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">76%</p>
@@ -165,11 +167,11 @@ const suggestions = [
     },
 ]
 
-function handleApply(index: number) {
-    console.log(`Apply clicked on card ${index}`)
+function handleApply(type: string) {
+    console.log(`Button clicked for ${type}`)
 }
 
-function handleDismiss(index: number) {
-    console.log(`Dismiss clicked on card ${index}`)
+function handleDismiss(type: string) {
+    console.log(`Button clicked for ${type}`)
 }
 </script>

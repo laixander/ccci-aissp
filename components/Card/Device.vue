@@ -17,17 +17,11 @@
                 </div>
                 <div>
                     <!-- Status -->
-                    <div
-                        class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
-                        :class="statusClass">
-                        {{ statusDisplay }}
-                    </div>
+                    <UBadge :label="status" :color="statusColor" variant="soft" class="rounded-full" />
                 </div>
                 <div class="flex gap-2 justify-end">
-                    <!-- Emit -->
                     <UButton icon="i-lucide-edit" variant="ghost" color="neutral" size="sm" aria-label="Edit Device"
                         @click="$emit('edit')" />
-                    <!-- Emit -->
                     <UButton icon="i-lucide-trash-2" variant="ghost" color="error" size="sm" aria-label="Delete Device"
                         @click="$emit('delete')" />
                 </div>
@@ -39,15 +33,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps({
-    user: { type: String, required: true },         // End user name
-    department: { type: String, required: true },   // Department name
-    deviceType: { type: String, required: true },   // Device type (e.g., Laptop, Desktop)
-    deviceName: { type: String, required: true },   // Device name/model
-    status: { type: String, required: true },       // Status (e.g., Active, Inactive, Repair)
-})
+interface Props {
+    user: string
+    department: string
+    deviceType: string
+    deviceName: string
+    status: 'Active' | 'Inactive' | 'Repair' | 'In Repair' | 'Retired'
+}
 
-// Dynamic icon based on deviceType
+const props = defineProps<Props>()
+
+// Icon per device type
 const icon = computed(() => {
     switch (props.deviceType.toLowerCase()) {
         case 'laptop':
@@ -63,26 +59,16 @@ const icon = computed(() => {
     }
 })
 
-const statusClass = computed(() => {
-    switch (props.status.toLowerCase()) {
-        case 'active':
-            return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
-        case 'inactive':
-            return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100'
-        case 'repair':
-        case 'in repair':
-            return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'
-        case 'retired':
-            return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
-        default:
-            return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100'
-    }
-})
+// Status color map
+const statusColorMap = {
+    Active: 'success',
+    Inactive: 'secondary',
+    Repair: 'warning',
+    'In Repair': 'warning',
+    Retired: 'error'
+} as const
 
-const statusDisplay = computed(() => {
-    if (props.status.toLowerCase() === 'in repair' || props.status.toLowerCase() === 'repair') return 'In Repair'
-    return props.status.charAt(0).toUpperCase() + props.status.slice(1)
-})
+const statusColor = computed(() => statusColorMap[props.status] || 'neutral')
 
 const uiCardConfig = {
     body: 'sm:p-4'

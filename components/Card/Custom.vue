@@ -13,10 +13,6 @@
             :class="[buttonColor]" @click="emit('button-click')">
             {{ buttonText }}
         </button>
-
-        <!-- <UButton size="lg" color="neutral" variant="outline" @click="emit('button-click')">
-      {{ buttonText }}
-    </UButton> -->
     </UCard>
 </template>
 

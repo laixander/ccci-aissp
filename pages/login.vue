@@ -12,7 +12,8 @@
         <div class="w-full lg:w-1/2 flex justify-center items-center p-4 order-last relative z-10">
             <div class="max-w-xs w-full space-y-4 text-center">
                 <!-- Dynamic Logo -->
-                <NuxtImg v-if="computedLogo" :src="computedLogo" alt="Digital Solution" width="80" height="80" class="mx-auto" />
+                <NuxtImg v-if="computedLogo" :src="computedLogo" alt="Digital Solution" width="80" height="80"
+                    class="mx-auto" />
 
                 <!-- Dynamic Title -->
                 <header class="space-y-2">
@@ -31,8 +32,17 @@
                     </UFormField>
 
                     <UFormField label="Password" name="password" size="lg">
-                        <UInput v-model="formState.password" type="password" class="w-full" />
+                        <UInput v-model="formState.password" :type="showPassword ? 'text' : 'password'" class="w-full"
+                            :ui="{ trailing: 'pe-1' }">
+                            <template #trailing>
+                                <UButton color="neutral" variant="link" size="sm"
+                                    :icon="showPassword ? 'i-lucide-eye-off' : 'i-lucide-eye'"
+                                    :aria-label="showPassword ? 'Hide password' : 'Show password'"
+                                    @click.prevent="togglePassword" />
+                            </template>
+                        </UInput>
                     </UFormField>
+
 
                     <div class="flex justify-between items-center">
                         <UCheckbox name="remember" label="Remember Me" />
@@ -57,6 +67,10 @@
 </template>
 
 <script setup lang="ts">
+const showPassword = ref(false)
+const togglePassword = () => {
+    showPassword.value = !showPassword.value
+}
 // Handle Auth
 const formState = reactive({
     username: '',
@@ -126,14 +140,21 @@ const gradientClass = computed(() => {
 });
 
 const bgImages = [
-  "https://images.unsplash.com/photo-1668763263612-24fe81663e8a",
-  "https://images.unsplash.com/photo-1708844897353-649da595a3f2",
-  "https://images.unsplash.com/photo-1659952586072-b3cebadec6d2",
-  "https://images.unsplash.com/photo-1710781944947-7cd4a381499f",
+    "https://images.unsplash.com/photo-1668763263612-24fe81663e8a",
+    "https://images.unsplash.com/photo-1708844897353-649da595a3f2",
+    "https://images.unsplash.com/photo-1659952586072-b3cebadec6d2",
+    "https://images.unsplash.com/photo-1710781944947-7cd4a381499f",
     "https://images.unsplash.com/photo-1699100329878-7f28bb780787",
-  "https://images.unsplash.com/photo-1700116035176-99d81e11c60b"
-  // Add as many as you want
+    "https://images.unsplash.com/photo-1700116035176-99d81e11c60b"
+    // Add as many as you want
 ];
 
 const randomImage = bgImages[Math.floor(Math.random() * bgImages.length)];
 </script>
+
+<style lang="css" scoped>
+/* Hide the password reveal button in Edge */
+::-ms-reveal {
+    display: none;
+}
+</style>

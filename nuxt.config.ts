@@ -18,5 +18,21 @@ export default defineNuxtConfig({
         mode: 'text',
         height: '500px'
         }
+    },
+    ui: {
+        theme: {
+            colors: [
+                'primary',
+                'secondary',
+                'success',
+                'info',
+                'warning',
+                'error',
+                'neutral',
+                'violet',
+                'orange',
+                'purple'
+            ]
+        }
     }
 })

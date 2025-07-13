@@ -22,7 +22,7 @@
             <Block title="ISSP Documents" description="Manage strategic planning documents across all entities">
                 <template #content>
                     <div class="space-y-4">
-                        <CardDocument v-for="(doc, idx) in documents" :key="doc.title + idx" :document="doc" />
+                        <CardDocument v-for="(doc, index) in documents" :key="index" v-bind="doc" :status="doc.status as 'Approved' | 'Under Review' | 'Draft' | 'Rejected'" />
                     </div>
                 </template>
             </Block>
@@ -30,8 +30,41 @@
             <Block title="Approval Workflow" description="Track document progression through review stages">
                 <template #content>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <CardCustom v-for="card in customCards" :key="card.title" v-bind="card"
-                            @button-click="handleClick(card.title)" />
+                        
+                        <UAlert title="Review Stage" description="1 documents awaiting review" color="secondary" variant="subtle" 
+                            :ui="{ title: 'text-md' }"
+                            :actions="[
+                                {
+                                    label: 'View Queue',
+                                    color: 'secondary',
+                                    variant: 'subtle',
+                                    size: 'lg'
+                                }
+                            ]"
+                        />
+                        <UAlert title="Approval Stage" description="1 documents approved this month" color="success" variant="subtle" 
+                            :ui="{ title: 'text-md' }"
+                            :actions="[
+                                {
+                                    label: 'View Approved',
+                                    color: 'success',
+                                    variant: 'subtle',
+                                    size: 'lg'
+                                }
+                            ]"
+                        />
+                        <UAlert title="Revision Stage" description="3 documents need attention" color="error" variant="subtle" 
+                            :ui="{ title: 'text-md' }"
+                            :actions="[
+                                {
+                                    label: 'View Issues',
+                                    color: 'error',
+                                    variant: 'subtle',
+                                    size: 'lg'
+                                }
+                            ]"
+                        />
+
                     </div>
                 </template>
             </Block>
@@ -95,19 +128,7 @@ const cardStats = [
     }
 ]
 
-type StatusType = 'Approved' | 'Under Review' | 'Draft' | 'Rejected'
-
-const documents: Array<{
-    title: string
-    status: StatusType
-    entity: string
-    author: string
-    version: string
-    lastModified: string
-    progress: number
-    comments: number
-    justifyStart: boolean
-}> = [
+const documents  = [
     {
         title: 'College of Engineering ISSP 2024-2028',
         status: 'Under Review',
@@ -154,38 +175,13 @@ const documents: Array<{
     }
 ]
 
-const customCards = [
-    {
-        title: 'Review Stage',
-        description: '1 documents awaiting review',
-        buttonText: 'View Queue',
-        buttonColor: 'border-blue-300 text-blue-700 hover:bg-blue-50 hover:border-blue-400 hover:text-blue-800 dark:bg-blue-900 dark:text-blue-200 dark:border-blue-700 dark:hover:bg-blue-800 dark:hover:border-blue-500 dark:hover:text-blue-100',
-        titleColor: 'text-blue-800 dark:text-blue-200',
-        descriptionColor: 'text-blue-500 dark:text-blue-400',
-        bgColor: 'bg-blue-50 dark:bg-blue-950/10',
-        borderColor: 'ring-blue-200 dark:ring-blue-800/50'
-    },
-    {
-        title: 'Approval Stage',
-        description: '1 documents approved this month',
-        buttonText: 'View Approved',
-        buttonColor: 'border-green-300 text-green-700 hover:bg-green-50 hover:border-green-400 hover:text-green-800 dark:bg-green-900 dark:text-green-200 dark:border-green-700 dark:hover:bg-green-800 dark:hover:border-green-500 dark:hover:text-green-100',
-        titleColor: 'text-green-800 dark:text-green-200',
-        descriptionColor: 'text-green-500 dark:text-green-400',
-        bgColor: 'bg-green-50 dark:bg-green-950/10',
-        borderColor: 'ring-green-200 dark:ring-green-800/50'
-    },
-    {
-        title: 'Revision Stage',
-        description: '3 documents need attention',
-        buttonText: 'View Issues',
-        buttonColor: 'border-red-300 text-red-700 hover:bg-red-50 hover:border-red-400 hover:text-red-800 dark:bg-red-900 dark:text-red-200 dark:border-red-700 dark:hover:bg-red-800 dark:hover:border-red-500 dark:hover:text-red-100',
-        titleColor: 'text-red-800 dark:text-red-200',
-        descriptionColor: 'text-red-500 dark:text-red-400',
-        bgColor: 'bg-red-50 dark:bg-red-950/10',
-        borderColor: 'ring-red-200 dark:ring-red-800/50'
-    }
-]
+function handleApply(type: string) {
+    console.log(`Button clicked for ${type}`)
+}
+
+function handleDismiss(type: string) {
+    console.log(`Button clicked for ${type}`)
+}
 
 const statuses = ref(['All Status', 'Approved', 'Under Review', 'Draft', 'Rejected'])
 const status = ref('All Status')
@@ -193,19 +189,12 @@ const status = ref('All Status')
 const entities = ref(['All Entities', 'Engineering', 'IT Services', 'Library', 'Admin Office'])
 const entity = ref('All Entities')
 
-const uiCardConfig = {
-    body: 'sm:p-3'
-}
-
 const uiSearchConfig = {
     root: 'w-full',
 }
 
-const uiNewModal = {
-    content: 'divide-y-0 max-w-2xl',
-    header: 'sm:p-6 space-y-1.5 items-center',
-    body: 'pt-0 sm:pt-0',
-    title: 'text-2xl font-semibold leading-none',
+const uiCardConfig = {
+    body: 'sm:p-3'
 }
 
 const uiTemplateModal = {
