@@ -2,7 +2,7 @@
   <UCard :ui="uiCardConfig" class="hover:shadow-md transition-shadow">
     <div class="flex items-center gap-4">
       <!-- File icon -->
-      <UIcon :name="fileIcon" class="w-8 h-8 text-gray-600 dark:text-gray-300" />
+      <UIcon :name="fileIcon" class="w-8 h-8 text-gray-500 dark:text-gray-400" />
 
       <!-- File details grid -->
       <div class="flex-1 grid grid-cols-1 md:grid-cols-5 gap-4 items-center">

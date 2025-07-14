@@ -185,6 +185,11 @@ const items = ref<NavigationMenuItem[][]>([
             to: '/export'
         },
         {
+            label: 'Document Templates',
+            icon: 'i-lucide-panels-top-left',
+            to: '/templates',
+        },
+        {
             label: 'Settings',
             icon: 'i-lucide-settings',
             to: '/settings'

@@ -111,8 +111,7 @@
                 <USkeleton class="h-4 w-[250px] mb-2 dark:bg-gray-700" />
                 <USkeleton class="h-4 w-[200px] dark:bg-gray-700" />
             </UCard>
-            <CardAi v-for="ai in ais" :key="ai.id" :name="ai.name" :model="ai.model" :endpoint="ai.endpoint"
-                :is-active="ai.isActive" />
+            <CardAi v-for="ai in ais" :key="ai.id" :name="ai.name" :model="ai.model" :endpoint="ai.endpoint" :is-active="ai.isActive" />
         </div>
     </div>
 </template>
