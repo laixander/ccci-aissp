@@ -66,7 +66,7 @@
                         </td>
                         <td>
                             <template v-if="entry.editing">
-                                <UInput type="number" v-model="entry.quantity" class="w-full" />
+                                <UInputNumber v-model="entry.quantity" class="w-full" />
                             </template>
                             <template v-else>
                                 {{ entry.quantity }}
@@ -82,7 +82,16 @@
                         </td>
                         <td>
                             <template v-if="entry.editing">
-                                <UInput type="number" v-model="entry.unitCost" class="w-full" />
+                                <UInputNumber 
+                                    v-model="entry.unitCost" 
+                                    :format-options="{
+                                        style: 'currency',
+                                        currency: 'PHP',
+                                        currencyDisplay: 'code',
+                                        currencySign: 'accounting'
+                                    }"
+                                    class="w-full" 
+                                />
                             </template>
                             <template v-else>
                                 {{ entry.unitCost }}
@@ -108,9 +117,9 @@ type Entry = {
     title: string
     description: string
     type: string
-    quantity: number | string
+    quantity: number
     unit: string
-    unitCost: number | string
+    unitCost: number
     editing: boolean
 }
 
@@ -121,9 +130,9 @@ function addRow() {
         title: '',
         description: '',
         type: '',
-        quantity: '',
+        quantity: 0,
         unit: '',
-        unitCost: '',
+        unitCost: 0,
         editing: true
     })
 }

@@ -62,7 +62,7 @@
                         </td>
                         <td>
                             <template v-if="entry.editing">
-                                <UInput v-model="entry.problem" class="w-full" />
+                                <UTextarea v-model="entry.problem" placeholder="Enter items separated by commas" :rows="1" class="w-full" />
                             </template>
                             <template v-else>
                                 <ul class="list-disc list-inside text-sm space-y-0.5">
@@ -72,7 +72,7 @@
                         </td>
                         <td class="!pr-6">
                             <template v-if="entry.editing">
-                                <UInput v-model="entry.use" class="w-full" />
+                                <UTextarea v-model="entry.use" placeholder="Enter items separated by commas" :rows="1" class="w-full" />
                             </template>
                             <template v-else>
                                 <ul class="list-disc list-inside text-sm space-y-0.5">

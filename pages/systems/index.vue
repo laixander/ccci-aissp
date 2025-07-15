@@ -1,8 +1,9 @@
 <template>
     <Page pageTitle="System Management" pageDescription="Manage and prioritize information systems across entities">
         <template #actions>
+            <UButton icon="i-lucide-plus" color="primary" variant="solid" size="lg" class="w-full justify-center" to="/systems/create">Add New System</UButton>
             <!-- Modal -->
-            <FormNewSystem />
+            <!-- <FormNewSystem /> -->
         </template>
     
         <template #content>
