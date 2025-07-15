@@ -6,11 +6,11 @@
             </template>
         </UBreadcrumb>
     </div>
-    <Page page-title="ISSP Document Creator" page-description="Create reusable document templates for ISSP documents">
+    <Page page-title="Template Creator" page-description="Create reusable template for ISSP documents">
         <template #actions>
-            <UButton label="Cancel" color="neutral" size="lg" variant="ghost" to="/document" />
-            <UButton label="Save as Draft" icon="i-lucide-save" color="primary" size="lg" />
-            <UButton label="Generate Document" icon="i-lucide-file-cog" size="lg" color="success" variant="solid" to="/document/generate" />
+            <UButton label="Cancel" color="neutral" size="lg" variant="ghost" to="/templates" />
+            <UButton label="Save Template" icon="i-lucide-save" color="primary" size="lg" />
+            <!-- <UButton label="Generate Document" icon="i-lucide-file-cog" size="lg" color="success" variant="solid" to="/templates/generate" /> -->
         </template>
         <template #content>
             <div class="grid xl:flex gap-6">
@@ -18,9 +18,9 @@
                 <TemplateSections class="w-full" />
             </div>
             <div class="flex flex-col-reverse lg:flex-row justify-end gap-3 *:w-full *:lg:w-auto *:justify-center">
-                <UButton label="Cancel" color="neutral" size="lg" variant="ghost" to="/document" />
-                <UButton label="Save as Draft" icon="i-lucide-save" color="primary" size="lg" />
-                <UButton label="Generate Document" icon="i-lucide-file-cog" color="success" size="lg" to="/document/generate" />
+                <UButton label="Cancel" color="neutral" size="lg" variant="ghost" to="/templates" />
+                <UButton label="Save Template" icon="i-lucide-save" color="primary" size="lg" />
+                <!-- <UButton label="Generate Document" icon="i-lucide-file-cog" color="success" size="lg" to="/templates/generate" /> -->
             </div>
         </template>
     </Page>
@@ -35,11 +35,11 @@ definePageMeta({
 import type { BreadcrumbItem } from '@nuxt/ui'
 const items = ref<BreadcrumbItem[]>([
     {
-        label: 'ISSP Document Management',
-        to: '/document'
+        label: 'Document Templates',
+        to: '/templates'
     },
     {
-        label: 'ISSP Document Creator',
+        label: 'Template Creator',
     }
 ])
 </script>

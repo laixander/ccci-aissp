@@ -12,12 +12,18 @@
         <!-- Format & Size Info -->
         <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">
             Supported: {{ supportedFormats.join(', ').toUpperCase() }} | Max: {{ maxFileSizeMB }}MB{{ multiple ? ' each'
-            : '' }}
+                : '' }}
         </p>
 
         <!-- Hidden file input -->
-        <UInput type="file" :multiple="multiple" :accept="acceptString" class="hidden" ref="fileInput"
-            @change="onFileChange" />
+        <input
+  type="file"
+  ref="fileInput"
+  class="hidden"
+  :multiple="multiple"
+  :accept="acceptString"
+  @change="onFileChange"
+/>
 
         <!-- Upload Button -->
         <UButton :label="buttonLabel" variant="outline" color="neutral" @click="triggerFileInput" />
@@ -41,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+import { nextTick } from 'vue'
 const props = defineProps<{
     icon?: string
     instruction?: string
@@ -74,7 +81,12 @@ const files = ref<File[]>([])
 const isDragging = ref(false)
 
 const triggerFileInput = () => {
-    fileInput.value?.click()
+  const input = fileInput.value
+  if (input instanceof HTMLInputElement && typeof input.click === 'function') {
+    input.click()
+  } else {
+    console.warn('Expected raw input element, got:', input)
+  }
 }
 
 const formatBytes = (bytes: number) => {

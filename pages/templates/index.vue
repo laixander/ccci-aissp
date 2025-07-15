@@ -1,7 +1,7 @@
 <template>
     <Page page-title="Document Templates" page-description="Manage and configure layout templates for ISSP documents">
         <template #actions>
-            <UButton label="New Template" icon="i-lucide-plus" size="lg" class="w-full lg:w-auto justify-center" />
+            <UButton label="New Template" icon="i-lucide-plus" size="lg" class="w-full lg:w-auto justify-center" to="/templates/create" />
         </template>
         <template #content>
             <UTabs color="neutral" :items="items" class="gap-4 w-full" :ui="{ trigger: 'grow' }">

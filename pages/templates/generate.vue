@@ -28,12 +28,12 @@ import type { BreadcrumbItem } from '@nuxt/ui'
 const items = ref<BreadcrumbItem[]>([
     {
         label: 'ISSP Document Management',
-        to: '/document'
+        to: '/templates'
     },
     // ISSP Document Creator
     {
         label: 'ISSP Document Creator',
-        to: '/document/new'
+        to: '/templates/create'
     },
     {
         label: 'Generated Document',
