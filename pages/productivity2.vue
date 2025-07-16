@@ -20,42 +20,17 @@
                     <USelect v-model="type" :items="types" size="lg" class="sm:w-48" />
                 </div>
             </UCard>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Block title="IT Requests & Needs" description="Track and manage productivity enhancement requests">
-                    <template #content>
-                        <div class="space-y-4">
-                            <CardNeeds v-for="(need, index) in needs" :key="need.title" v-bind="need"
-                                :priority="(need.priority as 'High' | 'Medium' | 'Low')"
-                                :type="(need.type as 'Hardware' | 'Software' | 'Infrastructure' | 'Training')"
-                                @edit="() => handleEdit(index)" @copy="() => handleCopy(index)"
-                                @delete="() => handleDelete(index)" />
-                        </div>
-                    </template>
-                </Block>
-                <Block title="Department Overview" description="Current IT status across departments">
-                    <template #content>
-                        <div class="space-y-4">
-                            <CardOverview v-for="overview in overviews" :key="overview.department" v-bind="overview" />
-                        </div>
-                    </template>
-                </Block>
-            </div>
+            <div class="space-y-4">
+                <CardNeeds v-for="(need, index) in needs" :key="need.title" v-bind="need"
+                    :priority="(need.priority as 'High' | 'Medium' | 'Low')"
+                    :type="(need.type as 'Hardware' | 'Software' | 'Infrastructure' | 'Training')"
+                    @edit="() => handleEdit(index)" @copy="() => handleCopy(index)"
+                    @delete="() => handleDelete(index)" />
 
-            <Block title="End-User Device Assignments"
-                description="Track and manage device allocations across the organization">
-                <template #content>
-                    <div class="space-y-4">
-                        <CardDevice v-for="device in devices" :key="device.user" v-bind="device"
-                            :status="device.status as 'Active' | 'Inactive' | 'Repair' | 'In Repair' | 'Retired'"
-                            @edit="onDeviceEdit(device.deviceName)" @delete="onDeviceDelete(device.deviceName)" />
-                    </div>
-                    <div class="mt-6 flex justify-between items-center">
-                        <UButton label="Export Device List" icon="i-lucide-download" size="lg" color="neutral"
-                            variant="outline" />
-                        <UButton label="Assign Device" icon="i-lucide-plus" size="lg" color="primary" variant="solid" />
-                    </div>
-                </template>
-            </Block>
+                <div class="grid justify-center pt-2">
+                    <UPagination v-model:page="page" active-color="neutral" :total="100" />
+                </div>
+            </div>
         </template>
     </Page>
 </template>
@@ -65,6 +40,10 @@ definePageMeta({
     layout: 'dashboard',
     auth: false
 })
+
+const page = ref(5)
+
+const toast = useToast()
 
 const cardStats = [
     {
@@ -147,89 +126,6 @@ const needs = ref([
         ]
     }
 ])
-
-const overviews = [
-    {
-        department: "IT Security",
-        head: "Jane Doe",
-        request: 12,
-        quantity: 18,
-        typeDisplay: [
-            'Hardware', 'Software', 'Infrastructure'
-        ]
-    },
-    {
-        department: "HR Department",
-        head: "John Smith",
-        request: 25,
-        quantity: 30,
-        typeDisplay: [
-            'Hardware', 'Software', 'Training'
-        ]
-    },
-    {
-        department: "Admin Office",
-        head: "Alice Lee",
-        request: 8,
-        quantity: 10,
-        typeDisplay: [
-            'Software', 'Training'
-        ]
-    },
-    {
-        department: "Facilities",
-        head: "Bob Chan",
-        request: 15,
-        quantity: 22,
-        typeDisplay: [
-            'Hardware', 'Infrastructure'
-        ]
-    }
-]
-function onEdit(department: string) {
-    alert(`Edit clicked for: ${department}`)
-}
-
-const devices = [
-    {
-        user: "Jane Doe",
-        department: "IT Security",
-        deviceType: "Laptop",
-        deviceName: "Dell Latitude 7420",
-        status: "Active"
-    },
-    {
-        user: "John Smith",
-        department: "HR Department",
-        deviceType: "Desktop",
-        deviceName: "HP EliteDesk 800",
-        status: "Inactive"
-    },
-    {
-        user: "Alice Lee",
-        department: "Admin Office",
-        deviceType: "Tablet",
-        deviceName: "iPad Air",
-        status: "In Repair"
-    },
-    {
-        user: "Bob Chan",
-        department: "Facilities",
-        deviceType: "Laptop",
-        deviceName: "Lenovo ThinkPad X1",
-        status: "Retired"
-    }
-]
-
-function onDeviceEdit(deviceName: string) {
-    console.log(`Edit clicked for: ${deviceName}`)
-}
-
-function onDeviceDelete(deviceName: string) {
-    console.log(`Delete clicked for: ${deviceName}`)
-}
-
-const toast = useToast()
 
 function handleEdit(index: number) {
     console.log(`Edit clicked on card ${index}`)
