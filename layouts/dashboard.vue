@@ -14,6 +14,7 @@
             <div class="flex justify-end items-center gap-4 flex-1">
                 <UButton variant="link" icon="i-lucide-bell" />
                 <ColorMode />
+                <UButton icon="i-lucide-log-out" variant="ghost" @click="handleLogout" />
                 <!-- <UDropdownMenu :items="userItems">
                     <div class="flex items-center gap-2.5">
                         <UAvatar src="https://i.pravatar.cc/40" alt="User Avatar" size="sm" />

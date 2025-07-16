@@ -2,7 +2,7 @@
     <Page page-title="Document Templates" page-description="Manage and configure layout templates for ISSP documents">
         <template #actions>
             <UButton label="New Template" icon="i-lucide-plus" size="lg" class="w-full lg:w-auto justify-center"
-                to="/app/templates/create" />
+                to="/templates/create" />
         </template>
         <template #content>
             <div class="space-y-4">
