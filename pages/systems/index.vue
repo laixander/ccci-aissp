@@ -1,50 +1,49 @@
 <template>
-    <Page pageTitle="System Management" pageDescription="Manage and prioritize information systems across entities">
-        <template #actions>
-            <UButton icon="i-lucide-plus" color="primary" variant="solid" size="lg" class="w-full justify-center" to="/systems/create">Add New System</UButton>
-            <!-- Modal -->
-            <!-- <FormNewSystem /> -->
-        </template>
-    
+  <Page pageTitle="System Management" pageDescription="Manage and prioritize information systems across entities">
+    <template #actions>
+      <UButton icon="i-lucide-plus" color="primary" variant="solid" size="lg" class="w-full justify-center"
+        to="/systems/create">Add New System</UButton>
+      <!-- Modal -->
+      <!-- <FormNewSystem /> -->
+    </template>
+
+    <template #content>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <CardStat v-for="stat in cardStats" :key="stat.label" v-bind="stat" />
+      </div>
+
+      <UCard>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <UInput icon="i-lucide-search" size="lg" variant="outline" placeholder="Search systems or entities..."
+            :ui="uiSearchConfig" />
+          <USelect v-model="status" :items="statuses" size="lg" class="sm:w-48" />
+          <USelect v-model="priority" :items="priorities" size="lg" class="sm:w-48" />
+        </div>
+      </UCard>
+
+      <Block title="Information Systems Registry" description="Drag and drop to reorder by priority or cost">
         <template #content>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <CardStat
-                    v-for="stat in cardStats"
-                    :key="stat.label"
-                    v-bind="stat"
-                />
-            </div>
-
-            <UCard>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <UInput icon="i-lucide-search" size="lg" variant="outline" placeholder="Search systems or entities..." :ui="uiSearchConfig" />
-                    <USelect v-model="status" :items="statuses" size="lg" class="sm:w-48" />
-                    <USelect v-model="priority" :items="priorities" size="lg" class="sm:w-48" />
-                </div>
-            </UCard>
-
-            <Block title="Information Systems Registry" description="Drag and drop to reorder by priority or cost">
-                <template #content>
-                    <div class="space-y-4">
-                        <CardSystem
-                            v-for="sys in systems"
-                            :key="sys.system"
-                            v-bind="sys"
-                            @edit="onEdit(sys.system)"
-                            @delete="onDelete(sys.system)"
-                        />
-                    </div>
-                </template>
-            </Block>
+          <div class="space-y-4">
+            <draggable v-model="systems" item-key="id" class="space-y-4" :animation="200" ghost-class="drag-ghost"
+              chosen-class="drag-chosen">
+              <template #item="{ element: sys }">
+                <CardSystem :key="sys.system" v-bind="sys" @edit="onEdit(sys.system)" @delete="onDelete(sys.system)" />
+              </template>
+            </draggable>
+          </div>
         </template>
-    </Page>
+      </Block>
+    </template>
+  </Page>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-    layout: 'dashboard',
-    auth:false
+  layout: 'dashboard',
+  auth: false
 })
+
+import draggable from 'vuedraggable'
 
 const statuses = ref(['All Status', 'Active', 'In Progress', 'Planning', 'Completed'])
 const status = ref('All Status')
@@ -53,7 +52,7 @@ const priorities = ref(['All Priority', 'High', 'Medium', 'Low'])
 const priority = ref('All Priority')
 
 const uiSearchConfig = {
-    root: 'w-full',
+  root: 'w-full',
 }
 
 const cardStats = [
@@ -133,3 +132,14 @@ function onDelete(system: string) {
   alert(`Delete clicked for: ${system}`)
 }
 </script>
+
+<style scoped>
+/* .drag-chosen {
+    @apply scale-101 z-10 transition-transform duration-200;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+} */
+
+.drag-ghost {
+  @apply opacity-0;
+}
+</style>

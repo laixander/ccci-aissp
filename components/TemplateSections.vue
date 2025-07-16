@@ -9,11 +9,15 @@
         <template #content>
             <div class="space-y-4 bg-gray-50 dark:bg-gray-800/25 rounded-md p-4">
                 <!-- Hide this when Sections exist -->
-                <div v-if="!sections || sections.length === 0"
+                <!-- <div v-if="!sections || sections.length === 0"
                     class="text-center py-8 text-gray-500 dark:text-gray-400">
                     <UIcon name="i-lucide-file-text" class="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-gray-700" />
                     <p class="text-sm">No sections added yet. Click "Create Section" to get started.</p>
-                </div>
+                </div> -->
+                <EmptyState :show="sections.length === 0"
+                    icon="i-lucide-inbox"
+                    description="No sections added yet. Click 'Create Section' to get started."
+                />
                 <!-- Created Sections -->
                 <draggable v-model="sections" item-key="id" class="space-y-4" :animation="200" ghost-class="drag-ghost"
                     chosen-class="drag-chosen">
