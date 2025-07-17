@@ -4,7 +4,7 @@
             <div class="flex justify-between items-center">
                 <div>
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                        Strategic Concern
+                        Setp 6: Strategic Concern
                     </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         This step collects information about strategic concerns related to the system.

@@ -4,7 +4,7 @@
             <div class="flex justify-between items-center">
                 <div>
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                        Deliverables
+                        Setp 5: Deliverables
                     </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         This step collects information about deliverables related to the system.

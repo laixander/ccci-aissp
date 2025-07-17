@@ -89,16 +89,18 @@
                                     v-model="usageStepperState.externalUser" />
                             </UFormField>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <UFormField label="Linked Systems" size="lg" name="linkedSystem">
-                                <UInput placeholder="e.g. CMS, Financial System" class="w-full"
-                                    v-model="usageStepperState.linkedSystem" />
-                            </UFormField>
+                        <UFormField label="Linked Systems" size="lg" name="linkedSystem">
+                            <UInput placeholder="e.g. CMS, Financial System" class="w-full"
+                                v-model="usageStepperState.linkedSystem" />
+                        </UFormField>
+
+                        <FormSystemPerformanceMetrics />
+                        <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <UFormField label="Performance Metrics" size="lg" name="performanceMetrics">
                                 <UInput placeholder="e.g. SLA %, Uptime %, Client Satisfaction" class="w-full"
                                     v-model="usageStepperState.performanceMetrics" />
                             </UFormField>
-                        </div>
+                        </div> -->
                     </UForm>
                 </UCard>
             </template>

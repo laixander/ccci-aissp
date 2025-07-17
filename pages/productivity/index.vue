@@ -21,6 +21,18 @@
                 </div>
             </UCard>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Block title="Department Overview" description="Current IT status across departments">
+                    <template #content>
+                        <div class="space-y-4">
+                            <EmptyState :show="overviews.length === 0"
+                                icon="i-lucide-inbox"
+                                title="No overview found."
+                                description="Click “Add Request” to create your first one."
+                            />
+                            <CardOverview v-for="overview in overviews" :key="overview.department" v-bind="overview" />
+                        </div>
+                    </template>
+                </Block>
                 <Block title="IT Requests & Needs" description="Track and manage productivity enhancement requests">
                     <template #content>
                         <div class="space-y-4">
@@ -38,21 +50,9 @@
                         </div>
                     </template>
                 </Block>
-                <Block title="Department Overview" description="Current IT status across departments">
-                    <template #content>
-                        <div class="space-y-4">
-                            <EmptyState :show="overviews.length === 0"
-                                icon="i-lucide-inbox"
-                                title="No overview found."
-                                description="Click “Add Request” to create your first one."
-                            />
-                            <CardOverview v-for="overview in overviews" :key="overview.department" v-bind="overview" />
-                        </div>
-                    </template>
-                </Block>
             </div>
 
-            <!-- <Block title="End-User Device Assignments"
+            <Block title="End-User Device Assignments"
                 description="Track and manage device allocations across the organization">
                 <template #content>
                     <div class="space-y-4">
@@ -66,7 +66,7 @@
                         <UButton label="Assign Device" icon="i-lucide-plus" size="lg" color="primary" variant="solid" />
                     </div>
                 </template>
-            </Block> -->
+            </Block>
         </template>
     </Page>
 </template>
@@ -229,36 +229,36 @@ function onEdit(department: string) {
     alert(`Edit clicked for: ${department}`)
 }
 
-// const devices = [
-//     {
-//         user: "Jane Doe",
-//         department: "IT Security",
-//         deviceType: "Laptop",
-//         deviceName: "Dell Latitude 7420",
-//         status: "Active"
-//     },
-//     {
-//         user: "John Smith",
-//         department: "HR Department",
-//         deviceType: "Desktop",
-//         deviceName: "HP EliteDesk 800",
-//         status: "Inactive"
-//     },
-//     {
-//         user: "Alice Lee",
-//         department: "Admin Office",
-//         deviceType: "Tablet",
-//         deviceName: "iPad Air",
-//         status: "In Repair"
-//     },
-//     {
-//         user: "Bob Chan",
-//         department: "Facilities",
-//         deviceType: "Laptop",
-//         deviceName: "Lenovo ThinkPad X1",
-//         status: "Retired"
-//     }
-// ]
+const devices = [
+    {
+        user: "Jane Doe",
+        department: "IT Security",
+        deviceType: "Laptop",
+        deviceName: "Dell Latitude 7420",
+        status: "Active"
+    },
+    {
+        user: "John Smith",
+        department: "HR Department",
+        deviceType: "Desktop",
+        deviceName: "HP EliteDesk 800",
+        status: "Inactive"
+    },
+    {
+        user: "Alice Lee",
+        department: "Admin Office",
+        deviceType: "Tablet",
+        deviceName: "iPad Air",
+        status: "In Repair"
+    },
+    {
+        user: "Bob Chan",
+        department: "Facilities",
+        deviceType: "Laptop",
+        deviceName: "Lenovo ThinkPad X1",
+        status: "Retired"
+    }
+]
 
 function onDeviceEdit(deviceName: string) {
     console.log(`Edit clicked for: ${deviceName}`)
