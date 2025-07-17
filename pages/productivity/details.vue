@@ -9,8 +9,8 @@
     <Page page-title="IT Request Details"
         page-description="Review and manage the details of your ISSP document requests">
         <template #actions>
-            <UButton label="Back to Productivity" icon="i-lucide-arrow-left" variant="ghost" color="neutral"
-                size="lg" to="/productivity" />
+            <UButton label="Back to Productivity" icon="i-lucide-arrow-left" variant="ghost" color="neutral" size="lg"
+                to="/productivity" />
         </template>
         <template #content>
             <div class="grid xl:flex gap-6">
@@ -20,40 +20,34 @@
                             <div class="flex flex-col space-y-1.5">
                                 <div class="flex justify-between items-start">
                                     <div>
-                                        <h3 class="font-semibold tracking-tight text-xl">Upgrade laboratory computers
-                                        </h3>
-                                        <p class="text-sm text-muted-foreground mt-2">Submitted by Dr. Maria Santos from
-                                            College of Engineering</p>
+                                        <h3 class="text-highlighted font-semibold tracking-tight text-xl">Upgrade
+                                            laboratory computers</h3>
+                                        <p class="text-sm text-muted mt-2">Submitted by Dr. Maria Santos from College of
+                                            Engineering</p>
                                     </div>
                                     <div class="flex gap-2">
-                                        <div
-                                            class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80 bg-yellow-100 text-yellow-800">
-                                            Under Review
-                                        </div>
-                                        <div
-                                            class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80 bg-red-100 text-red-800">
-                                            High Priority
-                                        </div>
+                                        <UBadge label="High" color="error" variant="soft" class="rounded-full" />
+                                        <UBadge label="Hardware" color="error" class="rounded-full" />
                                     </div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div class="flex items-center gap-2">
-                                    <UIcon name="i-lucide-calendar" class="w-4 h-4 text-blue-600" />
+                                    <UIcon name="i-lucide-calendar" class="w-4 h-4 text-blue-600 dark:text-blue-500" />
                                     <div>
                                         <p class="text-sm font-medium">2024-01-15</p>
                                         <p class="text-xs text-gray-500">Submitted</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <UIcon name="i-lucide-user" class="w-4 h-4 text-green-600" />
+                                    <UIcon name="i-lucide-user" class="w-4 h-4 text-green-600 dark:text-green-500" />
                                     <div>
                                         <p class="text-sm font-medium">25</p>
                                         <p class="text-xs text-gray-500">Quantity</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <UIcon name="i-lucide-dollar-sign" class="w-4 h-4 text-purple-600" />
+                                    <UIcon name="i-lucide-dollar-sign" class="w-4 h-4 text-purple-600 dark:text-purple-500" />
                                     <div>
                                         <p class="text-sm font-medium">₱1,250,000.00</p>
                                         <p class="text-xs text-gray-500">Budget</p>
@@ -70,13 +64,12 @@
                         </div>
                     </UCard>
 
-                    <UCard>
-                        <div class="space-y-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight">Request Details</h3>
+                    <Block title="Request Details">
+                        <template #content>
                             <div class="space-y-4">
                                 <div>
-                                    <h4 class="font-medium text-gray-900 mb-2">Description</h4>
-                                    <p class="text-gray-700 leading-relaxed">
+                                    <h4 class="font-medium text-default mb-2">Description</h4>
+                                    <p class="text-muted leading-relaxed">
                                         The engineering laboratory requires computer upgrades to support the new CAD
                                         software and simulation tools for the upcoming semester. Current machines are
                                         outdated and causing productivity issues for students and faculty.
@@ -84,8 +77,8 @@
                                 </div>
                                 <USeparator />
                                 <div>
-                                    <h4 class="font-medium text-gray-900 mb-2">Business Justification</h4>
-                                    <p class="text-gray-700 leading-relaxed">
+                                    <h4 class="font-medium text-default mb-2">Business Justification</h4>
+                                    <p class="text-muted leading-relaxed">
                                         These upgraded computers will enable students to work more efficiently with
                                         industry-standard software, improving their learning experience and preparing
                                         them better for their careers. The investment will also reduce maintenance costs
@@ -93,59 +86,64 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
-                    </UCard>
+                        </template>
+                    </Block>
 
                     <Block title="Supporting Documents" description="Attachments and supporting files for this request">
                         <template #content>
                             <div class="space-y-3">
-                                <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:shadow-sm transition-shadow">
-                                    <UIcon name="i-lucide-file-text" class="w-8 h-8 text-blue-600" />
-                                    <div class="flex-1">
-                                        <p class="font-medium text-gray-900">Hardware_Specifications.pdf</p>
-                                        <p class="text-sm text-gray-500">2.4 MB</p>
-                                    </div>
-                                    <div class="flex gap-4">
-                                        <UButton icon="i-lucide-eye" variant="ghost" color="neutral" size="sm" />
-                                        <UButton icon="lucide-download" variant="ghost" color="neutral" size="sm" />
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:shadow-sm transition-shadow">
-                                    <UIcon name="i-lucide-image" class="w-8 h-8 text-blue-600" />
-                                    <div class="flex-1">
-                                        <p class="font-medium text-gray-900">Lab_Layout_Diagram.png</p>
-                                        <p class="text-sm text-gray-500">1.8 MB</p>
-                                    </div>
-                                    <div class="flex gap-4">
-                                        <UButton icon="i-lucide-eye" variant="ghost" color="neutral" size="sm" />
-                                        <UButton icon="lucide-download" variant="ghost" color="neutral" size="sm" />
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:shadow-sm transition-shadow">
-                                    <UIcon name="i-lucide-file-spreadsheet" class="w-8 h-8 text-blue-600" />
-                                    <div class="flex-1">
-                                        <p class="font-medium text-gray-900">Budget_Breakdown.xlsx</p>
-                                        <p class="text-sm text-gray-500">456 KB</p>
-                                    </div>
-                                    <div class="flex gap-4">
-                                        <UButton icon="i-lucide-eye" variant="ghost" color="neutral" size="sm" />
-                                        <UButton icon="lucide-download" variant="ghost" color="neutral" size="sm" />
-                                    </div>
-                                </div>
-
+                                <CardFile
+                                    v-for="file in files"
+                                    :key="file.name"
+                                    :name="file.name"
+                                    :size="file.size"
+                                    :file-type="file.type"
+                                    @view=""
+                                    @download=""
+                                />
                             </div>
                         </template>
                     </Block>
                 </div>
                 <div class="w-full xl:w-[768px] space-y-6">
-                    <UCard>
-                        <ComingSoon />
-                    </UCard>
-                    <UCard>
-                        <ComingSoon />
-                    </UCard>
+                    <Block title="Quick Actions">
+                        <template #content>
+                            <div class="grid gap-3 w-full">
+                                <UButton label="Edit Request" icon="i-lucide-edit" variant="outline" color="neutral"
+                                    size="lg" class="w-full justify-center" />
+                                <UButton label="Delete Request" icon="i-lucide-trash" color="error" size="lg"
+                                    class="w-full justify-center" />
+                            </div>
+                        </template>
+                    </Block>
+                    <Block title="Review Comments" description="Timeline of review activities">
+                        <template #content>
+                            <div class="space-y-6">
+                                <div class="border-l-3 border-blue-200 dark:border-blue-900/40 pl-4">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <UIcon name="i-lucide-message-square" class="w-4 h-4 text-blue-600 dark:text-blue-500" />
+                                        <p class="font-medium text-sm text-default">IT Director</p>
+                                    </div>
+                                    <p class="text-sm text-muted mb-2">2024-01-16</p>
+                                    <p class="text-sm text-default">Initial review completed. Specifications look good,
+                                        forwarding to budget committee.</p>
+                                </div>
+
+                                <div class="border-l-3 border-blue-200 dark:border-blue-900/40 pl-4">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <UIcon name="i-lucide-message-square" class="w-4 h-4 text-blue-600 dark:text-blue-500" />
+                                        <p class="font-medium text-sm text-default">Budget Manager</p>
+                                    </div>
+                                    <p class="text-sm text-muted mb-2">2024-01-18</p>
+                                    <p class="text-sm text-default">Budget approval pending. Need additional quotes from vendors.</p>
+                                </div>
+                            </div>
+                            <div class="pt-8 space-y-2">
+                                <UTextarea placeholder="Add reviews to this request" class="w-full" />
+                                <UButton label="Submit Review" color="neutral" size="lg" class="w-full justify-center" />
+                            </div>
+                        </template>
+                    </Block>
                 </div>
             </div>
         </template>
@@ -168,4 +166,10 @@ const items = ref<BreadcrumbItem[]>([
         label: 'Request Details'
     }
 ])
+
+const files = [
+  { name: 'Hardware_Specifications.pdf', size: '2.4 MB', type: 'pdf' },
+  { name: 'Lab_Layout_Diagram.png', size: '1.8 MB', type: 'png' },
+  { name: 'Budget_Breakdown.xlsx', size: '456 KB', type: 'xlsx' }
+]
 </script>
