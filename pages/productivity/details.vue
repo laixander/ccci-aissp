@@ -28,6 +28,9 @@
                                     <div class="flex gap-2">
                                         <UBadge label="High" color="error" variant="soft" class="rounded-full" />
                                         <UBadge label="Hardware" color="error" class="rounded-full" />
+                                        <UBadge label="HRIS" color="neutral" variant="soft" class="rounded-full" />
+                                        <UBadge label="CMS" color="neutral" variant="soft" class="rounded-full" />
+                                        <UBadge label="ISSP 2024" color="neutral" variant="soft" class="rounded-full" />
                                     </div>
                                 </div>
                             </div>
