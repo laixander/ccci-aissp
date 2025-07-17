@@ -1,6 +1,5 @@
 <template>
-    <NuxtLink :to="to" class="block" style="text-decoration: none;">
-        <UCard :ui="uiCardConfig" class="hover:shadow-md transition-shadow">
+        <UCard :ui="uiCardConfig" class="hover:shadow-md transition-shadow" @click="navigate">
             <div class="space-y-4">
                 <div class="flex items-start justify-between">
                     <div class="space-y-1">
@@ -16,11 +15,11 @@
                     <div class="flex items-center space-x-2">
                         <UTooltip text="Edit Template">
                             <UButton icon="i-lucide-square-pen" color="neutral" variant="ghost" size="sm"
-                                @click="$emit('edit')" />
+                                @click.stop="$emit('edit')" />
                         </UTooltip>
                         <UTooltip text="Duplicate Template">
                             <UButton icon="i-lucide-copy" color="neutral" variant="ghost" size="sm"
-                                @click="$emit('copy')" />
+                                @click.stop="$emit('copy')" />
                         </UTooltip>
 
                         <!-- Delete Confirmation Modal -->
@@ -28,7 +27,7 @@
                             <template #action>
                                 <UTooltip text="Delete Template">
                                     <UButton icon="i-lucide-trash-2" color="error" variant="ghost" size="sm"
-                                        aria-label="Delete" />
+                                        aria-label="Delete" @click.stop />
                                 </UTooltip>
                             </template>
                             <template #message>
@@ -86,12 +85,15 @@
                 </div>
             </div>
         </UCard>
-    </NuxtLink>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { NuxtLink } from '#components'
+
+const router = useRouter()
+const navigate = () => {
+  if (props.to) router.push(props.to)
+}
 
 interface Props {
     title: string
