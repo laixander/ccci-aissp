@@ -29,7 +29,7 @@
                                 title="No overview found."
                                 description="Click “Add Request” to create your first one."
                             />
-                            <CardOverview v-for="overview in overviews" :key="overview.department" v-bind="overview" />
+                            <CardOverview v-for="item in overviews" :key="item.department" v-bind="item" :typeDisplay="(item.typeDisplay as [])" />
                         </div>
                     </template>
                 </Block>
@@ -52,7 +52,7 @@
                 </Block>
             </div>
 
-            <Block title="End-User Device Assignments"
+            <!-- <Block title="End-User Device Assignments"
                 description="Track and manage device allocations across the organization">
                 <template #content>
                     <div class="space-y-4">
@@ -64,6 +64,20 @@
                         <UButton label="Export Device List" icon="i-lucide-download" size="lg" color="neutral"
                             variant="outline" />
                         <UButton label="Assign Device" icon="i-lucide-plus" size="lg" color="primary" variant="solid" />
+                    </div>
+                </template>
+            </Block> -->
+
+            <Block title="Top Request Items" description="Most requested IT items across all departments">
+                <template #content>
+                    <div class="space-y-3">
+                        <CardTopRequest
+                            v-for="item in requests" :key="item.request" v-bind="item"
+                            :priority="(item.priority as 'High' | 'Medium' | 'Low')"
+                            :actions="['view', 'delete']"
+                            @view="onRequestView(item.request)"
+                            @delete-confirmed="onRequestDelete(item.request)"
+                        />
                     </div>
                 </template>
             </Block>
@@ -161,112 +175,118 @@ const needs = ref([
 
 const overviews = [
     {
-        department: "IT Security",
-        head: "Jane Doe",
+        department: "Computer Science",
+        head: "Dr. Angela Reyes",
+        request: 20,
+        quantity: 35,
+        typeDisplay: [
+            'Hardware', 'Software', 'Network Equipment'
+        ]
+    },
+    {
+        department: "Engineering",
+        head: "Engr. Mark Villanueva",
+        request: 18,
+        quantity: 28,
+        typeDisplay: [
+            'Hardware', 'CAD Software', 'Servers'
+        ]
+    },
+    {
+        department: "Business Administration",
+        head: "Prof. Carla Dizon",
         request: 12,
-        quantity: 18,
+        quantity: 20,
         typeDisplay: [
-            'Hardware', 'Software', 'Infrastructure'
+            'Software', 'Laptops', 'Projectors'
         ]
     },
     {
-        department: "HR Department",
-        head: "John Smith",
-        request: 25,
-        quantity: 30,
+        department: "Education",
+        head: "Dr. Liza Santos",
+        request: 10,
+        quantity: 15,
         typeDisplay: [
-            'Hardware', 'Software', 'Training'
+            'E-Learning Tools', 'Tablets', 'Training'
         ]
     },
     {
-        department: "Admin Office",
-        head: "Alice Lee",
+        department: "Nursing",
+        head: "Dean Roberto Tan",
+        request: 14,
+        quantity: 22,
+        typeDisplay: [
+            'Simulation Software', 'Hardware', 'Technical Support'
+        ]
+    },
+    {
+        department: "Library Services",
+        head: "Ms. Joanna Lim",
         request: 8,
         quantity: 10,
         typeDisplay: [
-            'Software', 'Training'
+            'Digital Catalog Systems', 'Scanners', 'Software'
         ]
     },
     {
-        department: "Facilities",
-        head: "Bob Chan",
-        request: 15,
-        quantity: 22,
+        department: "Multimedia Arts",
+        head: "Mr. Paolo Garcia",
+        request: 16,
+        quantity: 24,
         typeDisplay: [
-            'Hardware', 'Infrastructure'
+            'Editing Software', 'High-End PCs', 'Storage Devices'
         ]
     },
     {
-        department: "Finance",
-        head: "Maria Cruz",
-        request: 10,
+        department: "Research and Development",
+        head: "Dr. Evelyn Bautista",
+        request: 9,
         quantity: 14,
         typeDisplay: [
-            'Software', 'Hardware'
-        ]
-    },
-    {
-        department: "Procurement",
-        head: "Carlos Reyes",
-        request: 7,
-        quantity: 9,
-        typeDisplay: [
-            'Infrastructure', 'Training'
-        ]
-    },
-    {
-        department: "Operations",
-        head: "Mark Lim",
-        request: 20,
-        quantity: 25,
-        typeDisplay: [
-            'Hardware', 'Infrastructure', 'Training'
+            'Data Analysis Tools', 'Cloud Services', 'Laptops'
         ]
     }
-]
+];
 
-function onEdit(department: string) {
-    alert(`Edit clicked for: ${department}`)
-}
 
-const devices = [
-    {
-        user: "Jane Doe",
-        department: "IT Security",
-        deviceType: "Laptop",
-        deviceName: "Dell Latitude 7420",
-        status: "Active"
-    },
-    {
-        user: "John Smith",
-        department: "HR Department",
-        deviceType: "Desktop",
-        deviceName: "HP EliteDesk 800",
-        status: "Inactive"
-    },
-    {
-        user: "Alice Lee",
-        department: "Admin Office",
-        deviceType: "Tablet",
-        deviceName: "iPad Air",
-        status: "In Repair"
-    },
-    {
-        user: "Bob Chan",
-        department: "Facilities",
-        deviceType: "Laptop",
-        deviceName: "Lenovo ThinkPad X1",
-        status: "Retired"
-    }
-]
+// const devices = [
+//     {
+//         user: "Jane Doe",
+//         department: "IT Security",
+//         deviceType: "Laptop",
+//         deviceName: "Dell Latitude 7420",
+//         status: "Active"
+//     },
+//     {
+//         user: "John Smith",
+//         department: "HR Department",
+//         deviceType: "Desktop",
+//         deviceName: "HP EliteDesk 800",
+//         status: "Inactive"
+//     },
+//     {
+//         user: "Alice Lee",
+//         department: "Admin Office",
+//         deviceType: "Tablet",
+//         deviceName: "iPad Air",
+//         status: "In Repair"
+//     },
+//     {
+//         user: "Bob Chan",
+//         department: "Facilities",
+//         deviceType: "Laptop",
+//         deviceName: "Lenovo ThinkPad X1",
+//         status: "Retired"
+//     }
+// ]
 
-function onDeviceEdit(deviceName: string) {
-    console.log(`Edit clicked for: ${deviceName}`)
-}
+// function onDeviceEdit(deviceName: string) {
+//     console.log(`Edit clicked for: ${deviceName}`)
+// }
 
-function onDeviceDelete(deviceName: string) {
-    console.log(`Delete clicked for: ${deviceName}`)
-}
+// function onDeviceDelete(deviceName: string) {
+//     console.log(`Delete clicked for: ${deviceName}`)
+// }
 
 const toast = useToast()
 
@@ -310,4 +330,51 @@ const type = ref('All Type')
 const uiSearchConfig = {
     root: 'w-full',
 }
+
+const requests = [
+    {
+        request: 'Laptop Upgrades',
+        count: 24,
+        budget: 2400000,
+        trend: +15,
+        priority: 'High'
+    },
+    {
+        request: 'Network Infrastructure',
+        count: 18,
+        budget: 1800000,
+        trend: +8,
+        priority: 'High'
+    },
+    {
+        request: 'Software Licenses',
+        count: 15,
+        budget: 750000,
+        trend: +22,
+        priority: 'Medium'
+    },
+    {
+        request: 'Laptop Upgrades',
+        count: 5,
+        budget: 900000,
+        trend: +5,
+        priority: 'Medium'
+    },
+    {
+        request: 'Laptop Upgrades',
+        count: 24,
+        budget: 2400000,
+        trend: -3,
+        priority: 'Low'
+    }
+]
+
+function onRequestView(request: string) {
+    alert(`Edit clicked for: ${request}`)
+}
+
+function onRequestDelete(request: string) {
+    alert(`Delete clicked for: ${request}`)
+}
+
 </script>

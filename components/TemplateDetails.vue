@@ -17,28 +17,8 @@
 
                 <!-- Custom Color Picker -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <UFormField label="Primary Color">
-                        <div class="flex items-center gap-2">
-                            <UPopover :content="{ align: 'start', side: 'bottom' }">
-                                <div class="shrink-0 w-9 h-9 rounded-md" :style="primaryChip"></div>
-                                <template #content>
-                                    <UColorPicker v-model="primaryColor" class="p-2" />
-                                </template>
-                            </UPopover>
-                            <UInput v-model="primaryColor" size="lg" class="w-full" />
-                        </div>
-                    </UFormField>
-                    <UFormField label="Secondary Color">
-                        <div class="flex items-center gap-2">
-                            <UPopover :content="{ align: 'start', side: 'bottom' }">
-                                <div class="shrink-0 w-9 h-9 rounded-md" :style="secondaryChip"></div>
-                                <template #content>
-                                    <UColorPicker v-model="secondaryColor" class="p-2" />
-                                </template>
-                            </UPopover>
-                            <UInput v-model="secondaryColor" size="lg" class="w-full" />
-                        </div>
-                    </UFormField>
+                    <ColorPicker v-model="primaryColor" label="Primary Color" />
+                    <ColorPicker v-model="secondaryColor" label="Secondary Color" />
                 </div>
 
                 <UFormField label="Document Header" size="lg">
@@ -62,6 +42,4 @@ const logoImage = ref<File[]>([])
 // Custom Color Picker
 const primaryColor = ref('#0284c7')
 const secondaryColor = ref('#374151')
-const primaryChip = computed(() => ({ backgroundColor: primaryColor.value }))
-const secondaryChip = computed(() => ({ backgroundColor: secondaryColor.value }))
 </script>
