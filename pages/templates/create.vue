@@ -14,7 +14,7 @@
         </template>
         <template #content>
             <div class="grid xl:flex gap-6">
-                <TemplateDetails class="w-full xl:w-[768px]" />
+                <!-- <TemplateDetails class="w-full xl:w-[768px]" /> -->
                 <TemplateSections class="w-full" />
             </div>
             <div class="flex flex-col-reverse lg:flex-row justify-end gap-3 *:w-full *:lg:w-auto *:justify-center">
