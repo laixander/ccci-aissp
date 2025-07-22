@@ -111,6 +111,16 @@ function handleCreateTemplate(newTemplate: TemplateItem) {
 
 const uiSearchConfig = { root: 'w-full' }
 
+interface TemplateItem {
+    title: string
+    description: string
+    status: 'Active' | 'Inactive'
+    sections: string[]
+    user: string
+    created: string
+    updated: string
+}
+
 // Sample data for demo/testing
 templates.value = [
     {
@@ -119,8 +129,8 @@ templates.value = [
         status: 'Active',
         sections: ['Executive Summary', 'System Overview', 'Risk Assessment'],
         user: 'Admin User',
-        created: '1/15/2024',
-        updated: '1/20/2024'
+        created: '2025-01-15',
+        updated: '2025-01-20'
     },
     {
         title: 'Cloud Migration Template',
@@ -128,8 +138,8 @@ templates.value = [
         status: 'Inactive',
         sections: ['Introduction', 'Infrastructure Mapping', 'Risk Mitigation'],
         user: 'Jane Smith',
-        created: '3/02/2024',
-        updated: '3/18/2024'
+        created: '2025-03-02',
+        updated: '2025-03-18'
     },
     {
         title: 'Incident Response Plan',
@@ -137,8 +147,8 @@ templates.value = [
         status: 'Active',
         sections: ['Summary', 'Team Roles'],
         user: 'CyberSec Lead',
-        created: '5/01/2024',
-        updated: '5/10/2024'
+        created: '2025-05-01',
+        updated: '2025-05-10'
     }
 ]
 </script>
