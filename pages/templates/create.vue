@@ -6,7 +6,7 @@
             </template>
         </UBreadcrumb>
     </div>
-    <Page page-title="Template Creator" page-description="Create reusable template for ISSP documents">
+    <Page page-title="Section Management" page-description="Create, organize, and manage the sections of your document.">
         <template #actions>
             <UButton label="Cancel" color="neutral" size="lg" variant="ghost" to="/templates" />
             <UButton label="Save Template" icon="i-lucide-save" color="primary" size="lg" />
@@ -39,7 +39,7 @@ const items = ref<BreadcrumbItem[]>([
         to: '/templates'
     },
     {
-        label: 'Template Creator',
+        label: 'Section Management',
     }
 ])
 </script>

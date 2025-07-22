@@ -41,6 +41,29 @@ type Section = {
     type: string
 }
 
+const selectedSection = ref<Section | null>(null)
+
+function onEdit(section: Section) {
+    selectedSection.value = { ...section }
+}
+
+function onUpdateSection(updated: Section) {
+    const index = sections.value.findIndex(s => s.id === updated.id)
+    if (index !== -1) sections.value[index] = updated
+    selectedSection.value = null
+}
+
+function onDelete(section: Section) {
+    sections.value = sections.value.filter(s => s.id !== section.id)
+}
+
+function onAddSection(section: Omit<Section, 'id'>) {
+    const nextId = Math.max(0, ...sections.value.map(s => s.id)) + 1
+    sections.value.push({ ...section, id: nextId })
+    selectedSection.value = null
+}
+
+// Sample data
 const sections = ref<Section[]>([
     {
         id: 1,
@@ -79,28 +102,6 @@ const sections = ref<Section[]>([
         type: 'internal_mapping'
     }
 ])
-
-const selectedSection = ref<Section | null>(null)
-
-function onEdit(section: Section) {
-    selectedSection.value = { ...section }
-}
-
-function onUpdateSection(updated: Section) {
-    const index = sections.value.findIndex(s => s.id === updated.id)
-    if (index !== -1) sections.value[index] = updated
-    selectedSection.value = null
-}
-
-function onDelete(section: Section) {
-    sections.value = sections.value.filter(s => s.id !== section.id)
-}
-
-function onAddSection(section: Omit<Section, 'id'>) {
-    const nextId = Math.max(0, ...sections.value.map(s => s.id)) + 1
-    sections.value.push({ ...section, id: nextId })
-    selectedSection.value = null
-}
 </script>
 
 <style scoped>

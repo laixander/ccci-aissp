@@ -1,5 +1,5 @@
 <template>
-    <UCard class="hover:shadow-md transition-shadow">
+    <UCard class="shadow-sm hover:shadow-md transition-shadow">
         <div class="space-y-4">
             <!-- Header -->
             <div class="flex items-start justify-between">
@@ -62,15 +62,16 @@
                             class="rounded-full" 
                         />
                     </div>
-                    <UButton label="Add Sections" icon="i-lucide-plus" size="xs" variant="ghost" class="rounded-full"
-                        to="/templates/create" />
+                    <!-- <UButton label="Add Sections" icon="i-lucide-plus" size="xs" variant="ghost" class="rounded-full"
+                        to="/templates/create" /> -->
                 </div>
-                <UBadge 
+                <!-- <UBadge 
                     :label="`${sections.length} sections`" 
                     variant="outline" 
                     color="neutral" 
                     class="rounded-full" 
-                />
+                /> -->
+                <UButton label="Add Sections" icon="i-lucide-list-plus" variant="outline" to="/templates/create" />
             </div>
 
             <!-- Metadata -->
