@@ -1,28 +1,46 @@
 <template>
     <UCard :ui="uiCardConfig" class="shadow-sm hover:shadow-md transition-shadow">
         <div class="flex items-center gap-4">
-            <UIcon :name="icon" class="w-6 h-6 text-gray-300 dark:text-gray-800" />
-            <div class="flex-1 grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
-                <div>
-                    <h3 class="font-medium text-gray-800 dark:text-gray-100 truncate">{{ system }}</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ entity }}</p>
+            <UIcon :name="icon" class="w-6 h-6 text-gray-300 dark:text-gray-800 cursor-grab handle" />
+            <div class="flex-1 grid grid-cols-1 lg:grid-cols-5 gap-2 lg:gap-4 items-center">
+                <div class="flex items-center gap-2">
+                    <!-- Toggle button for mobile -->
+                    <UButton :icon="showDetails ? 'i-lucide-square-minus' : 'i-lucide-square-plus'" variant="ghost" color="neutral" class="lg:hidden cursor-pointer"
+                        @click="showDetails = !showDetails" v-show="!hideToggle" />
+                    <div class="w-full truncate">
+                        <h3 class="font-medium text-gray-800 dark:text-gray-100 truncate">{{ system }}</h3>
+                        <p class="text-md text-gray-500 dark:text-gray-400 truncate">{{ entity }}</p>
+                    </div>
                 </div>
-                <div class="text-center">
-                    <p class="font-semibold text-gray-800 dark:text-gray-100">{{ budget }}</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Budget</p>
+
+                <!-- Extra fields shown only on large or toggle on small -->
+                <!-- Budget -->
+                <div class="flex justify-between items-center lg:block lg:text-center lg:border-none border-b border-gray-100 dark:border-gray-800/50 lg:pb-0 pb-2" v-show="forceShow || showDetails || isLargeScreen">
+                    <p class="font-semibold text-gray-800 dark:text-gray-100 order-1 truncate">{{ budget }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 order-0">Budget</p>
                 </div>
-                <div class="text-center">
+
+                <!-- Priority -->
+                <div class="flex justify-between items-center lg:block lg:text-center lg:border-none border-b border-gray-100 dark:border-gray-800/50 lg:pb-0 pb-2" v-show="forceShow || showDetails || isLargeScreen">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 lg:hidden">Priority</p>
                     <UBadge :label="priorityDisplay" :color="priorityColor" variant="soft" class="rounded-full" />
                 </div>
-                <div class="text-center">
+
+                <!-- Status -->
+                <div class="flex justify-between items-center lg:block lg:text-center lg:border-none border-b border-gray-100 dark:border-gray-800/50 lg:pb-0 pb-2" v-show="forceShow || showDetails || isLargeScreen">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 lg:hidden">Status</p>
                     <UBadge :label="statusDisplay" :color="statusColor" variant="soft" class="rounded-full" />
                 </div>
-                <div class="text-center">
-                    <p class="text-sm font-medium text-gray-800 dark:text-gray-100">{{ deadline }}</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Deadline</p>
+
+                <!-- Deadline -->
+                <div class="flex justify-between items-center lg:block lg:text-center" v-show="forceShow || showDetails || isLargeScreen">
+                    <p class="text-sm font-medium text-gray-800 dark:text-gray-100 order-1 truncate">{{ deadline }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 order-0">Deadline</p>
                 </div>
             </div>
-            <div class="flex gap-2">
+
+            <!-- Action buttons -->
+            <div :class="[showDetails ? 'grid' : 'flex']" class="lg:flex items-center gap-2">
                 <UButton icon="i-lucide-edit" variant="ghost" color="neutral" size="sm" aria-label="Edit System"
                     @click="$emit('edit')" />
                 <UButton icon="i-lucide-trash-2" variant="ghost" color="error" size="sm" aria-label="Delete System"
@@ -33,7 +51,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
 
 interface Props {
     system: string
@@ -43,9 +62,20 @@ interface Props {
     status: 'active' | 'in progress' | 'planning' | 'completed'
     deadline: string
     icon?: string
+    forceShow?: boolean
+    hideToggle?: boolean
 }
 
 const props = defineProps<Props>()
+
+// show details in mobile
+const showDetails = ref(false)
+const isLargeScreen = useMediaQuery('(min-width: 1024px)') // This detects if the screen is large (e.g., lg breakpoint at 1024px)
+// watch(isLargeScreen, (value) => {
+//     if (value) {
+//         showDetails.value = false
+//     }
+// })
 
 // Badge color mappings
 const priorityColorMap = {

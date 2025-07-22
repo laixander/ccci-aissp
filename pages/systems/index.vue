@@ -25,10 +25,19 @@
                 <template #content>
                     <div class="space-y-4">
                         <draggable v-model="systems" item-key="id" class="space-y-4" :animation="200"
-                            ghost-class="drag-ghost" chosen-class="drag-chosen">
+                            ghost-class="drag-ghost" chosen-class="drag-chosen" handle=".handle">
                             <template #item="{ element: sys }">
                                 <CardSystem :key="sys.system" v-bind="sys" @edit="onEdit(sys.system)"
                                     @delete="onDelete(sys.system)" />
+                            </template>
+                            <!-- Drag ghost clone -->
+                            <template #clone="{ element: sys }">
+                                <CardSystem
+                                    :key="'ghost-' + sys.system"
+                                    v-bind="sys"
+                                    :forceShow="true"
+                                    :hideToggle="true"
+                                />
                             </template>
                         </draggable>
                     </div>
@@ -83,8 +92,19 @@ const cardStats = [
     }
 ]
 
-const systems = [
+type Sys = {
+  id: number
+  system: string
+  entity: string
+  budget: string
+  priority: 'low' | 'medium' | 'high'
+  status: 'planning' | 'inprogress' | 'active' | 'completed'
+  deadline: string
+}
+
+const systems = ref<Sys[]>([
     {
+        id: 1,
         system: "Student Information System",
         entity: "Registrar Office",
         budget: "₱2,500,000",
@@ -93,6 +113,7 @@ const systems = [
         deadline: "Dec 15, 2024"
     },
     {
+        id: 2,
         system: "Learning Management System",
         entity: "Academic Affairs",
         budget: "₱1,800,000",
@@ -101,6 +122,7 @@ const systems = [
         deadline: "Jan 10, 2025"
     },
     {
+        id: 3,
         system: "Financial Management System",
         entity: "Finance Office",
         budget: "₱3,200,000",
@@ -109,6 +131,7 @@ const systems = [
         deadline: "Feb 20, 2025"
     },
     {
+        id: 4,
         system: "Human Resource Information System",
         entity: "HR Department",
         budget: "₱2,100,000",
@@ -117,6 +140,7 @@ const systems = [
         deadline: "Mar 15, 2025"
     },
     {
+        id: 5,
         system: "Library Management System",
         entity: "University Library",
         budget: "₱800,000",
@@ -124,7 +148,7 @@ const systems = [
         status: "completed",
         deadline: "Apr 25, 2025"
     }
-]
+])
 
 function onEdit(system: string) {
     alert(`Edit clicked for: ${system}`)
