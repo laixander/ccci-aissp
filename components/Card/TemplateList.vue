@@ -22,7 +22,7 @@
                         <UButton icon="i-lucide-ellipsis" variant="ghost" color="neutral" @click="showActions = !showActions" />
                     </div>
                     <!-- Hide on small screen only and toggle by the button above -->
-                    <div class="flex items-center space-x-2 bg-white border md:border-0 border-gray-200 rounded-md shadow-lg md:shadow-none p-2 md:p-0 absolute right-0"
+                    <div class="flex items-center space-x-2 bg-white  dark:bg-gray-800 md:dark:bg-transparent border md:border-0 border-gray-200 dark:border-gray-700 rounded-md shadow-xl md:shadow-none p-2 md:p-0 absolute right-0"
                     :class="{ 'hidden md:flex': !showActions, 'flex md:flex': showActions }">
                         <UTooltip text="Edit Template">
                             <UButton icon="i-lucide-square-pen" color="neutral" variant="ghost" size="sm"

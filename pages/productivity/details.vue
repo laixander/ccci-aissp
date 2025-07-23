@@ -7,59 +7,58 @@
         </UBreadcrumb>
     </div>
     <Page page-title="IT Request Details"
-        page-description="Review and manage the details of your ISSP document requests">
+        page-description="Review and manage the details of your ISSP document requests" header-class="order-1 lg:order-0">
         <template #actions>
-            <UButton label="Back to Productivity" icon="i-lucide-arrow-left" variant="ghost" color="neutral" size="lg"
-                to="/productivity" />
+            <div>
+                <UButton label="Back to Productivity" icon="i-lucide-arrow-left" variant="ghost" color="neutral" size="lg" to="/productivity" />
+            </div>
         </template>
         <template #content>
             <div class="grid xl:flex gap-6">
                 <div class="w-full space-y-6">
                     <UCard>
                         <div class="space-y-6">
-                            <div class="flex flex-col space-y-1.5">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h3 class="text-highlighted font-semibold tracking-tight text-xl">Upgrade
-                                            laboratory computers</h3>
-                                        <p class="text-sm text-muted mt-2">Submitted by Dr. Maria Santos from College of
-                                            Engineering</p>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <UBadge label="High" color="error" variant="soft" class="rounded-full" />
-                                        <UBadge label="Hardware" color="error" class="rounded-full" />
-                                        <UBadge label="HRIS" color="neutral" variant="soft" class="rounded-full" />
-                                        <UBadge label="CMS" color="neutral" variant="soft" class="rounded-full" />
-                                        <UBadge label="ISSP 2024" color="neutral" variant="soft" class="rounded-full" />
-                                    </div>
+                            <div class="grid lg:flex justify-between items-start">
+                                <div class="order-1 lg:order-0">
+                                    <h3 class="text-highlighted font-semibold tracking-tight text-xl">Upgrade
+                                        laboratory computers</h3>
+                                    <p class="text-sm text-muted mt-2">Submitted by Dr. Maria Santos from College of
+                                        Engineering</p>
+                                </div>
+                                <div class="flex gap-2 mb-2 lg:mb-0">
+                                    <UBadge label="High" color="error" variant="soft" class="rounded-full" />
+                                    <UBadge label="Hardware" color="error" class="rounded-full" />
+                                    <UBadge label="HRIS" color="neutral" variant="soft" class="rounded-full" />
+                                    <UBadge label="CMS" color="neutral" variant="soft" class="rounded-full" />
+                                    <UBadge label="ISSP 2024" color="neutral" variant="soft" class="rounded-full" />
                                 </div>
                             </div>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div class="flex items-center gap-2">
-                                    <UIcon name="i-lucide-calendar" class="w-4 h-4 text-blue-600 dark:text-blue-500" />
-                                    <div>
-                                        <p class="text-sm font-medium">2024-01-15</p>
+                            <div class="grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-4 divide-y sm:divide-none divide-gray-100 dark:divide-gray-800/50">
+                                <div class="flex items-center gap-2 py-2 sm:py-0">
+                                    <UIcon name="i-lucide-calendar" class="w-4 h-4 shrink-0 text-blue-600 dark:text-blue-500" />
+                                    <div class="flex-1 flex items-center justify-between sm:block">
+                                        <p class="text-sm font-medium order-1">2024-01-15</p>
                                         <p class="text-xs text-gray-500">Submitted</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <UIcon name="i-lucide-user" class="w-4 h-4 text-green-600 dark:text-green-500" />
-                                    <div>
-                                        <p class="text-sm font-medium">25</p>
+                                <div class="flex items-center gap-2 py-2 sm:py-0">
+                                    <UIcon name="i-lucide-user" class="w-4 h-4 shrink-0 text-green-600 dark:text-green-500" />
+                                    <div class="flex-1 flex items-center justify-between sm:block">
+                                        <p class="text-sm font-medium order-1">25</p>
                                         <p class="text-xs text-gray-500">Quantity</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <UIcon name="i-lucide-dollar-sign" class="w-4 h-4 text-purple-600 dark:text-purple-500" />
-                                    <div>
-                                        <p class="text-sm font-medium">₱1,250,000.00</p>
+                                <div class="flex items-center gap-2 py-2 sm:py-0">
+                                    <UIcon name="i-lucide-dollar-sign" class="w-4 h-4 shrink-0 text-purple-600 dark:text-purple-500" />
+                                    <div class="flex-1 flex items-center justify-between sm:block">
+                                        <p class="text-sm font-medium order-1">₱1,250,000.00</p>
                                         <p class="text-xs text-gray-500">Budget</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <UIcon name="i-lucide-building" class="w-4 h-4 text-orange-600" />
-                                    <div>
-                                        <p class="text-sm font-medium text-truncate">College of Engineering</p>
+                                <div class="flex items-center gap-2 py-2 sm:py-0">
+                                    <UIcon name="i-lucide-building" class="w-4 h-4 shrink-0 text-orange-600" />
+                                    <div class="flex-1 flex items-center justify-between sm:block">
+                                        <p class="text-sm font-medium text-truncate order-1">College of Engineering</p>
                                         <p class="text-xs text-gray-500">Department</p>
                                     </div>
                                 </div>

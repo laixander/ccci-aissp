@@ -12,15 +12,15 @@
                 <CardStat v-for="stat in cardStats" :key="stat.label" v-bind="stat" />
             </div>
             <UCard>
-                <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex flex-col lg:flex-row gap-4">
                     <UInput icon="i-lucide-search" size="lg" variant="outline"
                         placeholder="Search systems or entities..." :ui="uiSearchConfig" />
-                    <USelect v-model="department" :items="departments" size="lg" class="sm:w-48" />
-                    <USelect v-model="priority" :items="priorities" size="lg" class="sm:w-48" />
-                    <USelect v-model="type" :items="types" size="lg" class="sm:w-48" />
+                    <USelect v-model="department" :items="departments" size="lg" class="lg:w-48" />
+                    <USelect v-model="priority" :items="priorities" size="lg" class="lg:w-48" />
+                    <USelect v-model="type" :items="types" size="lg" class="lg:w-48" />
                 </div>
             </UCard>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
                 <Block title="Department Overview" description="Current IT status across departments">
                     <template #content>
                         <div class="space-y-4">

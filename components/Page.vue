@@ -2,7 +2,7 @@
     <div class="flex-1 p-6 overflow-auto">
          <div class="space-y-6">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                <div>
+                <div :class="headerClass">
                     <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">
                         {{ pageTitle }}
                     </h1>
@@ -30,8 +30,10 @@
 const props = withDefaults(defineProps<{
     pageTitle: string
     pageDescription?: string
+    headerClass?: string
 }>(), {
     pageTitle: '',
-    pageDescription: ''
+    pageDescription: '',
+    headerClass: ''
 })
 </script>
