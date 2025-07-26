@@ -1,7 +1,7 @@
 <template>
     <UModal v-model:open="open" :title="isEditMode ? 'Edit Section' : 'Create Section'"
         description="Add a new section to your ISSP document template." :ui="uiModalConfig" :dismissible="false">
-        <UButton label="Create Section" icon="i-lucide-plus" color="neutral" size="lg" @click="$emit('reset')" />
+        <UButton label="Create Section" icon="i-lucide-plus" color="neutral" size="lg" block @click="$emit('reset')" />
         <template #body>
             <div class="space-y-4">
                 <UInput v-model="title" placeholder="Section Title" size="lg" class="w-full" />
