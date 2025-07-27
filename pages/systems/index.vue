@@ -9,7 +9,7 @@
 
         <template #content>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <CardStat v-for="stat in cardStats" :key="stat.label" v-bind="stat" />
+                <CardStat v-for="(card, index) in statCards" :key="index" v-bind="card" />
             </div>
 
             <UCard>
@@ -32,12 +32,8 @@
                             </template>
                             <!-- Drag ghost clone -->
                             <template #clone="{ element: sys }">
-                                <CardSystem
-                                    :key="'ghost-' + sys.system"
-                                    v-bind="sys"
-                                    :forceShow="true"
-                                    :hideToggle="true"
-                                />
+                                <CardSystem :key="'ghost-' + sys.system" v-bind="sys" :forceShow="true"
+                                    :hideToggle="true" />
                             </template>
                         </draggable>
                     </div>
@@ -48,6 +44,7 @@
 </template>
 
 <script setup lang="ts">
+import { statCards } from '~/data/cards'
 definePageMeta({
     layout: 'dashboard',
     auth: false
@@ -65,41 +62,14 @@ const uiSearchConfig = {
     root: 'w-full',
 }
 
-const cardStats = [
-    {
-        icon: 'i-lucide-wallet',
-        iconColor: 'text-green-500 dark:text-green-700',
-        label: 'Total Budget',
-        value: '₱10,400,000'
-    },
-    {
-        icon: 'i-lucide-triangle-alert',
-        iconColor: 'text-red-500 dark:text-red-700',
-        label: 'High Priority',
-        value: '2'
-    },
-    {
-        icon: 'i-lucide-calendar',
-        iconColor: 'text-blue-500 dark:text-blue-700',
-        label: 'Active Systems',
-        value: '2'
-    },
-    {
-        icon: 'i-lucide-filter',
-        iconColor: 'text-violet-500 dark:text-violet-700',
-        label: 'Total Systems',
-        value: '5'
-    }
-]
-
 type Sys = {
-  id: number
-  system: string
-  entity: string
-  budget: string
-  priority: 'low' | 'medium' | 'high'
-  status: 'planning' | 'inprogress' | 'active' | 'completed'
-  deadline: string
+    id: number
+    system: string
+    entity: string
+    budget: string
+    priority: 'low' | 'medium' | 'high'
+    status: 'planning' | 'inprogress' | 'active' | 'completed'
+    deadline: string
 }
 
 const systems = ref<Sys[]>([

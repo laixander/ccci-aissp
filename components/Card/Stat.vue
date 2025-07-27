@@ -11,14 +11,6 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-    icon: { type: String, default: 'i-lucide-dollar-sign' },
-    iconColor: { type: String, default: 'text-green-600 dark:text-green-400' },
-    label: { type: String, default: 'Total Budget' },
-    value: { type: String, default: '₱10,400,000' }
-})
-
-const uiCardConfig = {
-    body: 'sm:p-4',
-}
+import type { StatCardProps } from '~/types/cards'
+const props = defineProps<StatCardProps>()
 </script>

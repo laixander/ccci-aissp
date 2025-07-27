@@ -23,30 +23,14 @@
 </template>
 
 <script setup lang="ts">
-type UiColor =
-    | 'neutral'
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'info'
-    | 'warning'
-    | 'error'
-    | 'violet'
-    | 'orange'
-    | 'purple'
+import type { ActivityCardProps } from '~/types/cards'
+import { useSimulatedLoading } from '~/composables/useSimulatedLoading'
 
-const props = defineProps<{
-    title: string
-    description: string
-    timeAgo: string
-    typeColor: UiColor
-    loading?: boolean
-}>()
+const props = defineProps<ActivityCardProps>()
+
+const { loading } = useSimulatedLoading(2000)
 
 const uiCardConfig = {
     body: 'sm:p-3'
 }
-
-import { useSimulatedLoading } from '~/composables/useSimulatedLoading'
-const { loading } = useSimulatedLoading(2000) // pass delay if needed
 </script>

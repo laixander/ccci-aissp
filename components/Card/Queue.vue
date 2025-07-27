@@ -14,26 +14,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import type { QueueCardProps } from '~/types/cards'
+import { usePriorityColor } from '~/composables/usePriorityColor'
 
-interface Props {
-    name: string
-    priority: 'High' | 'Medium' | 'Low'
-    date: string
-    icon: string
-}
-
-const props = defineProps<Props>()
-
-const priorityColorMap = {
-    Low: 'success',
-    Medium: 'warning',
-    High: 'error',
-} as const
-
-const priorityColor = computed(() => {
-    return props.priority ? priorityColorMap[props.priority] : 'neutral'
-})
+const props = defineProps<QueueCardProps>()
+const priorityColor = usePriorityColor(props.priority)
 
 const uiCardConfig = {
     body: 'sm:p-3'
