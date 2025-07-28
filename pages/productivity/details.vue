@@ -10,7 +10,7 @@
         page-description="Review and manage the details of your ISSP document requests" header-class="order-1 lg:order-0">
         <template #actions>
             <div>
-                <UButton label="Back to Productivity" icon="i-lucide-arrow-left" variant="ghost" color="neutral" size="lg" to="/productivity" />
+                <UButton label="Back to Productivity" icon="i-lucide-arrow-left" variant="link" color="neutral" size="lg" to="/productivity" class="p-0" />
             </div>
         </template>
         <template #content>
@@ -58,7 +58,7 @@
                                 <div class="flex items-center gap-2 py-2 sm:py-0">
                                     <UIcon name="i-lucide-building" class="w-4 h-4 shrink-0 text-orange-600" />
                                     <div class="flex-1 flex items-center justify-between sm:block">
-                                        <p class="text-sm font-medium text-truncate order-1">College of Engineering</p>
+                                        <p class="text-sm font-medium text-truncate order-1 text-truncate">College of Engineering</p>
                                         <p class="text-xs text-gray-500">Department</p>
                                     </div>
                                 </div>
