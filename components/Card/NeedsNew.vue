@@ -11,7 +11,7 @@
                 <UBadge v-if="priority" :label="priority" variant="soft" :color="priorityColor" class="rounded-full" />
                 <UBadge v-if="type" :label="type" variant="soft" color="neutral" class="rounded-full" />
             </div>
-            <UDropdownMenu :items="menuItems" :content="{ align: 'start', side: 'bottom', sideOffset: 8 }">
+            <UDropdownMenu :items="menuItems" :content="{ align: 'end', side: 'bottom', sideOffset: 8 }" size="sm" :ui="{ itemLeadingIcon: 'size-4' }">
                 <UButton icon="i-lucide-ellipsis" color="neutral" variant="ghost" />
             </UDropdownMenu>
         </div>
@@ -23,6 +23,21 @@
         <p class="text-sm text-muted text-pretty truncate line-clamp-2">
             {{ description }}
         </p>
+
+        <div class="hidden lg:flex flex-col gap-1.5 text-sm pt-4">
+            <div class="flex items-center gap-1 text-muted">
+                <UIcon name="i-lucide-building" class="w-4 h-4 shrink-0" />
+                <!-- {{ entity }} --> Tokyo University
+            </div>
+            <div class="flex items-center gap-1 text-muted">
+                <UIcon name="i-lucide-user" class="w-4 h-4 shrink-0" />
+                <!-- {{ author }} --> Prof. Arigato Gosaimasu
+            </div>
+            <div class="flex items-center gap-1 text-muted">
+                <UIcon name="i-lucide-calendar" class="w-4 h-4 shrink-0" />
+                <!-- {{ date }} --> 2025-12-30
+            </div>
+        </div>
 
         <!-- Dynamic tags (system, document only) -->
         <div v-if="filteredTags.length" class="space-x-1 pt-4">
