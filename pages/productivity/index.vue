@@ -24,29 +24,27 @@
                 <Block title="Department Overview" description="Current IT status across departments">
                     <template #content>
                         <div class="space-y-4">
-                            <EmptyState :show="overviews.length === 0"
-                                icon="i-lucide-inbox"
-                                title="No overview found."
-                                description="Click “Add Request” to create your first one."
-                            />
-                            <CardOverview v-for="item in overviews" :key="item.department" v-bind="item" :typeDisplay="(item.typeDisplay as [])" />
+                            <EmptyState :show="overviews.length === 0" icon="i-lucide-inbox" title="No overview found."
+                                description="Click “Add Request” to create your first one." />
+                            <CardOverview v-for="item in overviews" :key="item.department" v-bind="item"
+                                :typeDisplay="(item.typeDisplay as [])" />
                         </div>
                     </template>
                 </Block>
                 <Block title="IT Requests & Needs" description="Track and manage productivity enhancement requests">
                     <template #content>
                         <div class="space-y-4">
-                            <EmptyState :show="needs.length === 0"
-                                icon="i-lucide-inbox"
-                                title="No request found."
-                                description="Click “Add Request” to create your first one."
-                            />
-                            <CardNeeds v-for="(need, index) in needs" :key="need.title" v-bind="need"
+                            <EmptyState :show="needs.length === 0" icon="i-lucide-inbox" title="No request found."
+                                description="Click “Add Request” to create your first one." />
+                            <div class="grid xl:grid-cols-2 gap-4 mb-4">
+                                <CardNeedsNew v-for="(card, index) in cards" :key="index" v-bind="card" />
+                            </div>
+                            <!-- <CardNeeds v-for="(need, index) in needs" :key="need.title" v-bind="need"
                                 :priority="(need.priority as 'High' | 'Medium' | 'Low')"
                                 :type="(need.type as 'Hardware' | 'Software' | 'Infrastructure' | 'Training')"
                                 :to="`/productivity/details`"
                                 @edit="() => handleEdit(index)" @copy="() => handleCopy(index)"
-                                @delete="() => handleDelete(index)" />
+                                @delete="() => handleDelete(index)" /> -->
                         </div>
                     </template>
                 </Block>
@@ -71,13 +69,9 @@
             <Block title="Top Request Items" description="Most requested IT items across all departments">
                 <template #content>
                     <div class="space-y-3">
-                        <CardTopRequest
-                            v-for="item in requests" :key="item.request" v-bind="item"
-                            :priority="(item.priority as 'High' | 'Medium' | 'Low')"
-                            :actions="['view', 'delete']"
-                            @view="onRequestView(item.request)"
-                            @delete-confirmed="onRequestDelete(item.request)"
-                        />
+                        <CardTopRequest v-for="item in requests" :key="item.request" v-bind="item"
+                            :priority="(item.priority as 'High' | 'Medium' | 'Low')" :actions="['view', 'delete']"
+                            @view="onRequestView(item.request)" @delete-confirmed="onRequestDelete(item.request)" />
                     </div>
                 </template>
             </Block>
@@ -377,4 +371,62 @@ function onRequestDelete(request: string) {
     alert(`Delete clicked for: ${request}`)
 }
 
+const cards = [
+    {
+        title: 'Cloud Storage Expansion',
+        description: 'Upgrade storage nodes and optimize backup infrastructure.',
+        priority: 'Low',
+        type: 'Storage',
+        budget: '₱1,750,820.00',
+        tags: [
+            { type: 'system', label: 'System 1' },
+            { type: 'system', label: 'System 2' },
+            { type: 'document', label: 'ISSP 2.1' }
+        ]
+    },
+    {
+        title: 'Network Security Upgrade',
+        description: 'Implement next-gen firewall and IDS solutions.',
+        priority: 'High',
+        type: 'Security',
+        budget: '₱950,000.00',
+        tags: [
+            { type: 'system', label: 'Firewall' },
+            { type: 'document', label: 'Network Policy' }
+        ]
+    },
+    {
+        title: 'Data Center Migration',
+        description: 'Relocate servers to a modern co-location facility.',
+        priority: 'Medium',
+        type: 'Infrastructure',
+        budget: '₱3,500,000.00',
+        tags: [
+            { type: 'system', label: 'Rack A-12' },
+            { type: 'document', label: 'Migration Plan' }
+        ]
+    },
+    {
+        title: 'Document Digitization',
+        description: 'Convert all physical documents to searchable digital files.',
+        priority: 'Low',
+        type: 'File Management',
+        budget: '₱420,000.00',
+        tags: [
+            { type: 'document', label: 'Archive Set 1' },
+            { type: 'document', label: 'Index Schema' }
+        ]
+    },
+    {
+        title: 'ISSP 2025 Planning',
+        description: 'Build strategic IT roadmap for the next fiscal cycle.',
+        priority: 'High',
+        type: 'Planning',
+        budget: '₱5,000,000.00',
+        tags: [
+            { type: 'document', label: 'FY2025 Draft' },
+            { type: 'system', label: 'IT Committee' }
+        ]
+    }
+]
 </script>
