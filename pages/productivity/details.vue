@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2 py-2 sm:py-0">
-                                    <UIcon name="i-lucide-dollar-sign" class="w-4 h-4 shrink-0 text-purple-600 dark:text-purple-500" />
+                                    <UIcon name="i-lucide-philippine-peso" class="w-4 h-4 shrink-0 text-purple-600 dark:text-purple-500" />
                                     <div class="flex-1 flex items-center justify-between sm:block">
                                         <p class="text-sm font-medium order-1">₱1,250,000.00</p>
                                         <p class="text-xs text-gray-500">Budget</p>

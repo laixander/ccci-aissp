@@ -37,7 +37,8 @@
                             <EmptyState :show="needs.length === 0" icon="i-lucide-inbox" title="No request found."
                                 description="Click “Add Request” to create your first one." />
                             <div class="grid xl:grid-cols-2 gap-4 mb-4">
-                                <CardNeedsNew v-for="(card, index) in cards" :key="index" v-bind="card" />
+                                <CardNeedsNew v-for="(card, index) in cards" :key="index" v-bind="card"
+                                    :to="`/productivity/details`" />
                             </div>
                             <!-- <CardNeeds v-for="(need, index) in needs" :key="need.title" v-bind="need"
                                 :priority="(need.priority as 'High' | 'Medium' | 'Low')"
@@ -99,13 +100,13 @@ const cardStats = [
         value: '1'
     },
     {
-        icon: 'i-lucide-wallet',
+        icon: 'i-lucide-calculator',
         iconColor: 'text-green-500 dark:text-green-700',
         label: 'Total Cost',
         value: '₱1,700,000'
     },
     {
-        icon: 'i-lucide-triangle-alert',
+        icon: 'i-lucide-trending-up',
         iconColor: 'text-red-500 dark:text-red-700',
         label: 'High Priority',
         value: '2'
@@ -378,6 +379,9 @@ const cards = [
         priority: 'Low',
         type: 'Storage',
         budget: '₱1,750,820.00',
+        entity: 'Data Services Division',
+        author: 'Maria Ramos',
+        date: '2025-07-10',
         tags: [
             { type: 'system', label: 'System 1' },
             { type: 'system', label: 'System 2' },
@@ -390,6 +394,9 @@ const cards = [
         priority: 'High',
         type: 'Security',
         budget: '₱950,000.00',
+        entity: 'Cybersecurity Office',
+        author: 'James Reyes',
+        date: '2025-06-25',
         tags: [
             { type: 'system', label: 'Firewall' },
             { type: 'document', label: 'Network Policy' }
@@ -401,6 +408,9 @@ const cards = [
         priority: 'Medium',
         type: 'Infrastructure',
         budget: '₱3,500,000.00',
+        entity: 'Infrastructure Unit',
+        author: 'Angela Cruz',
+        date: '2025-06-30',
         tags: [
             { type: 'system', label: 'Rack A-12' },
             { type: 'document', label: 'Migration Plan' }
@@ -412,6 +422,9 @@ const cards = [
         priority: 'Low',
         type: 'File Management',
         budget: '₱420,000.00',
+        entity: 'Records Office',
+        author: 'Luis Santiago',
+        date: '2025-07-05',
         tags: [
             { type: 'document', label: 'Archive Set 1' },
             { type: 'document', label: 'Index Schema' }
@@ -423,6 +436,9 @@ const cards = [
         priority: 'High',
         type: 'Planning',
         budget: '₱5,000,000.00',
+        entity: 'Information Systems Division',
+        author: 'Juan Dela Cruz',
+        date: '2025-07-01',
         tags: [
             { type: 'document', label: 'FY2025 Draft' },
             { type: 'system', label: 'IT Committee' }

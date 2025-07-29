@@ -1,5 +1,5 @@
 <template>
-    <UCard :ui="uiCardConfig" class="shadow-sm">
+    <UCard :ui="uiCardConfig" class="shadow-sm hover:shadow-md transition-shadow" @click="navigate">
         <!-- Header image placeholder -->
         <template #header>
             <Placeholder class="size-full border-none h-[160px]" />
@@ -11,8 +11,9 @@
                 <UBadge v-if="priority" :label="priority" variant="soft" :color="priorityColor" class="rounded-full" />
                 <UBadge v-if="type" :label="type" variant="soft" color="neutral" class="rounded-full" />
             </div>
-            <UDropdownMenu :items="menuItems" :content="{ align: 'end', side: 'bottom', sideOffset: 8 }" size="sm" :ui="{ itemLeadingIcon: 'size-4' }">
-                <UButton icon="i-lucide-ellipsis" color="neutral" variant="ghost" />
+            <UDropdownMenu :items="menuItems" :content="{ align: 'end', side: 'bottom', sideOffset: 8 }" size="sm"
+                :ui="{ itemLeadingIcon: 'size-4' }">
+                <UButton icon="i-lucide-ellipsis" color="neutral" variant="ghost" @click.stop="null" />
             </UDropdownMenu>
         </div>
 
@@ -24,30 +25,32 @@
             {{ description }}
         </p>
 
-        <div class="hidden lg:flex flex-col gap-1.5 text-sm pt-4">
-            <div class="flex items-center gap-1 text-muted">
-                <UIcon name="i-lucide-building" class="w-4 h-4 shrink-0" />
-                <!-- {{ entity }} --> Tokyo University
+        <!-- Optional Metadata -->
+        <div class="hidden lg:flex flex-col gap-1.5 text-sm text-muted pt-4 *:flex *:items-center *:gap-1">
+            <div v-if="entity">
+                <UIcon name="i-lucide-building" class="size-4 shrink-0" />
+                {{ entity }}
             </div>
-            <div class="flex items-center gap-1 text-muted">
-                <UIcon name="i-lucide-user" class="w-4 h-4 shrink-0" />
-                <!-- {{ author }} --> Prof. Arigato Gosaimasu
+            <div v-if="author">
+                <UIcon name="i-lucide-user" class="size-4 shrink-0" />
+                {{ author }}
             </div>
-            <div class="flex items-center gap-1 text-muted">
-                <UIcon name="i-lucide-calendar" class="w-4 h-4 shrink-0" />
-                <!-- {{ date }} --> 2025-12-30
+            <div v-if="date">
+                <UIcon name="i-lucide-calendar" class="size-4 shrink-0" />
+                {{ date }}
             </div>
         </div>
 
         <!-- Dynamic tags (system, document only) -->
         <div v-if="filteredTags.length" class="space-x-1 pt-4">
             <UBadge v-for="(tag, index) in filteredTags" :key="index" :icon="tagIcon(tag.type)" :label="tag.label"
-                variant="soft" color="neutral" class="rounded-full" />
+                variant="outline" color="neutral" class="rounded-full" />
         </div>
 
         <!-- Footer: Budget info -->
         <template #footer>
-            <div class="grid grid-cols-2 items-center font-medium text-sm divide-x divide-gray-200 dark:divide-gray-800">
+            <div
+                class="grid grid-cols-2 items-center font-medium text-sm divide-x divide-gray-200 dark:divide-gray-800">
                 <div class="bg-elevated/50 text-center">
                     <span class="block text-muted px-4 py-2.5 truncate">Estimated Budget:</span>
                 </div>
@@ -70,9 +73,19 @@ const props = defineProps<{
     type?: string
     budget: string
     tags?: { type: 'system' | 'document'; label: string }[]
+    to?: string
+    entity?: string
+    author?: string
+    date?: string
 }>()
 
-// Dropdown menu actions
+// Navigation
+const router = useRouter()
+const navigate = () => {
+    if (props.to) router.push(props.to)
+}
+
+// Menu
 const menuItems: DropdownMenuItem[][] = [
     [
         { label: 'Edit', icon: 'i-lucide-square-pen' },
@@ -83,7 +96,7 @@ const menuItems: DropdownMenuItem[][] = [
     ]
 ]
 
-// Priority color map
+// Priority color logic
 const priorityColor = computed(() => {
     switch (props.priority) {
         case 'High': return 'error'
@@ -93,18 +106,19 @@ const priorityColor = computed(() => {
     }
 })
 
-// Icon map for tags
+// Tag icon mapping
 const tagIcon = (type: 'system' | 'document') => {
     return type === 'system' ? 'i-lucide-server' : 'i-lucide-file-text'
 }
 
-// Only allow system & document types
+// Filter allowed tags
 const filteredTags = computed(() =>
     props.tags?.filter(tag =>
         tag.type === 'system' || tag.type === 'document'
     ) ?? []
 )
 
+// UI card config
 const uiCardConfig = {
     root: 'flex flex-col h-full',
     header: 'p-0 sm:p-0',
