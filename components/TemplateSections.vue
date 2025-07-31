@@ -3,8 +3,9 @@
         description="Define and organize the sections that will appear in your ISSP document template.">
         <template #actions>
             <!-- Modal: Create Sections -->
-            <SectionSettings v-if="selectedSection !== null" v-model:section="selectedSection" @update="onUpdateSection" @reset="selectedSection = null" />
-            <SectionSettings v-else @add="onAddSection" @reset="selectedSection = null" />
+            <!-- <SectionSettings v-if="selectedSection !== null" v-model:section="selectedSection" @update="onUpdateSection" @reset="selectedSection = null" />
+            <SectionSettings v-else @add="onAddSection" @reset="selectedSection = null" /> -->
+            <SectionSettings2 />
         </template>
         <template #content>
             <div class="space-y-4 bg-gray-50 dark:bg-gray-800/25 rounded-md p-4">
