@@ -11,13 +11,18 @@
   },
   "dependencies": {
     "@nuxt/image": "^1.10.0",
-    "@nuxt/ui": "^3.2.0",
-    "@tiptap/starter-kit": "^2.24.1",
-    "@tiptap/vue-3": "^2.24.1",
+    "@nuxt/ui": "^3.3.0",
+    "@tiptap/extension-text-style": "^3.0.7",
+    "@tiptap/extensions": "^3.0.7",
+    "@tiptap/starter-kit": "^3.0.7",
+    "@tiptap/vue-3": "^3.0.7",
     "nuxt": "^3.17.6",
     "nuxt-jsoneditor": "^1.8.4",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1",
     "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16"
   }
 }

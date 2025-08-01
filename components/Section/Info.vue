@@ -1,8 +1,8 @@
 <template>
-    <div class="font-semibold text-lg mb-8">
-        Basic Information
+    <div class="p-4 border-b border-gray-200 dark:border-gray-800">
+        <span class="font-semibold text-lg">Basic Information</span>
     </div>
-    <div class="space-y-4">
+    <div class="space-y-4 p-4">
         <UFormField label="Section Title">
             <UInput placeholder="Enter section title ..." size="lg" class="w-full" />
         </UFormField>
