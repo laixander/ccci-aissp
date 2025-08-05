@@ -122,11 +122,23 @@
                                 Choose a document template that matches your submission format and preferred layout.
                             </p>
                         </div>
-                        <USelect placeholder="Select Template" size="lg" />
+                        <USelect v-model="selectedTemplate" :items="templates" placeholder="Select Template" size="lg" class="lg:w-48" />
                     </div>
                     <div class="space-y-4 mt-4">
-                        <!-- Created Sections -->
-                        <draggable v-model="sections" item-key="id" class="space-y-4" :animation="200" ghost-class="drag-ghost"
+                        <!-- empty state -->
+                        <EmptyState
+                          :show="!selectedTemplate"
+                          icon="i-lucide-inbox"
+                          title="No template selected."
+                          description="Please choose a template to continue."
+                        />
+                        <!-- show selected template -->
+                        <!-- <div v-if="selectedTemplate" class="border border-gray-200 dark:border-gray-700 rounded p-4">
+                          <p class="text-sm text-muted mb-1">Selected Template:</p>
+                          <p class="font-medium text-primary">{{ selectedTemplate }}</p>
+                        </div> -->
+                        <!-- selected section -->
+                        <draggable v-if="selectedTemplate" v-model="sections" item-key="id" class="space-y-4" :animation="200" ghost-class="drag-ghost"
                             chosen-class="drag-chosen">
                             <template #item="{ element: section }">
                                 <CardSection :title="section.title" :description="section.description" :type="section.type" @edit="onEdit(section)" @delete="onDelete(section)" :asTemplate="true" />
@@ -150,6 +162,8 @@ import { CardTopRequest, UTextarea } from '#components'
 import type { StepperItem } from '@nuxt/ui'
 import { ref, computed } from 'vue'
 import draggable from 'vuedraggable'
+
+const templates = ref(['ISSP Template 2024', 'ISSP Template 2025', 'ISSP Template Dratf', 'ISSP Template 2024 v2'])
 
 type Section = {
     id: number
@@ -393,6 +407,7 @@ const sections = ref<Section[]>([
         type: 'internal_mapping'
     }
 ])
+const selectedTemplate = ref<string | null>(null)
 </script>
 <style scoped>
 .drag-ghost {
