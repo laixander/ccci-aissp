@@ -25,7 +25,7 @@
                 </div>
             </div>
             <!-- Card Actions -->
-            <div class="absolute top-0 right-0 xl:relative flex items-center space-x-2 ml-4">
+            <div v-if="!asTemplate" class="absolute top-0 right-0 xl:relative flex items-center space-x-2 ml-4">
                 <!-- Preview Modal -->
                 <UModal :ui="uiModalConfig">
                     <UTooltip text="Preview Section">
@@ -83,6 +83,7 @@ interface Props {
     title: string
     description: string
     type: 'text_content' | 'image_upload' | 'db_mapping' | 'api_mapping' | 'ai_prompt' | 'internal_mapping'
+    asTemplate?: boolean
 }
 
 const props = defineProps<Props>()

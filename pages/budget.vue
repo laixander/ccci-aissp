@@ -13,9 +13,7 @@
             <Block title="Budget Scenarios" description="Compare different budget allocation strategies">
                 <template #content>
                     <div class="space-y-4">
-                        <CardBudget v-for="scenario in CardBudgets" :key="scenario.title" v-bind="scenario" :status="scenario.status as 'Active' | 'Draft' | 'Under Review'"
-                            @edit="handleEdit(scenario.title)" @download="handleDownload(scenario.title)"
-                            @delete="handleDelete(scenario.title)" />
+                        <CardBudget v-for="scenario in CardBudgets" :key="scenario.title" v-bind="scenario" :status="(scenario.status as 'Active' | 'Draft' | 'Under Review')" @edit="handleEdit(scenario.title)" @download="handleDownload(scenario.title)" @delete="handleDelete(scenario.title)" :actions="true" />
                     </div>
                 </template>
             </Block>

@@ -23,7 +23,7 @@
                 <draggable v-model="sections" item-key="id" class="space-y-4" :animation="200" ghost-class="drag-ghost"
                     chosen-class="drag-chosen">
                     <template #item="{ element: section }">
-                        <CardSection :title="section.title" :description="section.description" :type="section.type" @edit="onEdit(section)" @delete="onDelete(section)" />
+                        <CardSection :title="section.title" :description="section.description" :type="section.type" />
                     </template>
                 </draggable>
             </div>

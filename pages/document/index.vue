@@ -4,7 +4,7 @@
         page-description="Create, review, and manage Information Systems Strategic Plans">
         <template #actions>
             <UButton label="Bulk Report" icon="i-lucide-download" size="lg" color="neutral" variant="outline" class="w-full lg:w-auto justify-center" />
-            <UButton label="New ISSP Document" icon="i-lucide-file-text" size="lg" class="w-full lg:w-auto justify-center" to="/document/new" />
+            <UButton label="New ISSP Document" icon="i-lucide-file-text" size="lg" class="w-full lg:w-auto justify-center" to="/document/create" />
         </template>
         <template #content>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

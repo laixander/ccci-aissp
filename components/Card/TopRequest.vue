@@ -1,6 +1,10 @@
 <template>
     <CardRow hasHover tightSpace>
-        <UIcon name="i-lucide-trending-up" class="w-8 h-8 text-purple-600" />
+        <UIcon v-if="asCheckbox"
+            :name="checked ? 'i-lucide-circle-check-big' : 'i-lucide-circle'"
+            :class="['size-5', checked ? 'text-primary' : 'text-gray-700']"
+        />
+        <UIcon v-if="!asCheckbox" name="i-lucide-trending-up" class="w-8 h-8 text-purple-600" />
 
         <DynamicGrid :cols="1" :lg-cols="4" gap="gap-2" class="flex-1 lg:gap-4 items-center">
             <div class="flex items-center gap-2">
@@ -39,7 +43,7 @@
             </div>
         </DynamicGrid>
 
-        <IconActions :icons="actions" @view="$emit('view')" @delete-confirmed="$emit('delete-confirmed')"
+        <IconActions v-if="!asCheckbox" :icons="actions" @view="$emit('view')" @delete-confirmed="$emit('delete-confirmed')"
             :class="[showDetails ? 'grid' : 'flex']" class="lg:flex items-center gap-2" />
     </CardRow>
 </template>
@@ -56,6 +60,8 @@ const props = defineProps<{
     actions?: ('view' | 'delete')[]
     forceShow?: boolean
     hideToggle?: boolean
+    asCheckbox?: boolean
+    checked?: boolean
 }>()
 
 defineEmits(['view', 'delete-confirmed'])

@@ -1,7 +1,11 @@
 <template>
     <UCard :ui="uiCardConfig" class="shadow-sm hover:shadow-md transition-shadow">
         <div class="flex items-center gap-4">
-            <UIcon :name="icon" class="w-6 h-6 text-gray-300 dark:text-gray-800 cursor-grab handle" />
+            <UIcon v-if="asCheckbox"
+                :name="checked ? 'i-lucide-circle-check-big' : 'i-lucide-circle'"
+                :class="['size-5', checked ? 'text-primary' : 'text-gray-700']"
+            />
+            <UIcon v-if="!asCheckbox" :name="icon" class="w-6 h-6 text-gray-300 dark:text-gray-800 cursor-grab handle" />
             <div class="flex-1 grid grid-cols-1 lg:grid-cols-5 gap-2 lg:gap-4 items-center">
                 <div class="flex items-center gap-2">
                     <!-- Toggle button for mobile -->
@@ -9,7 +13,7 @@
                         @click="showDetails = !showDetails" v-show="!hideToggle" />
                     <div class="w-full truncate">
                         <h3 class="font-medium text-gray-800 dark:text-gray-100 truncate">{{ system }}</h3>
-                        <p class="text-md text-gray-500 dark:text-gray-400 truncate">{{ entity }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 truncate">{{ entity }}</p>
                     </div>
                 </div>
 
@@ -40,7 +44,7 @@
             </div>
 
             <!-- Action buttons -->
-            <div :class="[showDetails ? 'grid' : 'flex']" class="lg:flex items-center gap-2">
+            <div v-if="!asCheckbox" :class="[showDetails ? 'grid' : 'flex']" class="lg:flex items-center gap-2">
                 <UButton icon="i-lucide-edit" variant="ghost" color="neutral" size="sm" aria-label="Edit System"
                     @click="$emit('edit')" />
                 <UButton icon="i-lucide-trash-2" variant="ghost" color="error" size="sm" aria-label="Delete System"
@@ -64,6 +68,8 @@ interface Props {
     icon?: string
     forceShow?: boolean
     hideToggle?: boolean
+    asCheckbox?: boolean
+    checked?: boolean
 }
 
 const props = defineProps<Props>()
