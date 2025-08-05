@@ -149,7 +149,7 @@
             </template>
         </UStepper>
         <div class="flex justify-between mt-6">
-            <UButton v-if="currentStep > 0" @click="prevStep" label="Previous" color="neutral" variant="outline" icon="i-lucide-arrow-left" />
+            <UButton v-if="currentStep > 0" @click="prevStep" label="Previous" color="neutral" size="lg" variant="outline" icon="i-lucide-arrow-left" />
             <div class="ml-auto">
                 <UButton v-if="currentStep < items.length - 1" @click="nextStep" label="Next" color="neutral" size="lg" trailing-icon="i-lucide-arrow-right" />
                 <UButton v-else @click="submit" label="Proceed" size="lg" trailing-icon="i-lucide-arrow-right" />
