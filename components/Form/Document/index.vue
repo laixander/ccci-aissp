@@ -35,16 +35,11 @@
                         Select the budget scenario that best fits your agency’s current planning cycle.
                     </p>
                     <div class="space-y-4 mt-4">
-                        <CardBudget 
-                            v-for="item in CardBudgets" 
-                            v-bind="item"
-                            :key="item.title" 
-                            :status="(item.status as 'Active' | 'Draft' | 'Under Review')" 
-                            :asCheckbox="true"
+                        <CardBudget v-for="item in CardBudgets" v-bind="item" :key="item.title"
+                            :status="(item.status as 'Active' | 'Draft' | 'Under Review')" :asCheckbox="true"
                             :checked="selectedScenario?.title === item.title"
-                            :class="{ 'ring-2 ring-primary' : selectedScenario?.title === item.title }"
-                            @click="selectedScenario = item"
-                        />
+                            :class="{ 'ring-2 ring-primary': selectedScenario?.title === item.title }"
+                            @click="selectedScenario = item" />
                     </div>
                 </UCard>
             </template>
@@ -58,35 +53,22 @@
                         List existing and proposed systems relevant to your ISSP submission.
                     </p>
                     <div class="space-y-4 mt-4">
-                        <CardSystem
-                            v-for="(item, index) in systems"
-                            :key="index"
-                            v-bind="item"
-                            :asCheckbox="true"
+                        <CardSystem v-for="(item, index) in systems" :key="index" v-bind="item" :asCheckbox="true"
                             :checked="selectedSystems.includes(item)"
-                            :class="{ 'ring-2 ring-primary' : selectedSystems.includes(item) }"
-                            @click="toggleSystem(item)"
-                        />
+                            :class="{ 'ring-2 ring-primary': selectedSystems.includes(item) }"
+                            @click="toggleSystem(item)" />
                     </div>
                 </UCard>
 
                 <!-- if equal or underspending, show this alert box -->
-                <UAlert
-                  v-if="!isOverBudget && selectedScenario"
-                  icon="i-lucide-check-check"
-                  variant="soft"
-                  color="success"
-                  description="The total MOOE and CO for the selected systems are within your agency’s available budget. No overspending detected."
-                />
+                <UAlert v-if="!isOverBudget && selectedScenario" icon="i-lucide-check-check" variant="soft"
+                    color="success"
+                    description="The total MOOE and CO for the selected systems are within your agency’s available budget. No overspending detected." />
 
                 <!-- if overspending, show this alert box -->
-                <UAlert
-                  v-if="isOverBudget && selectedScenario"
-                  icon="i-lucide-triangle-alert"
-                  variant="soft"
-                  color="warning"
-                  description="Alert: The combined MOOE and CO requirements of the selected systems exceed the allocated budget. Please reassess your selections or adjust your financial plan."
-                />
+                <UAlert v-if="isOverBudget && selectedScenario" icon="i-lucide-triangle-alert" variant="soft"
+                    color="warning"
+                    description="Alert: The combined MOOE and CO requirements of the selected systems exceed the allocated budget. Please reassess your selections or adjust your financial plan." />
             </template>
 
             <template #needs>
@@ -98,17 +80,22 @@
                         Outline your agency’s IT needs such as hardware, software, and services for the covered period.
                     </p>
                     <div class="space-y-4 mt-4">
-                        <CardTopRequest
-                            v-for="item in requests"
-                            :key="item.request"
-                            v-bind="item"
-                            :asCheckbox="true"
+                        <CardTopRequest v-for="item in requests" :key="item.request" v-bind="item" :asCheckbox="true"
                             :checked="selectedRequests.includes(item)"
                             :class="{ 'ring-2 ring-primary': selectedRequests.includes(item) }"
-                            @click="toggleRequest(item)"
-                        />
+                            @click="toggleRequest(item)" />
                     </div>
                 </UCard>
+
+                <!-- if equal or underspending, show this alert box -->
+                <UAlert v-if="!isRequestOverBudget && selectedScenario" icon="i-lucide-check-check" variant="soft"
+                    color="success"
+                    description="The total MOOE and CO for the selected IT requests are within your agency’s available budget. No overspending detected." />
+
+                <!-- if overspending, show this alert box -->
+                <UAlert v-if="isRequestOverBudget && selectedScenario" icon="i-lucide-triangle-alert" variant="soft"
+                    color="warning"
+                    description="Alert: The combined MOOE and CO requirements of the selected IT requests exceed the allocated budget. Please reassess your selections or adjust your financial plan." />
             </template>
 
             <template #template>
@@ -122,26 +109,25 @@
                                 Choose a document template that matches your submission format and preferred layout.
                             </p>
                         </div>
-                        <USelect v-model="selectedTemplate" :items="templates" placeholder="Select Template" size="lg" class="lg:w-48" />
+                        <USelect v-model="selectedTemplate" :items="templates" placeholder="Select Template" size="lg"
+                            class="lg:w-48" />
                     </div>
                     <div class="space-y-4 mt-4">
                         <!-- empty state -->
-                        <EmptyState
-                          :show="!selectedTemplate"
-                          icon="i-lucide-inbox"
-                          title="No template selected."
-                          description="Please choose a template to continue."
-                        />
+                        <EmptyState :show="!selectedTemplate" icon="i-lucide-inbox" title="No template selected."
+                            description="Please choose a template to continue." />
                         <!-- show selected template -->
                         <!-- <div v-if="selectedTemplate" class="border border-gray-200 dark:border-gray-700 rounded p-4">
                           <p class="text-sm text-muted mb-1">Selected Template:</p>
                           <p class="font-medium text-primary">{{ selectedTemplate }}</p>
                         </div> -->
                         <!-- selected section -->
-                        <draggable v-if="selectedTemplate" v-model="sections" item-key="id" class="space-y-4" :animation="200" ghost-class="drag-ghost"
-                            chosen-class="drag-chosen">
+                        <draggable v-if="selectedTemplate" v-model="sections" item-key="id" class="space-y-4"
+                            :animation="200" ghost-class="drag-ghost" chosen-class="drag-chosen">
                             <template #item="{ element: section }">
-                                <CardSection :title="section.title" :description="section.description" :type="section.type" @edit="onEdit(section)" @delete="onDelete(section)" :asTemplate="true" />
+                                <CardSection :title="section.title" :description="section.description"
+                                    :type="section.type" @edit="onEdit(section)" @delete="onDelete(section)"
+                                    :asTemplate="true" />
                             </template>
                         </draggable>
                     </div>
@@ -149,16 +135,17 @@
             </template>
         </UStepper>
         <div class="flex justify-between mt-6">
-            <UButton v-if="currentStep > 0" @click="prevStep" label="Previous" color="neutral" size="lg" variant="outline" icon="i-lucide-arrow-left" />
+            <UButton v-if="currentStep > 0" @click="prevStep" label="Previous" color="neutral" size="lg"
+                variant="outline" icon="i-lucide-arrow-left" />
             <div class="ml-auto">
-                <UButton v-if="currentStep < items.length - 1" @click="nextStep" label="Next" color="neutral" size="lg" trailing-icon="i-lucide-arrow-right" />
-                <UButton v-else @click="submit" label="Proceed" size="lg" trailing-icon="i-lucide-arrow-right" />
+                <UButton v-if="currentStep < items.length - 1" @click="nextStep" label="Next" color="neutral" size="lg"
+                    trailing-icon="i-lucide-arrow-right" />
+                <UButton v-else @click="submit" label="Generate" size="lg" trailing-icon="i-lucide-arrow-right" />
             </div>
         </div>
     </UCard>
 </template>
 <script setup lang="ts">
-import { CardTopRequest, UTextarea } from '#components'
 import type { StepperItem } from '@nuxt/ui'
 import { ref, computed } from 'vue'
 import draggable from 'vuedraggable'
@@ -308,16 +295,16 @@ const toggleSystem = (item: typeof systems.value[0]) => {
 }
 
 const totalSelectedSystemBudget = computed(() => {
-  return selectedSystems.value.reduce((total, system) => {
-    const numericBudget = Number(system.budget.replace(/[^0-9.-]+/g, ''))
-    return total + (isNaN(numericBudget) ? 0 : numericBudget)
-  }, 0)
+    return selectedSystems.value.reduce((total, system) => {
+        const numericBudget = Number(system.budget.replace(/[^0-9.-]+/g, ''))
+        return total + (isNaN(numericBudget) ? 0 : numericBudget)
+    }, 0)
 })
 
 const isOverBudget = computed(() => {
-  return selectedScenario.value
-    ? totalSelectedSystemBudget.value > selectedScenario.value.totalBudget
-    : false
+    return selectedScenario.value
+        ? totalSelectedSystemBudget.value > selectedScenario.value.totalBudget
+        : false
 })
 
 const requests = [
@@ -361,13 +348,25 @@ const requests = [
 const selectedRequests = ref<typeof requests>([])
 
 const toggleRequest = (item: typeof requests[0]) => {
-  const index = selectedRequests.value.indexOf(item)
-  if (index === -1) {
-    selectedRequests.value.push(item)
-  } else {
-    selectedRequests.value.splice(index, 1)
-  }
+    const index = selectedRequests.value.indexOf(item)
+    if (index === -1) {
+        selectedRequests.value.push(item)
+    } else {
+        selectedRequests.value.splice(index, 1)
+    }
 }
+
+const totalSelectedRequestBudget = computed(() => {
+    return selectedRequests.value.reduce((total, request) => {
+        return total + (request.budget || 0)
+    }, 0)
+})
+
+const isRequestOverBudget = computed(() => {
+    return selectedScenario.value
+        ? totalSelectedRequestBudget.value > selectedScenario.value.totalBudget
+        : false
+})
 
 const sections = ref<Section[]>([
     {
