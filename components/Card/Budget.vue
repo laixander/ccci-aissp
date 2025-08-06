@@ -23,7 +23,7 @@
                         <p class="text-gray-600 dark:text-gray-400">CO</p>
                         <p class="font-medium text-orange-700 dark:text-orange-300">₱{{ co.toLocaleString('en-PH') }}</p>
                     </div>
-                    <div v-if="lastModified">
+                    <div v-if="!asCheckbox">
                         <p class="text-gray-600 dark:text-gray-400">Last Modified</p>
                         <p class="font-medium dark:text-gray-100">{{ lastModified }}</p>
                     </div>
@@ -50,7 +50,6 @@ interface Props {
     totalBudget: number
     mooe: number
     co: number
-    lastModified?: string
     asCheckbox?: boolean
     checked?: boolean
 }
