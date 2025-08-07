@@ -126,8 +126,7 @@
                             :animation="200" ghost-class="drag-ghost" chosen-class="drag-chosen">
                             <template #item="{ element: section }">
                                 <CardSection :title="section.title" :description="section.description"
-                                    :type="section.type" @edit="onEdit(section)" @delete="onDelete(section)"
-                                    :asTemplate="true" />
+                                    :type="section.type" :asTemplate="true" />
                             </template>
                         </draggable>
                     </div>
@@ -140,15 +139,34 @@
             <div class="ml-auto">
                 <UButton v-if="currentStep < items.length - 1" @click="nextStep" label="Next" color="neutral" size="lg"
                     trailing-icon="i-lucide-arrow-right" />
-                <UButton v-else @click="submit" label="Generate" size="lg" trailing-icon="i-lucide-arrow-right" />
+                <UButton v-else @click="isModalOpen = true" label="Generate" size="lg" trailing-icon="i-lucide-arrow-right" />
             </div>
         </div>
+        <!-- Modal -->
+        <UModal v-model:open="isModalOpen" fullscreen>
+            <template #content="{ close }">
+                <TipTapEditor />
+                <div class="absolute top-20 right-4 grid gap-2">
+                    <UTooltip text="Save as Draft" arrow :content="{ align: 'center', side: 'left', sideOffset: 8 }">
+                        <UButton icon="i-lucide-save" color="success" size="lg" class="rounded-full" />
+                    </UTooltip>
+                    <UTooltip text="Generate" arrow :content="{ align: 'center', side: 'left', sideOffset: 8 }">
+                        <UButton icon="i-lucide-file-cog" color="warning" size="lg" class="rounded-full" />
+                    </UTooltip>
+                    <UTooltip text="Close" arrow :content="{ align: 'center', side: 'left', sideOffset: 8 }">
+                        <UButton icon="i-lucide-x" color="neutral" variant="soft" size="lg" class="rounded-full" @click="close" />
+                    </UTooltip>
+                </div>
+            </template>
+        </UModal>
     </UCard>
 </template>
 <script setup lang="ts">
 import type { StepperItem } from '@nuxt/ui'
 import { ref, computed } from 'vue'
 import draggable from 'vuedraggable'
+
+const isModalOpen = ref(false)
 
 const templates = ref(['ISSP Template 2024', 'ISSP Template 2025', 'ISSP Template Dratf', 'ISSP Template 2024 v2'])
 
