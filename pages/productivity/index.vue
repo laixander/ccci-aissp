@@ -430,19 +430,19 @@ const cards = [
             { type: 'document', label: 'Index Schema' }
         ]
     },
-    {
-        title: 'ISSP 2025 Planning',
-        description: 'Build strategic IT roadmap for the next fiscal cycle.',
-        priority: 'High',
-        type: 'Planning',
-        budget: '₱5,000,000.00',
-        entity: 'Information Systems Division',
-        author: 'Juan Dela Cruz',
-        date: '2025-07-01',
-        tags: [
-            { type: 'document', label: 'FY2025 Draft' },
-            { type: 'system', label: 'IT Committee' }
-        ]
-    }
+    // {
+    //     title: 'ISSP 2025 Planning',
+    //     description: 'Build strategic IT roadmap for the next fiscal cycle.',
+    //     priority: 'High',
+    //     type: 'Planning',
+    //     budget: '₱5,000,000.00',
+    //     entity: 'Information Systems Division',
+    //     author: 'Juan Dela Cruz',
+    //     date: '2025-07-01',
+    //     tags: [
+    //         { type: 'document', label: 'FY2025 Draft' },
+    //         { type: 'system', label: 'IT Committee' }
+    //     ]
+    // }
 ]
 </script>

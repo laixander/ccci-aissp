@@ -21,10 +21,10 @@
                     <SectionInfo v-if="activeSection === 'info'" />
                     <SectionText v-if="activeSection === 'text'" />
                     <SectionImage v-if="activeSection === 'image'" />
-                    <div v-if="activeSection === 'system'">System Section</div>
-                    <div v-if="activeSection === 'database'">Database Section</div>
-                    <div v-if="activeSection === 'api'">API Section</div>
-                    <div v-if="activeSection === 'ai'">AI Section</div>
+                    <SectionSystem v-if="activeSection === 'system'" />
+                    <SectionDatabase v-if="activeSection === 'database'" />
+                    <SectionApi v-if="activeSection === 'api'" />
+                    <SectionAi v-if="activeSection === 'ai'" />
                     <!-- <div v-if="!activeSection">Select a section from the sidebar.</div> -->
                     <div class="grid lg:grid-cols-2 gap-4 mt-auto p-4 border-t border-gray-200 dark:border-gray-800 bg-default *:justify-center">
                         <UButton label="Cancel" variant="outline" color="neutral" size="lg" @click="close" />
