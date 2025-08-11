@@ -31,7 +31,7 @@ export default defineNuxtConfig({
                 'neutral',
                 'violet',
                 'orange',
-                'purple'
+                'purple',
             ]
         }
     }

@@ -42,7 +42,7 @@
             <div class="flex flex-col gap-2">
                 <div class="flex gap-2">
                     <UButton label="View" icon="i-lucide-eye" variant="outline" color="neutral" size="lg"
-                        @click="emit('view')" />
+                        @click="isModalOpen = true" />
                     <UButton label="Edit" icon="i-lucide-square-pen" variant="outline" color="neutral" size="lg"
                         @click="emit('edit')" :disabled="status === 'Approved'" />
                     <UButton label="Export" icon="i-lucide-download" variant="outline" color="neutral" size="lg"
@@ -53,10 +53,24 @@
             </div>
         </div>
     </UCard>
+    <!-- Modal -->
+    <UModal v-model:open="isModalOpen" fullscreen>
+        <template #content="{ close }">
+            <TipTapEditor :show-details="showDetails" @close="close" />
+        </template>
+    </UModal>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+
+const isModalOpen = ref(false)
+const showDetails = ref(false)
+
+function handleViewClick() {
+  showDetails.value = true // show details when modal opens
+  isModalOpen.value = true
+}
 
 type StatusType = 'Approved' | 'Under Review' | 'Draft' | 'Rejected'
 

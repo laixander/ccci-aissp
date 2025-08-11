@@ -145,18 +145,7 @@
         <!-- Modal -->
         <UModal v-model:open="isModalOpen" fullscreen>
             <template #content="{ close }">
-                <TipTapEditor />
-                <div class="absolute top-20 right-4 grid gap-2">
-                    <UTooltip text="Save as Draft" arrow :content="{ align: 'center', side: 'left', sideOffset: 8 }">
-                        <UButton icon="i-lucide-save" color="success" size="lg" class="rounded-full" />
-                    </UTooltip>
-                    <UTooltip text="Generate" arrow :content="{ align: 'center', side: 'left', sideOffset: 8 }">
-                        <UButton icon="i-lucide-file-cog" color="warning" size="lg" class="rounded-full" />
-                    </UTooltip>
-                    <UTooltip text="Close" arrow :content="{ align: 'center', side: 'left', sideOffset: 8 }">
-                        <UButton icon="i-lucide-x" color="neutral" variant="soft" size="lg" class="rounded-full" @click="close" />
-                    </UTooltip>
-                </div>
+                <TipTapEditor @close="close" />
             </template>
         </UModal>
     </UCard>

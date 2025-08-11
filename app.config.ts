@@ -11,7 +11,7 @@ export default defineAppConfig({
             neutral: 'slate',
             violet: 'violet',
             orange: 'orange',
-            purple: 'purple'
+            purple: 'purple',
         },
         button: {
             defaultVariants: {
