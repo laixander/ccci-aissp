@@ -43,7 +43,7 @@ const props = defineProps<{
 const emit = defineEmits(['close'])
 
 function handleClick() {
-  emit('close') // tell the parent the button was clicked
+  emit('close')
 }
 
 const editor = ref<Editor>()

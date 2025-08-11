@@ -42,7 +42,7 @@
             <div class="flex flex-col gap-2">
                 <div class="flex gap-2">
                     <UButton label="View" icon="i-lucide-eye" variant="outline" color="neutral" size="lg"
-                        @click="isModalOpen = true" />
+                        @click="handleViewClick" />
                     <UButton label="Edit" icon="i-lucide-square-pen" variant="outline" color="neutral" size="lg"
                         @click="emit('edit')" :disabled="status === 'Approved'" />
                     <UButton label="Export" icon="i-lucide-download" variant="outline" color="neutral" size="lg"
