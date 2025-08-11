@@ -22,12 +22,59 @@
             <Block title="ISSP Documents" description="Manage strategic planning documents across all entities">
                 <template #content>
                     <div class="space-y-4">
-                        <CardDocument v-for="(doc, index) in documents" :key="index" v-bind="doc" :status="doc.status as 'Approved' | 'Under Review' | 'Draft' | 'Rejected'" />
+                        <CardDocument v-for="(doc, index) in documents" :key="index" v-bind="doc" :status="(doc.status as 'Approved' | 'Under Review' | 'Draft' | 'Rejected')" />
                     </div>
                 </template>
             </Block>
 
             <Block title="Approval Workflow" description="Track document progression through review stages">
+                <template #content>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        
+                        <UCard variant="soft">
+                            <template #header>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center gap-2">
+                                        <UIcon name="i-lucide-check-circle" class="size-5 shrink-0 text-green-500" />
+                                        <span class="font-semibold">Review Stage</span>
+                                    </div>
+                                    <UBadge label="1" variant="soft" color="neutral" class="rounded-full" />
+                                </div>
+                            </template>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus magnam nostrum nobis impedit id facilis consectetur esse necessitatibus iure.
+                        </UCard>
+
+                        <UCard variant="soft">
+                            <template #header>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center gap-2">
+                                        <UIcon name="i-lucide-check-circle" class="size-5 shrink-0 text-green-500" />
+                                        <span class="font-semibold">Review Stage</span>
+                                    </div>
+                                    <UBadge label="1" variant="soft" color="neutral" class="rounded-full" />
+                                </div>
+                            </template>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus magnam nostrum nobis impedit id facilis consectetur esse necessitatibus iure.
+                        </UCard>
+
+                        <UCard variant="soft">
+                            <template #header>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center gap-2">
+                                        <UIcon name="i-lucide-check-circle" class="size-5 shrink-0 text-green-500" />
+                                        <span class="font-semibold">Review Stage</span>
+                                    </div>
+                                    <UBadge label="1" variant="soft" color="neutral" class="rounded-full" />
+                                </div>
+                            </template>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus magnam nostrum nobis impedit id facilis consectetur esse necessitatibus iure.
+                        </UCard>
+
+                    </div>
+                </template>
+            </Block>
+
+            <!-- <Block title="Approval Workflow" description="Track document progression through review stages">
                 <template #content>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         
@@ -67,7 +114,7 @@
 
                     </div>
                 </template>
-            </Block>
+            </Block> -->
 
             <!-- <Block title="Templates" description="Add and Manage ISSP document templates">
                 <template #actions>
