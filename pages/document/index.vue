@@ -1,10 +1,11 @@
 <template>
-    <Page
-        page-title="ISSP Document Management"
+    <Page page-title="ISSP Document Management"
         page-description="Create, review, and manage Information Systems Strategic Plans">
         <template #actions>
-            <UButton label="Bulk Report" icon="i-lucide-download" size="lg" color="neutral" variant="outline" class="w-full lg:w-auto justify-center" />
-            <UButton label="New ISSP Document" icon="i-lucide-file-text" size="lg" class="w-full lg:w-auto justify-center" to="/document/create" />
+            <UButton label="Bulk Report" icon="i-lucide-download" size="lg" color="neutral" variant="outline"
+                class="w-full lg:w-auto justify-center" />
+            <UButton label="New ISSP Document" icon="i-lucide-file-text" size="lg"
+                class="w-full lg:w-auto justify-center" to="/document/create" />
         </template>
         <template #content>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -22,55 +23,56 @@
             <Block title="ISSP Documents" description="Manage strategic planning documents across all entities">
                 <template #content>
                     <div class="space-y-4">
-                        <CardDocument v-for="(doc, index) in documents" :key="index" v-bind="doc" :status="(doc.status as 'Approved' | 'Under Review' | 'Draft' | 'Rejected')" />
+                        <CardDocument v-for="(doc, index) in documents" :key="index" v-bind="doc"
+                            :status="(doc.status as 'Approved' | 'Under Review' | 'Draft' | 'Rejected')" />
                     </div>
                 </template>
             </Block>
 
             <Block title="Approval Workflow" description="Track document progression through review stages">
                 <template #content>
+
+                    <!-- Kanban Board -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        
-                        <UCard variant="soft">
-                            <template #header>
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center gap-2">
-                                        <UIcon name="i-lucide-check-circle" class="size-5 shrink-0 text-green-500" />
-                                        <span class="font-semibold">Review Stage</span>
+                        <div v-for="(stage, sIndex) in stages" :key="stage.name">
+                            <UCard variant="soft" :ui="{ body: 'space-y-2' }">
+                                <template #header>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center gap-2">
+                                            <!-- stage icon with color code -->
+                                            <UIcon :name="stage.icon" class="size-5 shrink-0"
+                                                :class="stage.iconColor" />
+                                            <span class="font-semibold">{{ stage.name }}</span>
+                                        </div>
+                                        <UBadge variant="soft" color="neutral" class="rounded-full">
+                                            {{ stage.items.length }}
+                                        </UBadge>
                                     </div>
-                                    <UBadge label="1" variant="soft" color="neutral" class="rounded-full" />
-                                </div>
-                            </template>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus magnam nostrum nobis impedit id facilis consectetur esse necessitatibus iure.
-                        </UCard>
+                                </template>
 
-                        <UCard variant="soft">
-                            <template #header>
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center gap-2">
-                                        <UIcon name="i-lucide-check-circle" class="size-5 shrink-0 text-green-500" />
-                                        <span class="font-semibold">Review Stage</span>
-                                    </div>
-                                    <UBadge label="1" variant="soft" color="neutral" class="rounded-full" />
-                                </div>
-                            </template>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus magnam nostrum nobis impedit id facilis consectetur esse necessitatibus iure.
-                        </UCard>
-
-                        <UCard variant="soft">
-                            <template #header>
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center gap-2">
-                                        <UIcon name="i-lucide-check-circle" class="size-5 shrink-0 text-green-500" />
-                                        <span class="font-semibold">Review Stage</span>
-                                    </div>
-                                    <UBadge label="1" variant="soft" color="neutral" class="rounded-full" />
-                                </div>
-                            </template>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus magnam nostrum nobis impedit id facilis consectetur esse necessitatibus iure.
-                        </UCard>
-
+                                <!-- Draggable area -->
+                                <draggable v-model="stage.items" :group="{ name: 'kanban', pull: true, put: true }"
+                                    item-key="id" class="space-y-2">
+                                    <template #item="{ element }">
+                                        <UCard>
+                                            <div class="space-y-1">
+                                                <div class="font-semibold text-default">{{ element.title }}</div>
+                                                <div class="text-sm text-dimmed">{{ element.subtitle }}</div>
+                                            </div>
+                                            <div class="flex items-center justify-between mt-2">
+                                                <UBadge :label="element.badge" variant="soft" color="neutral"
+                                                    class="rounded-full" />
+                                                <UButton :label="element.action" size="sm" color="neutral"
+                                                    variant="ghost" class="rounded-full"
+                                                    @click="handleViewClick" />
+                                            </div>
+                                        </UCard>
+                                    </template>
+                                </draggable>
+                            </UCard>
+                        </div>
                     </div>
+
                 </template>
             </Block>
 
@@ -140,12 +142,20 @@
             </Block> -->
         </template>
     </Page>
+    <!-- Modal -->
+    <UModal v-model:open="isModalOpen" fullscreen>
+        <template #content="{ close }">
+            <TipTapEditor :show-details="showDetails" @close="close" />
+        </template>
+    </UModal>
 </template>
 
 <script setup lang="ts">
+import draggable from 'vuedraggable'
+
 definePageMeta({
     layout: 'dashboard',
-    auth:false      
+    auth: false
 })
 
 const cardStats = [
@@ -175,7 +185,7 @@ const cardStats = [
     }
 ]
 
-const documents  = [
+const documents = [
     {
         title: 'College of Engineering ISSP 2024-2028',
         status: 'Under Review',
@@ -284,5 +294,72 @@ function handleClick(title: string) {
     // You can implement your logic here, e.g., show a notification or navigate
     // For now, just log the title
     console.log('Card button clicked:', title)
+}
+
+const stages = ref([
+    {
+        name: 'Review Stage',
+        icon: 'i-lucide-file-search',
+        iconColor: 'text-blue-500',
+        items: [
+            {
+                id: 1,
+                title: 'College of Engineering ISSP 2024-2028',
+                subtitle: 'Due: 2024-12-01',
+                badge: 'College of Engineering',
+                action: 'Review'
+            }
+        ]
+    },
+    {
+        name: 'Approval Stage',
+        icon: 'i-lucide-badge-check',
+        iconColor: 'text-green-500',
+        items: [
+            {
+                id: 2,
+                title: 'IT Services Strategic Plan',
+                subtitle: 'Approved: 2024-11-28',
+                badge: 'IT Services Department',
+                action: 'View'
+            }
+        ]
+    },
+    {
+        name: 'Revision Stage',
+        icon: 'i-lucide-pencil',
+        iconColor: 'text-yellow-500',
+        items: [
+            {
+                id: 3,
+                title: 'College of Engineering ISSP 2024-2028',
+                subtitle: 'Issues: 3 comments',
+                badge: 'College of Engineering',
+                action: 'Fix'
+            },
+            {
+                id: 4,
+                title: 'Library System Digital Transformation',
+                subtitle: 'Issues: 1 comment',
+                badge: 'University Library',
+                action: 'Fix'
+            },
+            {
+                id: 5,
+                title: 'Business Office Information Systems Plan',
+                subtitle: 'Issues: 8 comments',
+                badge: 'Business Office',
+                action: 'Fix'
+            }
+        ]
+    }
+])
+
+const isModalOpen = ref(false)
+const showDetails = ref(false)
+
+function handleViewClick() {
+  showDetails.value = true // show details when modal opens
+  isModalOpen.value = true
 }
 </script>

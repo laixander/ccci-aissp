@@ -9,35 +9,35 @@
         <div class="*:flex *:items-center *:justify-between w-full space-y-2">
             <div>
                 <div class="flex items-center gap-2 text-sm text-dimmed">
-                    <UIcon name="i-lucide-file-text" class="size-4" />
+                    <!-- <UIcon name="i-lucide-file-text" class="size-4" /> -->
                     Title:
                 </div>
                 <span class="text-sm text-toned">ISSP 2025-2028</span>
             </div>
             <div>
                 <div class="flex items-center gap-2 text-sm text-dimmed">
-                    <UIcon name="i-lucide-circle-check-big" class="size-4" />
+                    <!-- <UIcon name="i-lucide-circle-check-big" class="size-4" /> -->
                     Status:
                 </div>
                 <UBadge label="Draft" variant="soft" color="warning" class="rounded-full" />
             </div>
             <div>
                 <div class="flex items-center gap-2 text-sm text-dimmed">
-                    <UIcon name="i-lucide-package-2" class="size-4" />
+                    <!-- <UIcon name="i-lucide-package-2" class="size-4" /> -->
                     Version:
                 </div>
                 <span class="text-sm text-toned">1.0</span>
             </div>
             <div>
                 <div class="flex items-center gap-2 text-sm text-dimmed">
-                    <UIcon name="i-lucide-user" class="size-4" />
+                    <!-- <UIcon name="i-lucide-user" class="size-4" /> -->
                     Auhtor:
                 </div>
                 <span class="text-sm text-toned">John Doe</span>
             </div>
             <div>
                 <div class="flex items-center gap-2 text-sm text-dimmed">
-                    <UIcon name="i-lucide-calendar" class="size-4" />
+                    <!-- <UIcon name="i-lucide-calendar" class="size-4" /> -->
                     Date Modified:
                 </div>
                 <span class="text-sm text-toned">Aug 9, 11:34 AM</span>
